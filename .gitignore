@@ -1,0 +1,21 @@
+# macOS
+__MACOSX/
+.DS_Store
+
+# Archives
+*.zip
+
+# Node modules (for future build system)
+node_modules/
+dist/
+
+# IDE
+.vscode/
+.idea/
+
+# Logs
+*.log
+npm-debug.log*
+
+# Build outputs
+build/

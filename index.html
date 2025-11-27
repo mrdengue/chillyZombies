@@ -1,0 +1,216 @@
+<html>
+<!-- (C) 2010 RalphGoodtimes.com .  Please visit www.ralphgoodtimes.com for more information about this page.  -->
+<head>
+<meta name = "viewport" content = "initial-scale:2.3,user-scalable=yes,width=device-height" />
+<meta name="apple-mobile-web-app-capable" content="yes">
+<link rel="stylesheet" type="text/css" href="sprites.css">
+<link rel="apple-touch-icon" href="Icon.png"/>
+<link rel="apple-touch-startup-image" href="LoadingScreen.png"/>
+<!-- Begin sound testing -->
+<script type="text/javascript" src="/webgames/soundmanager/soundmanager2.js"></script>
+<!-- Done sound testing -->
+  <script type="text/javascript" src="spriteengine.js"></script>
+  <script type="text/javascript" src="gamelevels.js"></script>
+  <script type="text/javascript" src="gamelogic.js"></script>
+<script type="text/javascript">
+  try
+  {
+    soundManager.url = '/webgames/soundmanager/';
+    soundManager.debugMode = false;
+    soundManager.onload = function()
+    {
+      SoundManager_Loaded();
+    }
+  }
+  catch (e)
+  {
+  }
+</script>
+</head>
+<body bgcolor="white" onload="InitSpriteEngine(); return true;" onunload="Game_Exit(); return true;">
+<noscript>
+  Warning:  The application failed to load properly.
+</noscript>
+<div class="screencontainer"> <!-- screencontainer -->
+<div id="id_div_loading" class="div_shown"> <!-- id_div_loading -->
+  <img src="LoadingScreen.png">
+</div> <!-- id_div_loading -->
+
+<div id="id_div_selectlevel" class="selectlevel div_hidden"> <!-- id_div_selectlevel -->
+<img src="SelectLevel.png">
+<img src="SelectLevel_MainMenu.png" class="selectlevel_button_mainmenu" onmousedown="Game_WhatIsThisReally = '' ; Game_FromGameToMainMenu(false); return false;">
+<div id="id_div_levellist" class="select_levellist">
+  <div id="id_div_level_unlocked_1" class="levelactive" onmousedown="Game_SelectLevelFromScreen(1); return false;">1</div>
+    
+  <div id="id_div_level_unlocked_2" class="levelactive" onmousedown="Game_SelectLevelFromScreen(2); return false;">2</div>
+    
+  <div id="id_div_level_unlocked_3" class="levelactive" onmousedown="Game_SelectLevelFromScreen(3); return false;">3</div>
+    
+  <div id="id_div_level_unlocked_4" class="levelactive" onmousedown="Game_SelectLevelFromScreen(4); return false;">4</div>
+    
+  <div id="id_div_level_unlocked_5" class="levelactive" onmousedown="Game_SelectLevelFromScreen(5); return false;">5</div>
+    
+  <div id="id_div_level_unlocked_6" class="levelactive" onmousedown="Game_SelectLevelFromScreen(6); return false;">6</div>
+    
+  <div id="id_div_level_unlocked_7" class="levelactive" onmousedown="Game_SelectLevelFromScreen(7); return false;">7</div>
+    
+  <div id="id_div_level_unlocked_8" class="levelactive" onmousedown="Game_SelectLevelFromScreen(8); return false;">8</div>
+    
+  <div id="id_div_level_unlocked_9" class="levelactive" onmousedown="Game_SelectLevelFromScreen(9); return false;">9</div>
+    
+  <div id="id_div_level_unlocked_10" class="levelactive" onmousedown="Game_SelectLevelFromScreen(10); return false;">10</div>
+    
+  <div id="id_div_level_unlocked_11" class="levelactive" onmousedown="Game_SelectLevelFromScreen(11); return false;">11</div>
+    
+  <div id="id_div_level_unlocked_12" class="levelactive" onmousedown="Game_SelectLevelFromScreen(12); return false;">12</div>
+    
+  <div id="id_div_level_unlocked_13" class="levelactive" onmousedown="Game_SelectLevelFromScreen(13); return false;">13</div>
+    
+  <div id="id_div_level_unlocked_14" class="levelactive" onmousedown="Game_SelectLevelFromScreen(14); return false;">14</div>
+    
+  <div id="id_div_level_unlocked_15" class="levelactive" onmousedown="Game_SelectLevelFromScreen(15); return false;">15</div>
+    
+  <div id="id_div_level_unlocked_16" class="levelactive" onmousedown="Game_SelectLevelFromScreen(16); return false;">16</div>
+    
+  <div id="id_div_level_unlocked_17" class="levelactive" onmousedown="Game_SelectLevelFromScreen(17); return false;">17</div>
+    
+  <div id="id_div_level_unlocked_18" class="levelactive" onmousedown="Game_SelectLevelFromScreen(18); return false;">18</div>
+    
+  <div id="id_div_level_unlocked_19" class="levelactive" onmousedown="Game_SelectLevelFromScreen(19); return false;">19</div>
+    
+  <div id="id_div_level_unlocked_20" class="levelactive" onmousedown="Game_SelectLevelFromScreen(20); return false;">20</div>
+    
+  <div id="id_div_level_unlocked_21" class="levelactive" onmousedown="Game_SelectLevelFromScreen(21); return false;">21</div>
+    
+  <div id="id_div_level_unlocked_22" class="levelactive" onmousedown="Game_SelectLevelFromScreen(22); return false;">22</div>
+    
+  <div id="id_div_level_unlocked_23" class="levelactive" onmousedown="Game_SelectLevelFromScreen(23); return false;">23</div>
+    
+  <div id="id_div_level_unlocked_24" class="levelactive" onmousedown="Game_SelectLevelFromScreen(24); return false;">24</div>
+    
+  <div id="id_div_level_unlocked_25" class="levelactive" onmousedown="Game_SelectLevelFromScreen(25); return false;">25</div>
+    
+  <div id="id_div_level_unlocked_26" class="levelactive" onmousedown="Game_SelectLevelFromScreen(26); return false;">26</div>
+    
+  <div id="id_div_level_unlocked_27" class="levelactive" onmousedown="Game_SelectLevelFromScreen(27); return false;">27</div>
+    
+  <div id="id_div_level_unlocked_28" class="levelactive" onmousedown="Game_SelectLevelFromScreen(28); return false;">28</div>
+    
+  <div id="id_div_level_unlocked_29" class="levelactive" onmousedown="Game_SelectLevelFromScreen(29); return false;">29</div>
+    
+  <div id="id_div_level_unlocked_30" class="levelactive" onmousedown="Game_SelectLevelFromScreen(30); return false;">30</div>
+    
+  <div id="id_div_level_unlocked_31" class="levelactive" onmousedown="Game_SelectLevelFromScreen(31); return false;">31</div>
+    
+  <div id="id_div_level_unlocked_32" class="levelactive" onmousedown="Game_SelectLevelFromScreen(32); return false;">32</div>
+    
+  <div id="id_div_level_unlocked_33" class="levelactive" onmousedown="Game_SelectLevelFromScreen(33); return false;">33</div>
+    
+  <div id="id_div_level_unlocked_34" class="levelactive" onmousedown="Game_SelectLevelFromScreen(34); return false;">34</div>
+</div>
+
+</div> <!-- id_div_selectlevel -->
+
+<div id="id_div_about" class="about div_hidden"> <!-- id_div_about -->
+<img src="AboutScreen.png">
+<img src="About_MainMenu.png" class="about_button_mainmenu" onmousedown="Game_FromGameToMainMenu(false); return false;">
+  <div id="id_div_aboutcontents" class="aboutcontents">
+  Programming, Graphics, Music and Levels:<br>
+  Ralph Goodtimes<br><br>
+  Special thanks to:<br>
+  Jorge L. Vivas, Ross Boucher and the PhoneGap Team.<br>
+  Oh, and hi mom and dad!
+  <br><br>
+  Find news, tips and updates here:
+  <br><br>
+  <center><img src="RalphGoodtimes_WebButton.png" onmousedown="window.open('http://www.ralphgoodtimes.com'); return false;"></center>
+  </div><!-- id_div_aboutcontents -->
+</div> <!-- id_div_about -->
+
+<div id="id_div_tutorial" class="tutorial div_hidden"> <!-- id_div_tutorial -->
+<img id="id_tutorial_screen_1" src="tutorial_screen_01.png" class="tutorialpage img_hidden">
+<img id="id_tutorial_screen_2" src="tutorial_screen_02.png" class="tutorialpage img_hidden">
+<img id="id_tutorial_screen_3" src="tutorial_screen_03.png" class="tutorialpage img_hidden">
+<img id="id_tutorial_screen_4" src="tutorial_screen_04.png" class="tutorialpage img_hidden">
+<img id="id_tutorial_screen_5" src="tutorial_screen_05.png" class="tutorialpage img_hidden">
+<img id="id_tutorial_screen_6" src="tutorial_screen_06.png" class="tutorialpage img_hidden">
+<img id="id_tutorial_screen_7" src="tutorial_screen_07.png" class="tutorialpage img_hidden">
+<img id="id_tutorial_screen_previous" src="tutorial_button_back.png" class="tutorial_button_back" onmousedown="Game_Tutorial_PreviousPage(); return false;">
+<img id="id_tutorial_screen_next" src="tutorial_button_next.png" class="tutorial_button_next" onmousedown="Game_Tutorial_NextPage(); return false;">
+<img src="tutorial_button_mainmenu.png" class="tutorial_button_mainmenu" onmousedown="Game_FromGameToMainMenu(false); return false;">
+</div> <!-- id_div_tutorial -->
+
+<div id="id_div_pauselevelscreen" class="pauselevel div_hidden"> <!-- id_div_pauselevelscreen -->
+<img src="PausedDialog.png" class="pauseddialog" onmousedown="Game_DismissPauseDialog(); return false;">
+</div> <!-- id_div_pauselevelscreen -->
+
+<div id="id_div_quitelevelconfirm" class="quitlevelconfirm div_hidden"> <!-- id_div_quitelevelconfirm -->
+<img src="QuitConfirmDialog.png">
+<img src="QuitConfirmDialog_Yes.png" class="quitconfirmdialog_yes" onmousedown="Game_FromGameToMainMenu(true); return false;">
+<img src="QuitConfirmDialog_No.png" class="quitconfirmdialog_no" onmousedown="Game_DismissQuitLevelConfirm(); return false;">
+</div> <!-- id_div_quitelevelconfirm -->
+
+<div id="id_div_container" class="div_hidden"> <!-- General container.  For some reason, the sound module requires it -->
+<div id="div_moviescreenframe" class="moviescreenframe"> <!-- div_moviescreenframe -->
+</div>  <!-- div_moviescreenframe -->
+
+<div id="controlpanel" class="div_controlpanel">
+  <img id="id_control_selectedbutton" src="control_action_selectedbutton.gif" id="id_control_selectedbutton" class="control_selectedbutton img_hidden">
+  
+  <img id="id_control_weapon_01" src="buttonaction_weapon_firesock.gif" class="control_weapon_01" onmousedown="Game_SelectWeapon('Weapon01',true);return false;">
+    <span id="id_control_label_weapon_01" class="control_weapon_label_01" onmousedown="Game_SelectWeapon('Weapon01',true);return false;"><span id="id_weapon_01" class="ammonumber">0</span></span>
+  <img id="id_control_weapon_02" src="buttonaction_weapon_snowball.gif" class="control_weapon_02" onmousedown="Game_SelectWeapon('Weapon02',true);return false;">
+    <span id="id_control_label_weapon_02" class="control_weapon_label_02" onmousedown="Game_SelectWeapon('Weapon02',true);return false;"><span id="id_weapon_02" class="ammonumber">0</span></span>
+  <img id="id_control_weapon_03" src="buttonaction_weapon_firegift.gif" class="control_weapon_03" onmousedown="Game_SelectWeapon('Weapon03',true);return false;">
+    <span id="id_control_label_weapon_03" class="control_weapon_label_03" onmousedown="Game_SelectWeapon('Weapon03',true);return false;"><span id="id_weapon_03" class="ammonumber">0</span></span>
+  
+  <img id="id_snowstock_img" src="snowstock.png" class="snowstock">
+    <span id="id_control_label_snowstock" class="snowstock_label"><span id="id_snowstock" class="ammonumber">0</span></span>
+</div>
+<div id="div_topboard" class="topboard">
+<img src="ScoreSign.png">
+  <span id="span_scoreboard" class="scoreboard">
+  </span>
+  &nbsp;&nbsp;
+<img src="LevelSign.png">
+  <span id="span_levelboard" class="levelboard">
+  45
+  </span>
+  <span id="span_topbuttons" class="topbuttons">
+    <img src="PauseSign.png" onmousedown="Game_PauseLevel(); return false;">
+    <img src="QuitSign.png" onmousedown="Game_QuitLevel(); return false;">
+  </span>
+</div>
+
+<div id="div_infoscreen" class="infoscreen"> <!-- div_infoscreen -->
+</div>  <!-- div_infoscreen -->
+
+</div> <!-- Container -->
+
+<div id="id_div_mainmenu" class="div_hidden"> <!-- id_div_mainmenu -->
+<img src="MainMenu_Screen.png">
+<img src="mainmenu_button_startgame.png" class="mainmenu_button_start" onmousedown="Game_Start(true); return false;">
+<img src="mainmenu_button_selectlevel.png" class="mainmenu_button_levelselection" onmousedown="Game_LevelSelection(); return false;">
+<img src="mainmenu_button_about.png" class="mainmenu_button_about" onmousedown="Game_ShowAboutScreen(); return false;">
+<img src="mainmenu_button_instructions.png" class="mainmenu_button_instructions" onmousedown="Game_Tutorial(); return false;">
+<span id="id_mainmenu_highscore" class="mainmenu_highscore"></span>
+</div> <!-- id_div_mainmenu -->
+
+<div id="id_div_gameover" class="gameover div_hidden"> <!-- id_div_gameover -->
+<img src="GameOverSign.png" class="gameoverdialog">
+<img src="GameOver_RestartButton.png" class="gameover_restartlevel" onmousedown="Game_RestartLevel(); return false;">
+<img src="GameOver_MainMenuButton.png" class="gameover_gotomainmenu" onmousedown="Game_FromGameToMainMenu(true); return false;">
+<span id="span_gameover_newhighscore" class="gameover_newhighscore span_hidden">
+New High Score!
+<span>
+</div> <!-- id_div_gameover -->
+
+<div id="id_div_gameend" class="gameend div_hidden"> <!-- id_div_gameend -->
+<img src="CongratsDialog.png">
+<img src="CongratsDialogButton_Ok.png" class="gameend_buttonok" onmousedown="Game_GameEnd(); return false;">
+</div> <!-- id_div_gameend -->
+
+</div> <!-- screencontainer -->
+
+</body>
+</html>

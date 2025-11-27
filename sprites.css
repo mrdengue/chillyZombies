@@ -1,0 +1,605 @@
+div.gameover
+{
+  position: absolute;
+  opacity   : 0.90;
+  top: 80px;
+  left: 100px;
+  z-index: 20;
+}
+
+span.gameover_newhighscore
+{
+  position: absolute;
+  top: 60px;
+  left: 50px;
+  font-weight: bold;
+  font-style: italic;
+  font-size: 24;
+  color: lightgreen;
+}
+
+img.gameover_restartlevel
+{
+  position: absolute;
+  top: 120px;
+  left: 100px;
+}
+
+img.gameover_gotomainmenu
+{
+  position: absolute;
+  top: 120px;
+  left: 205px;
+}
+
+div.gameend
+{
+  position: absolute;
+  opacity   : 0.90;
+  top: 80px;
+  left: 100px;
+  z-index: 20;
+}
+
+img.gameend_buttonok
+{
+  position: absolute;
+  top: 125px;
+  left: 140px;
+}
+
+div.selectlevel
+{
+  position: absolute;
+  top: 0px;
+  left: 0px;
+  width: 480px;
+  height: 320px;
+  z-index: 20;
+}
+
+div.about
+{
+  position: absolute;
+  top: 0px;
+  left: 0px;
+  width: 480px;
+  height: 320px;
+  z-index: 20;
+}
+
+img.about_button_mainmenu
+{
+  position: absolute;
+  top: 60px;
+  left: 10px;
+}
+
+div.aboutcontents
+{
+  position: absolute;
+  top: 90px;
+  left: 10px;
+}
+
+div.quitlevelconfirm
+{
+  position: absolute;
+  opacity: 0.9;
+  top: 80px;
+  left: 100px;
+  z-index: 20;
+}
+
+img.quitconfirmdialog_yes
+{
+  position: absolute;
+  top: 120px;
+  left: 130px;
+}
+
+img.quitconfirmdialog_no
+{
+  position: absolute;
+  top: 120px;
+  left: 210px;
+}
+
+div.pauselevel
+{
+  position: absolute;
+  opacity: 0.85;
+  top: 80px;
+  left: 100px;
+  z-index: 20;
+}
+
+div.moviescreenframe
+{
+  position: absolute;
+  top: 25px;
+  left: 0px;
+  width: 480px;
+  height: 260px;
+  /*border: 1px solid;*/
+  /*background: #A0FFA0;*/
+  z-index: 0;
+}
+
+div.moviescreen
+{
+  position: absolute;
+  background: white;
+  /* Look for g_FixedScreen_Width and related in spriteengine.js */
+  top: 25px;
+  left: 0px;
+  width: 480px;
+  height: 260px;
+}
+
+div.infoscreen
+{
+  position: absolute;
+  background: white;
+  top: 300px;
+  left: 0px;
+  width: 480px;
+  height: 20px;
+}
+
+div.topboard
+{
+  position: absolute;
+  top:      0px;
+  left:     0px;
+  width:    480px;
+  height:   25px;
+  /*border:   1px solid;*/
+}
+
+div.controlbar
+{
+  position: absolute;
+  top:      25px;
+  left:     450px;
+  width:    30px;
+  height:   270px;
+  visibility: hidden;
+  /*border:   1px solid;*/
+}
+
+div.div_controlpanel
+{
+  position: absolute;
+  top:      260px;
+  left:     0px;
+  width:    480px;
+  height:   35px;
+  border: 1px #D0D0D0 dotted;
+}
+
+img.spritebutton_previous
+{
+  position: absolute;
+  top: 0px;
+  left: 0px;
+}
+
+img.spritebutton_next
+{
+  position: absolute;
+  top: 0px;
+  left: 30px;
+}
+
+img.control_weapon_01
+{
+  position: absolute;
+  top: 0px;
+  left: 0px;
+}
+
+span.control_weapon_label_01
+{
+  position: absolute;
+  top: 20px;
+  left: 0px;
+  width: 30px;
+  text-align: left;
+  font-weight: bold;
+  font-size: 80%;
+  z-index: 16;
+}
+
+img.control_weapon_02
+{
+  position: absolute;
+  top: 0px;
+  left: 30px;
+}
+
+span.control_weapon_label_02
+{
+  position: absolute;
+  top: 20px;
+  left: 30px;
+  width: 30px;
+  text-align: left;
+  font-weight: bold;
+  font-size: 80%;
+  z-index: 16;
+}
+
+img.control_weapon_03
+{
+  position: absolute;
+  top: 0px;
+  left: 60px;
+}
+
+span.control_weapon_label_03
+{
+  position: absolute;
+  top: 20px;
+  left: 60px;
+  width: 30px;
+  text-align: left;
+  font-weight: bold;
+  font-size: 80%;
+  z-index: 16;
+}
+
+img.snowstock
+{
+  position: absolute;
+  top: 0px;
+  left: 430px;
+}
+
+span.snowstock_label
+{
+  position: absolute;
+  top: 20px;
+  left: 450px;
+  width: 30px;
+  text-align: left;
+  font-weight: bold;
+  font-size: 80%;
+}
+
+span.ammonumber
+{
+  background: white;
+  border: 1px solid black;
+}
+
+div.background
+{
+  position: relative;
+  top:      0px;
+  left:     0px;
+  width:    100%;
+  height:   100%;
+  margin:   auto;
+  z-index:  1;
+}
+
+div.spriteworld
+{
+  position: absolute;
+  width:    100%;
+  height:   100%;
+  margin:  auto;
+  z-index:  5;
+}
+
+div.foreground
+{
+  width:   100%;
+  height:  100%;
+  margin:  auto;
+  z-index:  10;
+}
+
+span.bubbletext
+{
+}
+
+span.labeltext
+{
+  font-weight: bold;
+  font-size:  14;
+}
+
+body
+{
+  margin: 0px;
+  font-family:  courier new,trebuchet,tahoma,verdana,arial,helvetica;
+  font-size:  90%;
+  width: 480px;
+  height: 320px;
+  background: url("GameLevel_TopBackground.png");
+  background-repeat: no-repeat;
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+}
+
+td
+{
+}
+
+a
+{
+  text-decoration: none;
+  color: #000040;
+}
+
+a:visited
+{
+  text-decoration: none;
+  color: #000040;
+}
+
+a:active
+{
+  border: 1px solid white;
+  text-decoration: none;
+  color: blue;
+}
+
+table.center
+{
+  margin:  auto;
+}
+
+/* Layout */
+
+
+div.div_invisible
+{
+  visibility:  hidden;
+}
+
+a.ahref_shown
+{
+  display:  inline;
+}
+
+a.ahref_hidden
+{
+  display:  none;
+}
+
+img.img_shown
+{
+  display:  inline;
+}
+
+img.img_hidden
+{
+  display:  none;
+}
+
+div.div_shown
+{
+  display:  block;
+}
+
+div.div_hidden
+{
+  display:  none;
+}
+
+span.span_shown
+{
+  display:  inline;
+}
+
+span.span_hidden
+{
+  display:  none;
+}
+
+div.div_container
+{
+}
+
+div.screencontainer
+{
+  width : 480px;
+  height : 320px;
+  /*border: 1px green dotted;*/
+}
+
+img.spritedragversion
+{
+  visibility: hidden;
+}
+
+div.initial_spriteworld_border
+{
+  position: absolute;
+  visibility: hidden;
+  z-index:  0;
+}
+
+div.loadingprogress_label
+{
+  margin: auto;
+  width: 30%;
+  text-align: center;
+}
+
+div.loadingprogress_border
+{
+  border: black 1px solid;
+  width: 30%;
+  height: 10px;
+  background: white;
+  margin: auto;
+}
+
+div.loadingprogress_bar
+{
+  width: 0%;
+  height: 100%;
+  background: #9999FF;
+  float: left;
+}
+
+div.loadingcontainer
+{
+}
+
+div.loading_error
+{
+  margin: auto;
+  border: 1px dotted #999999;
+  width: 20em;
+  text-align: center;
+}
+
+img.control_selectedbutton
+{
+  position: absolute;
+  z-index: 15;
+}
+
+span.scoreamount
+{
+  font-weight: bold;
+  font-size: 18;
+  font-style: italic;
+  color: #4C5C6A;
+}
+
+span.levelamount
+{
+  font-weight: bold;
+  font-size: 18;
+  font-style: italic;
+  color: #4C5C6A;
+}
+
+span.topbuttons
+{
+  position: absolute;
+  top: 0px;
+  left: 320px;
+  z-index: 20;
+}
+
+img.selectlevel_button_mainmenu
+{
+  position: absolute;
+  top: 60px;
+  left: 10px;
+}
+
+div.select_levellist
+{
+  position: absolute;
+  top:  110px;
+  left: 10px;
+  width: 470px;
+}
+
+div.levelactive
+{
+  background: url("SelectLevel_Button_Active.png");
+  background-repeat: no-repeat;
+  width: 45px;
+  height: 45px;
+  text-align: center;
+  padding-top: 10px;
+  margin-left: 7px;
+  font-family: courier new; 
+  font-size: 18;
+  font-weight: bold;
+  font-style: italic;
+  float: left;
+}
+
+div.levelinactive
+{
+  background: url("SelectLevel_Button_Inactive.png");
+  background-repeat: no-repeat;
+  width: 45px;
+  height: 45px;
+  text-align: center;
+  padding-top: 10px;
+  margin-left: 7px;
+  font-family: courier new; 
+  font-size: 18;
+  font-weight: bold;
+  font-style: italic;
+  float: left;
+}
+
+img.mainmenu_button_start
+{
+  position: absolute;
+  top: 100px;
+  left: 160px;
+}
+
+img.mainmenu_button_levelselection
+{
+  position: absolute;
+  top: 140px;
+  left: 160px;
+}
+
+img.mainmenu_button_about
+{
+  position: absolute;
+  top: 180px;
+  left: 160px;
+}
+
+img.mainmenu_button_instructions
+{
+  position: absolute;
+  top: 220px;
+  left: 160px;
+}
+
+span.mainmenu_highscore
+{
+  position: absolute;
+  top: 250px;
+  left: 320px;
+  font-family: courier new;
+  font-size: 18;
+  font-weight: bold;
+  font-style: italic;
+  color: black;
+}
+
+img.tutorialpage
+{
+  position: absolute;
+  top: 0px;
+  left: 0px;
+}
+
+img.tutorial_button_mainmenu
+{
+  position: absolute;
+  top: 65px;
+  left: 380px;
+}
+
+img.tutorial_button_back
+{
+  position: absolute;
+  top: 290px;
+  left: 270px;
+}
+
+img.tutorial_button_next
+{
+  position: absolute;
+  top: 290px;
+  left: 370px;
+}
