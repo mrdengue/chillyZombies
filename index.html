@@ -6,19 +6,11 @@
 <link rel="stylesheet" type="text/css" href="sprites.css">
 <link rel="apple-touch-icon" href="Icon.png"/>
 <link rel="apple-touch-startup-image" href="LoadingScreen.png"/>
-<!-- Sound disabled - SoundManager2 not available -->
+<!-- Simple Web Audio System -->
+<script type="text/javascript" src="simple-audio.js"></script>
 <script type="text/javascript" src="spriteengine.js"></script>
 <script type="text/javascript" src="gamelevels.js"></script>
 <script type="text/javascript" src="gamelogic.js"></script>
-<script type="text/javascript">
-  // Mock SoundManager for compatibility
-  window.soundManager = {
-    loaded: false,
-    createSound: function() { return { load: function() {} }; },
-    play: function() {}
-  };
-  function SoundManager_Loaded() {}
-</script>
 </head>
 <body bgcolor="white" onload="InitSpriteEngine(); return true;" onunload="Game_Exit(); return true;">
 <noscript>
