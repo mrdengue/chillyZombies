@@ -101,10 +101,14 @@
       container = canvas.parentElement;
     }
 
-    // Set container to allow scaling
-    container.style.position = 'relative';
-    container.style.overflow = 'hidden';
+    // Don't modify container position/structure - only visual properties
     container.style.imageRendering = 'pixelated';
+
+    // Make sure container can show scaled canvas
+    if (container.style.width === '') {
+      container.style.width = originalWidth + 'px';
+      container.style.height = originalHeight + 'px';
+    }
   }
 
   /**
@@ -264,25 +268,22 @@
 
       applyScale(Math.max(1, scale));
 
-      // Center the canvas
-      if (container) {
-        container.style.position = 'absolute';
-        container.style.left = '50%';
-        container.style.top = '50%';
-        container.style.transform = 'translate(-50%, -50%)';
-      }
+      // Center the game container
+      document.body.style.display = 'flex';
+      document.body.style.justifyContent = 'center';
+      document.body.style.alignItems = 'center';
+      document.body.style.backgroundColor = '#000';
 
       console.log('[RETRO] Fullscreen enabled - scale:', scale + 'x');
     } else {
       // Return to normal scale
       applyScale(2);
 
-      if (container) {
-        container.style.position = 'relative';
-        container.style.left = '0';
-        container.style.top = '0';
-        container.style.transform = 'none';
-      }
+      // Reset body styles
+      document.body.style.display = '';
+      document.body.style.justifyContent = '';
+      document.body.style.alignItems = '';
+      document.body.style.backgroundColor = '';
 
       console.log('[RETRO] Fullscreen disabled');
     }
@@ -329,7 +330,7 @@
     getSettings: () => settings
   };
 
-  // Auto-initialize
+  // Auto-initialize (wait for game to fully load)
   console.log('[RETRO] Retro Graphics System loaded');
-  setTimeout(init, 500); // Wait for canvas to be ready
+  setTimeout(init, 2000); // Wait 2 seconds for game to be fully ready
 })();
