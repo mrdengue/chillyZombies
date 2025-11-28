@@ -63,6 +63,17 @@
       .then(buffer => {
         sounds[id] = buffer;
         console.log('[AUDIO] ✓ Loaded:', id, 'duration:', buffer.duration.toFixed(2) + 's');
+
+        // Set duration on Game_Sounds entry for background music looping
+        if (window.Game_Sounds) {
+          for (let i = 0; i < Game_Sounds.length; i++) {
+            if (Game_Sounds[i].id === id) {
+              Game_Sounds[i].duration = buffer.duration;
+              console.log('[AUDIO] Set duration for Game_Sounds[' + i + ']:', buffer.duration);
+              break;
+            }
+          }
+        }
       })
       .catch(err => console.error('[AUDIO] ❌ Failed to load', id, ':', err));
   }
@@ -159,19 +170,25 @@
       // Load sound immediately
       loadSound(id, url);
 
-      return {
+      // Return sound object with methods
+      const soundObject = {
+        id: id,
         load: function() {
           console.log('[AUDIO] sound.load() called for', id);
+          // Already loading via loadSound above
         },
-        play: function() {
-          console.log('[AUDIO] sound.play() called for', id);
-          playSound(id);
+        play: function(options) {
+          console.log('[AUDIO] sound.play() called for', id, options);
+          const loop = options && (options.loops !== undefined);
+          playSound(id, loop);
         },
         stop: function() {
           console.log('[AUDIO] sound.stop() called for', id);
           stopSound(id);
         }
       };
+
+      return soundObject;
     },
 
     play: function(id, options) {
