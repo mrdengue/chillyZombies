@@ -1805,13 +1805,17 @@ function CreateSpriteObject(Type,X,Y)
 
 function SpriteObject_CreateImages(SpriteObject,CreateActualImage)
 {
-  SpriteObject_GenerateImage(SpriteObject,'Image','idle','','OriginalImage','RealImage',true,null,CreateActualImage);
-  
+  // Skip DOM image creation in Canvas-only mode
+  var skipDOMCreation = (window.CanvasRenderer && CanvasRenderer.isCanvasOnlyMode());
+  var createImage = CreateActualImage && !skipDOMCreation;
+
+  SpriteObject_GenerateImage(SpriteObject,'Image','idle','','OriginalImage','RealImage',true,null,createImage);
+
   // AnimationState refers to this Sprite's image animation state.
   // Useful to quickly restore the animation state stored in a timeline mark object animation snapshot.
   SpriteObject_SetStateImage(SpriteObject,SpriteObject.AnimationState,3);
-  
-  if (CreateActualImage)
+
+  if (createImage)
   {
     if (SpriteObject.TextBubble)
     {
@@ -2000,10 +2004,14 @@ function RenderSpriteObject(SpriteObject,ForceRender)
 
   if (SpriteObject.Image && (Proceed || ForceRender) && !OffCamera)
   {
+    // Skip DOM updates in Canvas-only mode
+    var skipDOMUpdates = (window.CanvasRenderer && CanvasRenderer.isCanvasOnlyMode());
+    if (skipDOMUpdates) return;
+
     var Invisible = (
                      ((!SpriteObject.Visible || SpriteObject.TextLabel || (SpriteObject.Camera != -1)))
                     );
-                    
+
     SpriteObject.Image.style.visibility   = (Invisible)?'hidden':'visible';
     
     var StyleLeft = Math.round(SpriteObject.X) + g_ViewPort_X; //+ 'px';

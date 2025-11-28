@@ -16,35 +16,23 @@
       return;
     }
 
-    // Enable canvas rendering
-    CanvasRenderer.enable();
-    console.log('[TEST] ✓ Canvas rendering enabled');
-
-    // Hide DOM sprites container to only see canvas
-    const movieFrame = document.getElementById('div_moviescreenframe');
-    if (movieFrame) {
-      // Keep canvas but hide DOM sprites
-      const sprites = movieFrame.querySelectorAll('img');
-      sprites.forEach(sprite => {
-        if (sprite.id !== 'game-canvas') {
-          sprite.style.opacity = '0.2'; // Dim DOM sprites to see canvas
-        }
-      });
-      console.log('[TEST] DOM sprites dimmed to see canvas');
-    }
+    // Enable Canvas-only mode (no DOM sprites)
+    CanvasRenderer.enableCanvasOnly();
+    console.log('[TEST] ✓ Canvas-only mode enabled');
+    console.log('[TEST] DOM sprites will NOT be created - performance optimized!');
 
     // Add toggle function to console
-    window.toggleCanvas = function() {
-      if (CanvasRenderer.isEnabled()) {
-        CanvasRenderer.disable();
-        console.log('[TEST] Canvas DISABLED - using DOM');
+    window.toggleCanvasOnly = function() {
+      if (CanvasRenderer.isCanvasOnlyMode()) {
+        CanvasRenderer.disableCanvasOnly();
+        console.log('[TEST] Canvas-only mode DISABLED - will create DOM sprites for new sprites');
       } else {
-        CanvasRenderer.enable();
-        console.log('[TEST] Canvas ENABLED');
+        CanvasRenderer.enableCanvasOnly();
+        console.log('[TEST] Canvas-only mode ENABLED - DOM sprites skipped');
       }
     };
 
-    console.log('[TEST] Use toggleCanvas() to switch between Canvas and DOM rendering');
+    console.log('[TEST] Use toggleCanvasOnly() to toggle Canvas-only mode');
   }
 
   enableCanvasWhenReady();

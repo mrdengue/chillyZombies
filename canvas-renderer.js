@@ -10,6 +10,7 @@
   let canvas = null;
   let ctx = null;
   let useCanvas = false; // Start disabled, can be toggled
+  let canvasOnlyMode = false; // When true, skip DOM sprite creation entirely
 
   /**
    * Initialize canvas rendering
@@ -58,7 +59,7 @@
    * Render a single sprite to canvas
    */
   function renderSpriteToCanvas(sprite, viewportX, viewportY) {
-    if (!ctx || !sprite.Image) return;
+    if (!ctx) return;
 
     // Check visibility (match original RenderSpriteObject logic)
     const invisible = (!sprite.Visible || sprite.TextLabel || (sprite.Camera != -1));
@@ -77,8 +78,15 @@
       return; // Off screen, don't draw
     }
 
-    // Get the image element
-    const img = sprite.Image;
+    // Get the actual image from g_AnimTypes
+    if (!window.g_AnimTypes || !g_AnimTypes[sprite.Type]) return;
+
+    const animState = sprite.AnimationState || 'idle';
+    const animData = g_AnimTypes[sprite.Type][animState];
+
+    if (!animData || !animData.Image) return;
+
+    const img = animData.Image;
     if (!img.complete || !img.naturalWidth) {
       return; // Image not loaded yet
     }
@@ -191,12 +199,39 @@
     return useCanvas;
   }
 
+  /**
+   * Enable Canvas-only mode (skip DOM sprite creation)
+   */
+  function enableCanvasOnly() {
+    canvasOnlyMode = true;
+    enableCanvas();
+    console.log('[CANVAS] Canvas-only mode enabled - DOM sprites will not be created');
+  }
+
+  /**
+   * Disable Canvas-only mode (re-enable DOM sprites)
+   */
+  function disableCanvasOnly() {
+    canvasOnlyMode = false;
+    console.log('[CANVAS] Canvas-only mode disabled');
+  }
+
+  /**
+   * Check if in Canvas-only mode
+   */
+  function isCanvasOnlyMode() {
+    return canvasOnlyMode;
+  }
+
   // Export to global scope
   window.CanvasRenderer = {
     init: initCanvas,
     enable: enableCanvas,
     disable: disableCanvas,
     isEnabled: isCanvasEnabled,
+    enableCanvasOnly: enableCanvasOnly,
+    disableCanvasOnly: disableCanvasOnly,
+    isCanvasOnlyMode: isCanvasOnlyMode,
     renderAll: renderAllSprites,
     renderSprite: renderSpriteToCanvas,
     getCanvas: () => canvas,
