@@ -19,15 +19,19 @@
    * Initialize audio context (call on user interaction)
    */
   function initAudio() {
-    if (audioContext) return;
+    if (audioContext) {
+      console.log('[AUDIO] Already initialized');
+      return;
+    }
 
     try {
       const AudioContext = window.AudioContext || window.webkitAudioContext;
       audioContext = new AudioContext();
       audioEnabled = true;
-      console.log('✓ Audio initialized');
+      console.log('[AUDIO] ✓ Initialized successfully');
+      console.log('[AUDIO] State:', audioContext.state);
     } catch (e) {
-      console.warn('Audio not supported:', e);
+      console.error('[AUDIO] ❌ Not supported:', e);
     }
   }
 
@@ -35,28 +39,58 @@
    * Load a sound file
    */
   function loadSound(id, url) {
-    if (!audioContext) initAudio();
-    if (!audioContext) return;
+    console.log('[AUDIO] Loading:', id, 'from', url);
+
+    if (!audioContext) {
+      console.log('[AUDIO] No context, initializing...');
+      initAudio();
+    }
+    if (!audioContext) {
+      console.error('[AUDIO] ❌ Cannot load - no audio context');
+      return;
+    }
 
     fetch(url)
-      .then(response => response.arrayBuffer())
-      .then(data => audioContext.decodeAudioData(data))
+      .then(response => {
+        console.log('[AUDIO] Fetched:', url, 'status:', response.status);
+        if (!response.ok) throw new Error('HTTP ' + response.status);
+        return response.arrayBuffer();
+      })
+      .then(data => {
+        console.log('[AUDIO] Decoding:', id, 'size:', data.byteLength);
+        return audioContext.decodeAudioData(data);
+      })
       .then(buffer => {
         sounds[id] = buffer;
-        console.log('Loaded:', id);
+        console.log('[AUDIO] ✓ Loaded:', id, 'duration:', buffer.duration.toFixed(2) + 's');
       })
-      .catch(err => console.warn('Failed to load', id, err));
+      .catch(err => console.error('[AUDIO] ❌ Failed to load', id, ':', err));
   }
 
   /**
    * Play a sound
    */
   function playSound(id, loop = false) {
-    if (!audioContext || !sounds[id]) return;
+    console.log('[AUDIO] Play request:', id, 'loop:', loop);
+
+    if (!audioContext) {
+      console.error('[AUDIO] ❌ Cannot play - no audio context');
+      initAudio(); // Try to init
+      return;
+    }
+
+    if (!sounds[id]) {
+      console.error('[AUDIO] ❌ Cannot play - sound not loaded:', id);
+      console.log('[AUDIO] Available sounds:', Object.keys(sounds));
+      return;
+    }
 
     // Resume context if suspended
     if (audioContext.state === 'suspended') {
-      audioContext.resume();
+      console.log('[AUDIO] Resuming suspended context...');
+      audioContext.resume().then(() => {
+        console.log('[AUDIO] Context resumed, state:', audioContext.state);
+      });
     }
 
     try {
@@ -65,6 +99,8 @@
       source.loop = loop;
       source.connect(audioContext.destination);
       source.start(0);
+
+      console.log('[AUDIO] ✓ Playing:', id, 'state:', audioContext.state);
 
       if (loop) {
         musicSource = source; // Save music source for stopping
@@ -75,7 +111,7 @@
 
       return source;
     } catch (e) {
-      console.warn('Failed to play', id, e);
+      console.error('[AUDIO] ❌ Failed to play', id, ':', e);
     }
   }
 
@@ -86,6 +122,7 @@
     if (musicSource) {
       try {
         musicSource.stop();
+        console.log('[AUDIO] Stopped music');
       } catch (e) {}
       musicSource = null;
     }
@@ -110,30 +147,36 @@
     loaded: true,
 
     onload: function() {
-      console.log('soundManager ready (Web Audio)');
+      console.log('[AUDIO] soundManager.onload called');
     },
 
     createSound: function(options) {
       const id = options.id;
       const url = options.url;
 
-      // Load sound
-      if (audioEnabled || audioContext) {
-        loadSound(id, url);
-      } else {
-        // Queue for later
-        setTimeout(() => loadSound(id, url), 100);
-      }
+      console.log('[AUDIO] createSound:', id, url);
+
+      // Load sound immediately
+      loadSound(id, url);
 
       return {
-        load: function() {},
-        play: function() { playSound(id); },
-        stop: function() { stopSound(id); }
+        load: function() {
+          console.log('[AUDIO] sound.load() called for', id);
+        },
+        play: function() {
+          console.log('[AUDIO] sound.play() called for', id);
+          playSound(id);
+        },
+        stop: function() {
+          console.log('[AUDIO] sound.stop() called for', id);
+          stopSound(id);
+        }
       };
     },
 
     play: function(id, options) {
       const loop = options && options.loops !== undefined;
+      console.log('[AUDIO] soundManager.play:', id, options);
       playSound(id, loop);
     },
 
@@ -155,6 +198,7 @@
 
   // Initialize on user interaction
   const enableAudio = function() {
+    console.log('[AUDIO] User interaction detected, initializing...');
     initAudio();
     document.removeEventListener('click', enableAudio);
     document.removeEventListener('touchstart', enableAudio);
@@ -165,5 +209,5 @@
   document.addEventListener('touchstart', enableAudio);
   document.addEventListener('keydown', enableAudio);
 
-  console.log('Simple Audio System loaded');
+  console.log('[AUDIO] Simple Audio System loaded and waiting for user interaction');
 })();
