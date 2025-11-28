@@ -1,0 +1,63 @@
+/**
+ * Retro Graphics CSS-Only Enhancement
+ * Safe 16-bit SNES-style improvements
+ */
+
+/* Scale up the game canvas 2x */
+#game-canvas {
+  transform: scale(2);
+  transform-origin: top left;
+  image-rendering: pixelated;
+  image-rendering: -moz-crisp-edges;
+  image-rendering: crisp-edges;
+  image-rendering: -webkit-optimize-contrast;
+}
+
+/* SNES-style color grading */
+#game-canvas.snes-colors {
+  filter: saturate(1.2) contrast(1.1) brightness(1.05) hue-rotate(-2deg);
+}
+
+/* Scanlines overlay */
+#game-canvas.scanlines {
+  background-image:
+    repeating-linear-gradient(
+      0deg,
+      rgba(0, 0, 0, 0) 0px,
+      rgba(0, 0, 0, 0) 1px,
+      rgba(0, 0, 0, 0.1) 1px,
+      rgba(0, 0, 0, 0.1) 2px
+    );
+  background-blend-mode: multiply;
+}
+
+/* Adjust container to fit scaled canvas */
+#div_moviescreenframe {
+  width: 960px !important;  /* 480 * 2 */
+  height: 520px !important; /* 260 * 2 */
+  image-rendering: pixelated;
+}
+
+/* Fullscreen mode */
+body.fullscreen {
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  background: #000;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+body.fullscreen #div_moviescreenframe {
+  transform: scale(2);
+}
+
+/* Hide non-game elements in fullscreen */
+body.fullscreen #id_div_loading,
+body.fullscreen #id_div_mainmenu,
+body.fullscreen #id_div_selectlevel,
+body.fullscreen #id_div_about,
+body.fullscreen #id_div_tutorial {
+  transform: scale(2);
+}
