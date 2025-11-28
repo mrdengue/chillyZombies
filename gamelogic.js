@@ -2936,12 +2936,22 @@ function Game_TheEnd()
 function Game_GameOver()
 {
   Game_GameIsOver = true;
-  
+
   if (Game_NewHighScore)
   {
     Game_NewHighScoreNoticeAtGameOver.className = 'gameover_newhighscore span_shown';
   }
-  
+
+  // Check for high score and show entry dialog
+  if (window.HighScoreUI && window.GameProgress) {
+    if (GameProgress.isHighScore(Game_Score)) {
+      // Delay to let game over animation play
+      setTimeout(function() {
+        HighScoreUI.showHighScoreEntry(Game_Score, Game_CurrentLevel);
+      }, 1000);
+    }
+  }
+
   Game_GameOverScreen.className = 'gameover div_shown';
   SoundPlay('gameover');
 }

@@ -1,0 +1,227 @@
+/**
+ * High Score UI Styling
+ * Retro arcade style
+ */
+
+/* High Score Entry Dialog */
+.highscore-entry {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.9);
+  z-index: 9999;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.highscore-entry-content {
+  background: #1a1a2e;
+  border: 4px solid #ffcc00;
+  border-radius: 10px;
+  padding: 30px;
+  text-align: center;
+  box-shadow: 0 0 30px rgba(255, 204, 0, 0.5);
+  animation: glow 1.5s ease-in-out infinite alternate;
+}
+
+@keyframes glow {
+  from {
+    box-shadow: 0 0 20px rgba(255, 204, 0, 0.4);
+  }
+  to {
+    box-shadow: 0 0 40px rgba(255, 204, 0, 0.8);
+  }
+}
+
+.highscore-entry h2 {
+  color: #ffcc00;
+  font-family: 'Courier New', monospace;
+  font-size: 32px;
+  margin: 0 0 20px 0;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+  animation: blink 1s step-start infinite;
+}
+
+@keyframes blink {
+  50% {
+    opacity: 0.7;
+  }
+}
+
+.highscore-score {
+  color: #fff;
+  font-family: 'Courier New', monospace;
+  font-size: 24px;
+  margin: 10px 0;
+}
+
+.highscore-instructions {
+  color: #aaa;
+  font-family: 'Courier New', monospace;
+  font-size: 16px;
+  margin: 20px 0 10px 0;
+}
+
+/* Name Input - Atari Style */
+.highscore-name-input {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  margin: 20px 0;
+}
+
+.highscore-char {
+  width: 60px;
+  height: 80px;
+  font-size: 48px;
+  font-family: 'Courier New', monospace;
+  font-weight: bold;
+  text-align: center;
+  text-transform: uppercase;
+  background: #000;
+  color: #0f0;
+  border: 3px solid #0f0;
+  border-radius: 5px;
+  outline: none;
+  box-shadow: inset 0 0 10px rgba(0, 255, 0, 0.3);
+}
+
+.highscore-char:focus {
+  border-color: #ffcc00;
+  box-shadow: 0 0 15px rgba(255, 204, 0, 0.6), inset 0 0 10px rgba(255, 204, 0, 0.3);
+  color: #ffcc00;
+}
+
+/* Submit Button */
+.highscore-btn {
+  background: #ffcc00;
+  color: #000;
+  border: none;
+  padding: 15px 40px;
+  font-size: 20px;
+  font-family: 'Courier New', monospace;
+  font-weight: bold;
+  cursor: pointer;
+  border-radius: 5px;
+  margin-top: 20px;
+  box-shadow: 0 4px 0 #cc9900;
+  transition: all 0.1s;
+}
+
+.highscore-btn:hover {
+  background: #ffd633;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 0 #cc9900;
+}
+
+.highscore-btn:active {
+  transform: translateY(2px);
+  box-shadow: 0 2px 0 #cc9900;
+}
+
+/* High Score Table */
+.highscore-table {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.95);
+  z-index: 9998;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.highscore-table-content {
+  background: #0f0f1e;
+  border: 4px solid #00ff00;
+  border-radius: 10px;
+  padding: 30px;
+  text-align: center;
+  box-shadow: 0 0 30px rgba(0, 255, 0, 0.5);
+  min-width: 400px;
+}
+
+.highscore-table h2 {
+  color: #00ff00;
+  font-family: 'Courier New', monospace;
+  font-size: 32px;
+  margin: 0 0 30px 0;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+}
+
+/* High Score List */
+.highscore-list {
+  background: #000;
+  border: 2px solid #00ff00;
+  border-radius: 5px;
+  padding: 20px;
+  margin-bottom: 20px;
+  font-family: 'Courier New', monospace;
+  text-align: left;
+}
+
+.highscore-entry-item {
+  color: #00ff00;
+  font-size: 18px;
+  margin: 10px 0;
+  display: flex;
+  justify-content: space-between;
+  padding: 5px 10px;
+  border-bottom: 1px solid #003300;
+}
+
+.highscore-entry-item:last-child {
+  border-bottom: none;
+}
+
+.highscore-entry-item.new-score {
+  background: rgba(255, 204, 0, 0.2);
+  color: #ffcc00;
+  animation: highlight 1s ease-in-out 3;
+}
+
+@keyframes highlight {
+  0%, 100% {
+    background: rgba(255, 204, 0, 0.2);
+  }
+  50% {
+    background: rgba(255, 204, 0, 0.4);
+  }
+}
+
+.highscore-rank {
+  color: #ffcc00;
+  font-weight: bold;
+  min-width: 40px;
+}
+
+.highscore-name {
+  font-weight: bold;
+  min-width: 60px;
+}
+
+.highscore-score-value {
+  text-align: right;
+  min-width: 100px;
+}
+
+.highscore-level {
+  color: #888;
+  font-size: 14px;
+  min-width: 80px;
+  text-align: right;
+}
+
+/* Hidden class */
+.div_hidden {
+  display: none !important;
+}
+
+.div_shown {
+  display: flex !important;
+}
