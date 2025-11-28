@@ -48,11 +48,19 @@
   }
 
   /**
-   * Clear the canvas
+   * Clear the canvas and draw background
    */
   function clearCanvas() {
     if (!ctx) return;
-    ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+    // Fill with white background (game default)
+    ctx.fillStyle = '#FFFFFF';
+    ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+    // Draw background image if available
+    if (window.g_BackgroundImage && g_BackgroundImage.complete) {
+      ctx.drawImage(g_BackgroundImage, 0, 0);
+    }
   }
 
   /**
