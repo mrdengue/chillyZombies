@@ -133,6 +133,25 @@ retro-styles.css       - Deshabilitado
 
 ## 🚀 Próximos Pasos Sugeridos
 
+### 🔥 PRIORIDAD MÁXIMA:
+**High Scores Online (Servidor)**
+- Implementar backend para guardar high scores en servidor
+- API REST para GET/POST high scores
+- Cualquier jugador puede romper los récords globales
+- Leaderboard mundial visible para todos
+
+**Tecnologías sugeridas:**
+- Backend: Node.js + Express, Python + Flask, o PHP simple
+- Base de datos: SQLite, PostgreSQL, o MySQL
+- API endpoints:
+  - GET /api/highscores - Obtener top 10/100 global
+  - POST /api/highscores - Enviar nuevo puntaje
+- Consideraciones:
+  - Validación anti-cheating (verificar puntajes válidos)
+  - Rate limiting para evitar spam
+  - Timestamp de cuándo se logró el puntaje
+  - Opcional: País/región del jugador
+
 ### Corto plazo:
 1. **Controles táctiles mejorados** (pendiente de requerimientos)
    - Mejores botones para móvil
@@ -257,8 +276,15 @@ cat CONTEXTO.md
 
 ## 🎯 Para mañana
 
-**Leer este archivo y luego preguntar:**
-- "¿Qué quieres implementar hoy?"
-- Opciones: controles táctiles, nuevos niveles, nuevos enemigos, ajustes, etc.
+**Leer este archivo y luego:**
+
+### PRIORIDAD: High Scores Online
+Implementar sistema de high scores en servidor para leaderboard global.
+
+**Opciones adicionales:**
+- Controles táctiles mejorados
+- Nuevos niveles
+- Nuevos enemigos
+- Ajustes y balanceo
 
 **El proyecto está funcional y listo para seguir expandiendo.**
