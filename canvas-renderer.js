@@ -26,13 +26,14 @@
     canvas.style.position = 'absolute';
     canvas.style.left = '0px';
     canvas.style.top = '0px';
+    canvas.style.backgroundColor = '#FFFFFF'; // White background
     canvas.style.imageRendering = 'pixelated'; // Crisp pixel art
     canvas.style.imageRendering = '-moz-crisp-edges';
     canvas.style.imageRendering = 'crisp-edges';
 
     // Get 2D context
     ctx = canvas.getContext('2d', {
-      alpha: false, // Opaque canvas for better performance
+      alpha: true, // Allow transparency
       desynchronized: true // Hint for lower latency
     });
 
