@@ -5,6 +5,7 @@
 <meta name="apple-mobile-web-app-capable" content="yes">
 <link rel="stylesheet" type="text/css" href="sprites.css">
 <link rel="stylesheet" type="text/css" href="highscore-ui.css">
+<link rel="stylesheet" type="text/css" href="powerups.css">
 <!-- <link rel="stylesheet" type="text/css" href="retro-styles.css"> -->
 <link rel="apple-touch-icon" href="Icon.png"/>
 <link rel="apple-touch-startup-image" href="LoadingScreen.png"/>
@@ -16,6 +17,8 @@
 <script type="text/javascript" src="game-progress.js"></script>
 <!-- High Score UI -->
 <script type="text/javascript" src="highscore-ui.js"></script>
+<!-- Power-up System -->
+<script type="text/javascript" src="powerups.js"></script>
 <!-- Retro Graphics Enhancement - DISABLED -->
 <!-- <script type="text/javascript" src="retro-graphics.js"></script> -->
 <script type="text/javascript" src="spriteengine.js"></script>
@@ -208,22 +211,18 @@ New High Score!
 <!-- High Score Entry Dialog -->
 <div id="id_div_highscore_entry" class="highscore-entry div_hidden">
   <div class="highscore-entry-content">
-    <h2>🏆 NEW HIGH SCORE! 🏆</h2>
-    <p class="highscore-score">Score: <span id="highscore_entry_score">0</span></p>
-    <p class="highscore-instructions">Enter your name (3 letters):</p>
     <div class="highscore-name-input">
       <input type="text" id="highscore_char1" maxlength="1" class="highscore-char" />
       <input type="text" id="highscore_char2" maxlength="1" class="highscore-char" />
       <input type="text" id="highscore_char3" maxlength="1" class="highscore-char" />
     </div>
-    <button id="highscore_submit_btn" class="highscore-btn">SUBMIT</button>
   </div>
 </div>
 
 <!-- High Score Table Dialog -->
 <div id="id_div_highscore_table" class="highscore-table div_hidden">
   <div class="highscore-table-content">
-    <h2>🏆 HIGH SCORES 🏆</h2>
+    <h2>HIGH SCORES</h2>
     <div id="highscore_table_list" class="highscore-list"></div>
     <button id="highscore_close_btn" class="highscore-btn">CLOSE</button>
   </div>

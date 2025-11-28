@@ -57,7 +57,10 @@
 
     char3.oninput = () => {
       char3.value = char3.value.toUpperCase();
-      if (char3.value.length === 1) submitBtn.focus();
+      if (char3.value.length === 1) {
+        // Auto-submit when all 3 letters entered
+        setTimeout(submitHighScore, 300);
+      }
     };
 
     // Backspace handling
@@ -111,14 +114,47 @@
   }
 
   /**
-   * Submit high score
+   * Show in-game notification
+   */
+  function showNotification(message) {
+    // Create notification element
+    const notif = document.createElement('div');
+    notif.style.position = 'absolute';
+    notif.style.top = '180px';
+    notif.style.left = '50%';
+    notif.style.transform = 'translateX(-50%)';
+    notif.style.background = '#fff';
+    notif.style.border = '2px solid #000';
+    notif.style.padding = '10px 20px';
+    notif.style.fontFamily = 'Arial, sans-serif';
+    notif.style.fontSize = '14px';
+    notif.style.fontWeight = 'bold';
+    notif.style.color = '#000';
+    notif.style.zIndex = '10000';
+    notif.style.opacity = '1';
+    notif.style.transition = 'opacity 0.5s';
+    notif.textContent = message;
+
+    entryDialog.appendChild(notif);
+
+    // Fade out and remove
+    setTimeout(() => {
+      notif.style.opacity = '0';
+      setTimeout(() => {
+        if (notif.parentNode) {
+          notif.parentNode.removeChild(notif);
+        }
+      }, 500);
+    }, 2000);
+  }
+
+  /**
+   * Submit high score (auto-submit when 3 letters entered)
    */
   function submitHighScore() {
     const name = (char1.value + char2.value + char3.value).toUpperCase();
 
     if (name.length !== 3) {
-      alert('Please enter 3 letters!');
-      char1.focus();
       return;
     }
 

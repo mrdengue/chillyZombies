@@ -1610,6 +1610,12 @@ function Game_Start(KickstartTimer)
 
 function Game_RestartLevel()
 {
+  // Clear all power-ups
+  if (window.PowerupSystem)
+  {
+    PowerupSystem.clearAll();
+  }
+
   Game_GameIsOver = false;
   Game_GameOverScreen.className = 'gameover div_hidden';
   Game_GameEndScreen.className  = 'gameend div_hidden';
@@ -2373,8 +2379,14 @@ function Game_Frame()
           }
         }
       }
+
+      // Update power-up system
+      if (window.PowerupSystem)
+      {
+        PowerupSystem.update();
+      }
     }
-    
+
     if (Game_IntermittentBlocks)
     {
       if (--Game_IntermittentBlockCount <= 0)
@@ -2936,6 +2948,12 @@ function Game_TheEnd()
 function Game_GameOver()
 {
   Game_GameIsOver = true;
+
+  // Clear all power-ups
+  if (window.PowerupSystem)
+  {
+    PowerupSystem.clearAll();
+  }
 
   if (Game_NewHighScore)
   {
