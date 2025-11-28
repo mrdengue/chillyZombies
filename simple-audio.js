@@ -91,8 +91,7 @@
     }
 
     if (!sounds[id]) {
-      console.error('[AUDIO] ❌ Cannot play - sound not loaded:', id);
-      console.log('[AUDIO] Available sounds:', Object.keys(sounds));
+      console.warn('[AUDIO] ⏳ Sound still loading:', id);
       return;
     }
 
@@ -217,6 +216,13 @@
   const enableAudio = function() {
     console.log('[AUDIO] User interaction detected, initializing...');
     initAudio();
+
+    // Call SoundManager_Loaded if it exists (loads all game sounds)
+    if (typeof SoundManager_Loaded === 'function') {
+      console.log('[AUDIO] Calling SoundManager_Loaded to load game sounds...');
+      SoundManager_Loaded();
+    }
+
     document.removeEventListener('click', enableAudio);
     document.removeEventListener('touchstart', enableAudio);
     document.removeEventListener('keydown', enableAudio);
