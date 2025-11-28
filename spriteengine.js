@@ -432,7 +432,13 @@ function InitSpriteEngine()
   ResetSpeed();
 
   g_SpriteDivMovieScreenFrame.onmousedown = SpriteDivMain_MouseDown;
-  
+
+  // Initialize canvas renderer (disabled by default)
+  if (window.CanvasRenderer)
+  {
+    CanvasRenderer.init();
+  }
+
   if (g_isMobileSafari)
   {
     document.onclick     = function(e) {e.preventDefault(); return false;};
@@ -677,10 +683,10 @@ function SpriteHandler()
   for (var j in g_SpritePool)
   {
     RenderSpriteObject(g_SpritePool[j],SpriteForceDrawing);
-    
-    g_SpritePool[j].isActive = (((Math.abs(g_ViewX - g_SpritePool[j].X) < gc_ActiveSpriteThresholdX) && (Math.abs(g_ViewY - g_SpritePool[j].Y) < gc_ActiveSpriteThresholdY)) 
+
+    g_SpritePool[j].isActive = (((Math.abs(g_ViewX - g_SpritePool[j].X) < gc_ActiveSpriteThresholdX) && (Math.abs(g_ViewY - g_SpritePool[j].Y) < gc_ActiveSpriteThresholdY))
                                || (g_SpritePool[j].Camera == 1));
-    
+
     if (!g_SpritePool[j].isActive)
     {
       // Potential Sprite de-activation event handling here.
@@ -690,7 +696,13 @@ function SpriteHandler()
       }
     }
   }
-  
+
+  // Render to canvas if enabled
+  if (window.CanvasRenderer && CanvasRenderer.isEnabled())
+  {
+    CanvasRenderer.renderAll(g_SpritePool, g_ViewPort_X, g_ViewPort_Y);
+  }
+
   if (SpriteForceDrawing)
   {
     g_SpriteScheduleForceDrawing = false;
