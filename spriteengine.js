@@ -129,6 +129,11 @@ var g_SpriteIdPool         = new Object();
 
 var g_TimerCounter_Object;
 
+// requestAnimationFrame delta timing
+var g_LastFrameTime = 0;
+var g_AccumulatedTime = 0;
+var g_UseRequestAnimationFrame = true; // Use modern rAF instead of setTimeout
+
 var g_MainWorld_Width    = 600;
 var g_MainWorld_Height   = 500;
 
@@ -450,11 +455,46 @@ function InitSpriteEngine()
   InitSound();
 }
 
-function SpriteHandler()
+function SpriteHandler(currentTime)
 {
+  // requestAnimationFrame provides timestamp in milliseconds
+  if (!currentTime) currentTime = performance.now();
+
+  // Calculate delta time
+  if (g_LastFrameTime === 0) {
+    g_LastFrameTime = currentTime;
+  }
+  var deltaTime = currentTime - g_LastFrameTime;
+  g_LastFrameTime = currentTime;
+
+  // Accumulate time
+  g_AccumulatedTime += deltaTime;
+
+  // Only run game logic when enough time has accumulated for target FPS
+  var frameTime = g_Timer_TimeOut; // 1000 / FPS
+  var shouldRunGameLogic = g_AccumulatedTime >= frameTime;
+
+  if (!shouldRunGameLogic) {
+    // Not enough time accumulated, schedule next frame and return
+    if (g_UseRequestAnimationFrame) {
+      g_TimerCounter_Object = window.requestAnimationFrame(SpriteHandler);
+    } else {
+      g_TimerCounter_Object = window.setTimeout(SpriteHandler, g_Timer_TimeOut);
+    }
+    return;
+  }
+
+  // Consume accumulated time
+  g_AccumulatedTime -= frameTime;
+
+  // Prevent spiral of death - if we're too far behind, reset
+  if (g_AccumulatedTime > frameTime * 3) {
+    g_AccumulatedTime = 0;
+  }
+
   var SpriteForceDrawing = g_SpriteScheduleForceDrawing;
   // Let's process one by one.
-  
+
   CheckBackgroundMusic();
 	
   // Let's initiate the first part of the bounce calculation mechanism.
@@ -718,7 +758,11 @@ function SpriteHandler()
   
   if (Game_Frame())
   {
-    g_TimerCounter_Object = window.setTimeout(SpriteHandler,g_Timer_TimeOut);
+    if (g_UseRequestAnimationFrame) {
+      g_TimerCounter_Object = window.requestAnimationFrame(SpriteHandler);
+    } else {
+      g_TimerCounter_Object = window.setTimeout(SpriteHandler, g_Timer_TimeOut);
+    }
   }
   else
   {
@@ -4238,10 +4282,18 @@ function PerformAfterLoadingTasks()
 function Sprite_StartRendering(KickstartTimer)
 {
   TimeLine_SpritePlay(true);
-  
+
   if (KickstartTimer)
   {
-    g_TimerCounter_Object = window.setTimeout(SpriteHandler,g_Timer_TimeOut);
+    // Reset timing state
+    g_LastFrameTime = 0;
+    g_AccumulatedTime = 0;
+
+    if (g_UseRequestAnimationFrame) {
+      g_TimerCounter_Object = window.requestAnimationFrame(SpriteHandler);
+    } else {
+      g_TimerCounter_Object = window.setTimeout(SpriteHandler, g_Timer_TimeOut);
+    }
   }
 }
 
