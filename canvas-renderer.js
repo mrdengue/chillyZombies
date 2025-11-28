@@ -58,7 +58,11 @@
    * Render a single sprite to canvas
    */
   function renderSpriteToCanvas(sprite, viewportX, viewportY) {
-    if (!ctx || !sprite.Image || !sprite.Visible) return;
+    if (!ctx || !sprite.Image) return;
+
+    // Check visibility (match original RenderSpriteObject logic)
+    const invisible = (!sprite.Visible || sprite.TextLabel || (sprite.Camera != -1));
+    if (invisible) return;
 
     // Calculate screen position
     const screenX = Math.round(sprite.X) + viewportX;
