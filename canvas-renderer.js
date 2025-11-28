@@ -21,7 +21,6 @@
     // Create canvas element
     canvas = document.createElement('canvas');
     canvas.id = 'game-canvas';
-    canvas.className = 'snes-colors'; // Enable SNES color grading
     canvas.width = 480;  // g_FixedScreen_Width
     canvas.height = 260; // g_FixedScreen_Height
     canvas.style.position = 'absolute';
