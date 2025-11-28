@@ -2406,7 +2406,13 @@ function Game_Frame()
 
         Game_CurrentLevel++;
         SoundPlay('levelachieved');
-        
+
+        // Save progress and unlock next level
+        if (window.GameProgress) {
+          var completedLevel = Game_CurrentLevel - 1;
+          GameProgress.completeLevel(completedLevel, Game_Score);
+        }
+
         if (Game_CurrentLevel <= Game_MaxLevels)
         {
           Game_PlayersInLastLevel = new Array();
