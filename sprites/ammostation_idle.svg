@@ -1,0 +1,24 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="64" height="64" viewBox="0 0 16 16" shape-rendering="crispEdges">
+  <!-- AmmoStation - Crafting workbench for building weapons -->
+  <!-- Table top -->
+  <rect x="2" y="5" width="12" height="1" fill="#885533"/>
+  <rect x="2" y="6" width="12" height="1" fill="#774422"/>
+  <!-- Table surface highlight -->
+  <rect x="3" y="5" width="3" height="1" fill="#996644"/>
+  <!-- Table legs -->
+  <rect x="3" y="7" width="2" height="4" fill="#663311"/>
+  <rect x="11" y="7" width="2" height="4" fill="#663311"/>
+  <!-- Cross brace -->
+  <rect x="5" y="9" width="6" height="1" fill="#774422"/>
+  <!-- Tools on table -->
+  <rect x="4" y="4" width="1" height="1" fill="#AAAAAA"/>
+  <rect x="4" y="3" width="1" height="1" fill="#888888"/>
+  <!-- Hammer -->
+  <rect x="6" y="3" width="2" height="1" fill="#999999"/>
+  <rect x="7" y="4" width="1" height="1" fill="#885533"/>
+  <!-- Snow materials on table -->
+  <rect x="9" y="4" width="3" height="1" fill="#DDEEFF"/>
+  <rect x="10" y="3" width="2" height="1" fill="#EEEEFF"/>
+  <!-- Floor -->
+  <rect x="2" y="11" width="12" height="1" fill="#556677"/>
+</svg>

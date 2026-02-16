@@ -189,7 +189,7 @@
   }
 
   /**
-   * Add a high score
+   * Add a high score (local + online)
    */
   function addHighScore(name, score, level) {
     console.log('[SAVE] Adding high score:', name, score, 'on level', level);
@@ -201,17 +201,30 @@
       date: new Date().toISOString()
     };
 
+    // Save locally
     currentHighScores.push(entry);
-
-    // Sort by score (descending)
     currentHighScores.sort((a, b) => b.score - a.score);
-
-    // Keep only top 10
     currentHighScores = currentHighScores.slice(0, 10);
-
     saveHighScores();
 
-    return currentHighScores.indexOf(entry) + 1; // Return rank (1-10 or -1 if not in top 10)
+    const localRank = currentHighScores.indexOf(entry) + 1;
+
+    // Submit to online leaderboard (async, non-blocking)
+    if (window.OnlineAPI && OnlineAPI.isOnline()) {
+      OnlineAPI.submitScore(name, score, level)
+        .then(result => {
+          if (result.success) {
+            console.log('[SAVE] ✓ Score submitted to global leaderboard, rank:', result.rank);
+          } else if (!result.offline) {
+            console.warn('[SAVE] Failed to submit online:', result.error);
+          }
+        })
+        .catch(err => {
+          console.warn('[SAVE] Error submitting online:', err);
+        });
+    }
+
+    return localRank;
   }
 
   /**
@@ -223,10 +236,29 @@
   }
 
   /**
-   * Get high scores table
+   * Get high scores table (local only)
    */
   function getHighScores() {
     return [...currentHighScores];
+  }
+
+  /**
+   * Get global high scores (local + online merged)
+   */
+  async function getGlobalHighScores(limit = 10) {
+    // Get local scores
+    const localScores = getHighScores();
+
+    // Try to get online scores
+    if (window.OnlineAPI && OnlineAPI.isOnline()) {
+      const onlineScores = await OnlineAPI.getHighScores(limit);
+      if (onlineScores) {
+        return OnlineAPI.mergeScores(localScores, onlineScores);
+      }
+    }
+
+    // Fallback to local only
+    return localScores;
   }
 
   /**
@@ -268,6 +300,7 @@
     addHighScore: addHighScore,
     isHighScore: isHighScore,
     getHighScores: getHighScores,
+    getGlobalHighScores: getGlobalHighScores,
     getSaveData: getSaveData,
     resetSaveData: resetSaveData,
     resetHighScores: resetHighScores,

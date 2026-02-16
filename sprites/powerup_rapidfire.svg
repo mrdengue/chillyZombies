@@ -1,0 +1,45 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="64" height="64" viewBox="0 0 16 16" shape-rendering="crispEdges">
+  <!-- Rapid Fire - Three arrows pointing right on dark background -->
+  <!-- Dark background diamond/circle shape -->
+  <rect x="5" y="1" width="6" height="1" fill="#111122"/>
+  <rect x="3" y="2" width="10" height="1" fill="#111122"/>
+  <rect x="2" y="3" width="12" height="1" fill="#111122"/>
+  <rect x="1" y="4" width="14" height="1" fill="#111122"/>
+  <rect x="1" y="5" width="14" height="1" fill="#111122"/>
+  <rect x="1" y="6" width="14" height="1" fill="#111122"/>
+  <rect x="1" y="7" width="14" height="1" fill="#111122"/>
+  <rect x="1" y="8" width="14" height="1" fill="#111122"/>
+  <rect x="1" y="9" width="14" height="1" fill="#111122"/>
+  <rect x="1" y="10" width="14" height="1" fill="#111122"/>
+  <rect x="1" y="11" width="14" height="1" fill="#111122"/>
+  <rect x="2" y="12" width="12" height="1" fill="#111122"/>
+  <rect x="3" y="13" width="10" height="1" fill="#111122"/>
+  <rect x="5" y="14" width="6" height="1" fill="#111122"/>
+  <!-- Top arrow -->
+  <rect x="3" y="3" width="6" height="1" fill="#FF6600"/>
+  <rect x="9" y="3" width="1" height="1" fill="#FF8800"/>
+  <rect x="10" y="4" width="1" height="1" fill="#FF8800"/>
+  <rect x="3" y="4" width="6" height="1" fill="#FF8800"/>
+  <rect x="10" y="3" width="1" height="1" fill="#FFAA44"/>
+  <!-- Middle arrow (brightest/largest) -->
+  <rect x="3" y="7" width="7" height="1" fill="#FF6600"/>
+  <rect x="10" y="7" width="1" height="1" fill="#FF8800"/>
+  <rect x="11" y="7" width="1" height="1" fill="#FFAA44"/>
+  <rect x="11" y="8" width="1" height="1" fill="#FF8800"/>
+  <rect x="3" y="8" width="7" height="1" fill="#FF8800"/>
+  <rect x="12" y="7" width="1" height="1" fill="#FF6600"/>
+  <!-- Arrow heads -->
+  <rect x="10" y="6" width="1" height="1" fill="#FF8800"/>
+  <rect x="11" y="6" width="1" height="1" fill="#FFAA44"/>
+  <rect x="10" y="9" width="1" height="1" fill="#FF8800"/>
+  <!-- Bottom arrow -->
+  <rect x="3" y="11" width="6" height="1" fill="#FF6600"/>
+  <rect x="9" y="11" width="1" height="1" fill="#FF8800"/>
+  <rect x="10" y="11" width="1" height="1" fill="#FFAA44"/>
+  <rect x="3" y="12" width="6" height="1" fill="#FF8800"/>
+  <rect x="10" y="12" width="1" height="1" fill="#FF8800"/>
+  <!-- Arrow tail streaks -->
+  <rect x="2" y="3" width="1" height="1" fill="#FF440022"/>
+  <rect x="2" y="7" width="1" height="1" fill="#FF440022"/>
+  <rect x="2" y="11" width="1" height="1" fill="#FF440022"/>
+</svg>

@@ -1,0 +1,28 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="64" height="64" viewBox="0 0 16 16" shape-rendering="crispEdges">
+  <!-- Winter Adventurer - Dead (lying flat) -->
+  <!-- Hat fallen off -->
+  <rect x="2" y="9" width="2" height="1" fill="#8B4513"/>
+  <!-- Head on ground -->
+  <rect x="3" y="10" width="2" height="2" fill="#FFDAB9"/>
+  <!-- Closed eyes (X marks) -->
+  <rect x="3" y="10" width="1" height="1" fill="#666666"/>
+  <rect x="4" y="10" width="1" height="1" fill="#666666"/>
+  <!-- Body lying flat -->
+  <rect x="5" y="10" width="6" height="2" fill="#2266AA"/>
+  <!-- Arms splayed -->
+  <rect x="5" y="9" width="1" height="1" fill="#2266AA"/>
+  <rect x="10" y="9" width="1" height="1" fill="#2266AA"/>
+  <!-- Gloves -->
+  <rect x="4" y="9" width="1" height="1" fill="#8B4513"/>
+  <rect x="11" y="9" width="1" height="1" fill="#8B4513"/>
+  <!-- Belt -->
+  <rect x="7" y="12" width="1" height="2" fill="#4A3728"/>
+  <!-- Legs -->
+  <rect x="11" y="10" width="2" height="2" fill="#334455"/>
+  <!-- Boots -->
+  <rect x="13" y="10" width="1" height="2" fill="#5C3A1E"/>
+  <!-- Snow particles around (impact) -->
+  <rect x="1" y="11" width="1" height="1" fill="#E8F0FF"/>
+  <rect x="6" y="8" width="1" height="1" fill="#E8F0FF"/>
+  <rect x="13" y="9" width="1" height="1" fill="#E8F0FF"/>
+</svg>

@@ -1,0 +1,42 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 10 16" width="10" height="16" shape-rendering="crispEdges">
+  <!-- Small snow-covered pine tree -->
+  <!-- Tree trunk -->
+  <rect x="4" y="13" width="2" height="3" fill="#5a3a1a"/>
+  <rect x="4" y="13" width="1" height="3" fill="#6b4a2a"/>
+  
+  <!-- Tree body - bottom layer (widest) -->
+  <rect x="1" y="10" width="8" height="3" fill="#2a6a2a"/>
+  <rect x="2" y="10" width="6" height="1" fill="#3a7a3a"/>
+  <rect x="1" y="12" width="8" height="1" fill="#1a5a1a"/>
+  
+  <!-- Tree body - middle layer -->
+  <rect x="2" y="6" width="6" height="4" fill="#2a6a2a"/>
+  <rect x="3" y="6" width="4" height="1" fill="#3a7a3a"/>
+  <rect x="2" y="9" width="6" height="1" fill="#1a5a1a"/>
+  
+  <!-- Tree body - top layer -->
+  <rect x="3" y="3" width="4" height="3" fill="#2a6a2a"/>
+  <rect x="4" y="3" width="2" height="1" fill="#3a7a3a"/>
+  <rect x="3" y="5" width="4" height="1" fill="#1a5a1a"/>
+  
+  <!-- Tree tip -->
+  <rect x="4" y="1" width="2" height="2" fill="#2a6a2a"/>
+  <rect x="4" y="1" width="2" height="1" fill="#3a7a3a"/>
+  
+  <!-- Star/tip -->
+  <rect x="4" y="0" width="2" height="1" fill="#ffdd44"/>
+  
+  <!-- Snow on branches -->
+  <rect x="1" y="10" width="3" height="1" fill="#ffffff"/>
+  <rect x="6" y="10" width="3" height="1" fill="#e8f0f8"/>
+  <rect x="2" y="6" width="2" height="1" fill="#ffffff"/>
+  <rect x="6" y="6" width="2" height="1" fill="#e8f0f8"/>
+  <rect x="3" y="3" width="2" height="1" fill="#ffffff"/>
+  <rect x="6" y="3" width="1" height="1" fill="#e8f0f8"/>
+  <rect x="4" y="1" width="1" height="1" fill="#f0f8ff"/>
+  
+  <!-- Snow pile at base -->
+  <rect x="0" y="15" width="10" height="1" fill="#e0e8f0"/>
+  <rect x="1" y="14" width="2" height="1" fill="#e8f0f8"/>
+  <rect x="7" y="14" width="2" height="1" fill="#e8f0f8"/>
+</svg>

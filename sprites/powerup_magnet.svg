@@ -1,0 +1,54 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="64" height="64" viewBox="0 0 16 16" shape-rendering="crispEdges">
+  <!-- Magnet - U-shaped magnet on dark background -->
+  <!-- Dark background diamond/circle shape -->
+  <rect x="5" y="1" width="6" height="1" fill="#111122"/>
+  <rect x="3" y="2" width="10" height="1" fill="#111122"/>
+  <rect x="2" y="3" width="12" height="1" fill="#111122"/>
+  <rect x="1" y="4" width="14" height="1" fill="#111122"/>
+  <rect x="1" y="5" width="14" height="1" fill="#111122"/>
+  <rect x="1" y="6" width="14" height="1" fill="#111122"/>
+  <rect x="1" y="7" width="14" height="1" fill="#111122"/>
+  <rect x="1" y="8" width="14" height="1" fill="#111122"/>
+  <rect x="1" y="9" width="14" height="1" fill="#111122"/>
+  <rect x="1" y="10" width="14" height="1" fill="#111122"/>
+  <rect x="1" y="11" width="14" height="1" fill="#111122"/>
+  <rect x="2" y="12" width="12" height="1" fill="#111122"/>
+  <rect x="3" y="13" width="10" height="1" fill="#111122"/>
+  <rect x="5" y="14" width="6" height="1" fill="#111122"/>
+  <!-- Left pole of magnet (top - silver/metal tip) -->
+  <rect x="3" y="2" width="3" height="1" fill="#CCCCCC"/>
+  <rect x="3" y="3" width="3" height="1" fill="#DDDDDD"/>
+  <rect x="3" y="4" width="3" height="1" fill="#CCCCCC"/>
+  <!-- Right pole of magnet (top - silver/metal tip) -->
+  <rect x="10" y="2" width="3" height="1" fill="#CCCCCC"/>
+  <rect x="10" y="3" width="3" height="1" fill="#DDDDDD"/>
+  <rect x="10" y="4" width="3" height="1" fill="#CCCCCC"/>
+  <!-- Left arm of magnet -->
+  <rect x="3" y="5" width="3" height="1" fill="#CC00CC"/>
+  <rect x="3" y="6" width="3" height="1" fill="#CC00CC"/>
+  <rect x="3" y="7" width="3" height="1" fill="#9900CC"/>
+  <rect x="3" y="8" width="3" height="1" fill="#9900CC"/>
+  <rect x="3" y="9" width="3" height="1" fill="#9900CC"/>
+  <!-- Right arm of magnet -->
+  <rect x="10" y="5" width="3" height="1" fill="#CC00CC"/>
+  <rect x="10" y="6" width="3" height="1" fill="#CC00CC"/>
+  <rect x="10" y="7" width="3" height="1" fill="#9900CC"/>
+  <rect x="10" y="8" width="3" height="1" fill="#9900CC"/>
+  <rect x="10" y="9" width="3" height="1" fill="#9900CC"/>
+  <!-- Bottom curve of U -->
+  <rect x="3" y="10" width="3" height="1" fill="#9900CC"/>
+  <rect x="10" y="10" width="3" height="1" fill="#9900CC"/>
+  <rect x="4" y="11" width="8" height="1" fill="#9900CC"/>
+  <rect x="5" y="12" width="6" height="1" fill="#770099"/>
+  <!-- Highlights on left arm -->
+  <rect x="3" y="5" width="1" height="1" fill="#FF44FF"/>
+  <rect x="3" y="6" width="1" height="1" fill="#FF44FF"/>
+  <!-- Highlights on right arm -->
+  <rect x="10" y="5" width="1" height="1" fill="#FF44FF"/>
+  <rect x="10" y="6" width="1" height="1" fill="#FF44FF"/>
+  <!-- Magnetic field lines (small dots) -->
+  <rect x="7" y="4" width="1" height="1" fill="#FF88FF"/>
+  <rect x="8" y="6" width="1" height="1" fill="#CC66FF"/>
+  <rect x="7" y="8" width="1" height="1" fill="#FF88FF"/>
+  <rect x="8" y="3" width="1" height="1" fill="#CC66FF"/>
+</svg>

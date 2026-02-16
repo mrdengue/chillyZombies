@@ -1,0 +1,938 @@
+/**
+ * Modern Responsive Layout for Chilly Zombies
+ * Clean, centered, visually attractive design
+ */
+
+/* ============================================
+   GLOBAL RESET & BASE STYLES
+   ============================================ */
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0 !important;
+  padding: 0 !important;
+  font-family: 'Arial', 'Helvetica', sans-serif;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%) !important;
+  min-height: 100vh;
+  overflow-x: hidden;
+}
+
+/* ============================================
+   MAIN GAME CONTAINER - FORCE OVERRIDE OLD STYLES
+   ============================================ */
+#game-wrapper {
+  background: #1a1a2e;
+  border-radius: 0;
+  box-shadow: none;
+  padding: 0;
+  max-width: 100vw;
+  width: 100vw;
+  min-height: 100vh;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+/* Game container uses flex to allow reordering (topboard above game area).
+   Only apply when shown (div_shown), not when hidden. */
+#id_div_container.div_shown {
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: center !important;
+}
+
+/* ============================================
+   GAME CANVAS - FORCE PROPER SIZING
+   ============================================ */
+div.moviescreenframe {
+  position: relative !important;
+  top: 0 !important;
+  left: 0 !important;
+  width: 960px !important;
+  height: 520px !important;
+  margin: 0 auto !important;
+  background: #000 !important;
+  border: 4px solid #4488CC !important;
+  border-top-color: #66AAEE !important;
+  border-left-color: #66AAEE !important;
+  border-bottom-color: #223355 !important;
+  border-right-color: #223355 !important;
+  border-radius: 0 !important;
+  box-shadow: 0 0 20px rgba(68, 136, 204, 0.3), 0 8px 30px rgba(0, 0, 0, 0.8) !important;
+  overflow: hidden !important;
+  transform-origin: top left !important;
+  image-rendering: pixelated !important;
+}
+
+div.moviescreen {
+  position: absolute !important;
+  top: 0 !important;
+  left: 0 !important;
+  width: 100% !important;
+  height: 100% !important;
+  background: white !important;
+}
+
+/* FORCE HIDE OLD CONTAINERS AND IMAGES */
+div.screencontainer {
+  display: none !important;
+}
+
+/* Hide old menu background images that aren't in containers */
+#id_div_mainmenu > img[src="MainMenu_Screen.png"]:not(.screen-background),
+#id_div_loading > img,
+#id_div_selectlevel > img[src="SelectLevel.png"],
+#id_div_about > img[src="AboutScreen.png"],
+#id_div_gameover > img[src="GameOverSign.png"] {
+  display: none !important;
+}
+
+/* Hide old absolute positioned elements */
+span.mainmenu_highscore:not(#id_mainmenu_highscore) {
+  display: none !important;
+}
+
+/* ============================================
+   MENU SCREENS - FORCE OVERRIDE
+   ============================================ */
+.screen-container {
+  position: relative !important;
+  width: 960px !important;
+  height: 520px !important;
+  max-width: 95vw !important;
+  margin: 20px auto !important;
+  display: flex !important;
+  flex-direction: column !important;
+  justify-content: center !important;
+  align-items: center !important;
+  background: linear-gradient(180deg, #0a0a1a 0%, #151530 50%, #0a0a1a 100%) !important;
+  border-radius: 0 !important;
+  border: 4px solid #4488CC !important;
+  border-top-color: #66AAEE !important;
+  border-left-color: #66AAEE !important;
+  border-bottom-color: #223355 !important;
+  border-right-color: #223355 !important;
+  box-shadow: 0 0 20px rgba(68, 136, 204, 0.3), 0 8px 30px rgba(0, 0, 0, 0.8) !important;
+  overflow: hidden !important;
+}
+
+/* Menu Background Image */
+.screen-background {
+  position: absolute !important;
+  top: 0 !important;
+  left: 0 !important;
+  width: 100% !important;
+  height: 100% !important;
+  object-fit: cover !important;
+  opacity: 0.15 !important;
+  z-index: 0 !important;
+}
+
+/* Menu Content Layer */
+.menu-content {
+  position: relative !important;
+  z-index: 10 !important;
+  text-align: center !important;
+  width: 100% !important;
+  padding: 40px 20px !important;
+}
+
+/* ============================================
+   BUTTONS - FORCE DISPLAY AND PROPER SIZING
+   ============================================ */
+.menu-buttons-container {
+  display: flex !important;
+  flex-direction: column !important;
+  gap: 12px !important;
+  align-items: center !important;
+  margin-top: 20px !important;
+  width: 100% !important;
+}
+
+img.mainmenu_button_start,
+img.mainmenu_button_levelselection,
+img.mainmenu_button_about,
+img.mainmenu_button_instructions,
+img.mainmenu_button_highscores {
+  position: relative !important;
+  top: 0 !important;
+  left: 0 !important;
+  width: 360px !important;
+  max-width: 85% !important;
+  height: auto !important;
+  cursor: pointer !important;
+  transition: all 0.15s ease !important;
+  filter: drop-shadow(2px 2px 0 #223355) !important;
+  display: block !important;
+  margin: 0 auto !important;
+  image-rendering: pixelated !important;
+  image-rendering: -moz-crisp-edges !important;
+  border: 3px solid #4488CC !important;
+  border-top-color: #66AAEE !important;
+  border-left-color: #66AAEE !important;
+  border-bottom-color: #223355 !important;
+  border-right-color: #223355 !important;
+  background: #1a1a33 !important;
+  padding: 4px !important;
+}
+
+img.mainmenu_button_start:hover,
+img.mainmenu_button_levelselection:hover,
+img.mainmenu_button_about:hover,
+img.mainmenu_button_instructions:hover,
+img.mainmenu_button_highscores:hover {
+  transform: translateY(-2px) !important;
+  filter: drop-shadow(2px 4px 0 #223355) brightness(1.2) !important;
+  border-color: #88CCFF !important;
+}
+
+img.mainmenu_button_start:active,
+img.mainmenu_button_levelselection:active,
+img.mainmenu_button_about:active,
+img.mainmenu_button_instructions:active,
+img.mainmenu_button_highscores:active {
+  transform: translateY(1px) !important;
+  filter: drop-shadow(1px 1px 0 #112233) !important;
+  border-top-color: #223355 !important;
+  border-left-color: #223355 !important;
+  border-bottom-color: #66AAEE !important;
+  border-right-color: #66AAEE !important;
+}
+
+img.mainmenu_button_start:active,
+img.mainmenu_button_levelselection:active,
+img.mainmenu_button_about:active,
+img.mainmenu_button_instructions:active,
+img.mainmenu_button_highscores:active {
+  transform: translateY(-1px) scale(1.01) !important;
+}
+
+/* ============================================
+   GAME TITLE
+   ============================================ */
+.game-title {
+  font-size: 48px;
+  font-weight: bold;
+  color: white;
+  text-shadow: 0 4px 20px rgba(0, 0, 0, 0.5),
+               0 0 40px rgba(255, 255, 255, 0.3);
+  margin-bottom: 20px;
+  animation: title-glow 2s ease-in-out infinite alternate;
+}
+
+@keyframes title-glow {
+  from {
+    text-shadow: 0 4px 20px rgba(0, 0, 0, 0.5),
+                 0 0 40px rgba(255, 255, 255, 0.3);
+  }
+  to {
+    text-shadow: 0 4px 20px rgba(0, 0, 0, 0.5),
+                 0 0 60px rgba(255, 255, 255, 0.6);
+  }
+}
+
+/* ============================================
+   INFO BOARD - Below Game - FORCE PROPER DISPLAY
+   ============================================ */
+div.infoscreen,
+div#div_infoscreen {
+  position: relative !important;
+  top: 0 !important;
+  left: 0 !important;
+  width: 960px !important;
+  max-width: 95vw !important;
+  height: auto !important;
+  min-height: 30px !important;
+  margin: 5px auto 10px !important;
+  background: rgba(15, 12, 41, 0.6) !important;
+  border-radius: 6px !important;
+  border: 1px solid rgba(0, 212, 255, 0.3) !important;
+  padding: 8px 15px !important;
+  display: block !important;
+  color: white !important;
+  font-size: 14px !important;
+  text-align: center !important;
+  text-shadow: 0 1px 5px rgba(0, 0, 0, 0.5) !important;
+}
+
+/* Info Board Elements */
+div.topboard,
+.topboard {
+  position: relative !important;
+  display: flex !important;
+  align-items: center !important;
+  gap: 15px !important;
+  color: white !important;
+  font-size: 18px !important;
+  font-weight: bold !important;
+  flex-wrap: nowrap !important;
+  text-shadow: 0 2px 8px rgba(0, 0, 0, 0.8) !important;
+  width: 960px !important;
+  max-width: 95vw !important;
+  height: auto !important;
+  margin: 5px auto !important;
+  padding: 8px 15px !important;
+  background: linear-gradient(90deg, #0f0c29 0%, #302b63 100%) !important;
+  border: 2px solid #00d4ff !important;
+  border-radius: 8px !important;
+  box-shadow: 0 0 15px rgba(0, 212, 255, 0.2) !important;
+  order: -1 !important;
+}
+
+span.topbuttons {
+  position: relative !important;
+  top: auto !important;
+  left: auto !important;
+  margin-left: auto !important;
+  display: flex !important;
+  gap: 8px !important;
+}
+
+div.topboard img {
+  height: 18px !important;
+  width: auto !important;
+}
+
+/* ============================================
+   LEVEL SELECT SCREEN
+   ============================================ */
+.selectlevel {
+  width: 960px;
+  max-width: 100%;
+  margin: 0 auto;
+}
+
+#id_div_levellist {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(60px, 1fr));
+  gap: 15px;
+  max-width: 700px;
+  margin: 30px auto;
+  padding: 20px;
+}
+
+.levelactive,
+.levelinactive {
+  width: 60px;
+  height: 60px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 24px;
+  font-weight: bold;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.levelactive {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4);
+}
+
+.levelactive:hover {
+  transform: translateY(-5px) scale(1.1);
+  box-shadow: 0 8px 25px rgba(102, 126, 234, 0.6);
+}
+
+.levelinactive {
+  background: #ccc;
+  color: #666;
+  cursor: not-allowed;
+}
+
+/* ============================================
+   DIALOG OVERLAYS - CENTERED OVER GAME AREA
+   All dialogs must overlay the game container
+   ============================================ */
+div.gameover,
+div.gameend,
+div.pauselevel,
+div.quitlevelconfirm {
+  position: fixed !important;
+  top: 50% !important;
+  left: 50% !important;
+  transform: translate(-50%, -50%) !important;
+  width: auto !important;
+  z-index: 1000 !important;
+  background: rgba(0, 0, 0, 0.85) !important;
+  border-radius: 12px !important;
+  padding: 30px !important;
+  border: 2px solid #00d4ff !important;
+  box-shadow: 0 0 40px rgba(0, 212, 255, 0.4) !important;
+  text-align: center !important;
+}
+
+div.gameover img,
+div.gameend img,
+div.pauselevel img,
+div.quitlevelconfirm img {
+  position: relative !important;
+  top: auto !important;
+  left: auto !important;
+  display: block !important;
+  margin: 10px auto !important;
+  cursor: pointer !important;
+}
+
+/* Game over restart/mainmenu buttons side by side */
+img.gameover_restartlevel,
+img.gameover_gotomainmenu {
+  display: inline-block !important;
+  margin: 10px 15px !important;
+}
+
+img.quitconfirmdialog_yes,
+img.quitconfirmdialog_no {
+  display: inline-block !important;
+  margin: 10px 15px !important;
+}
+
+img.gameend_buttonok {
+  display: inline-block !important;
+  margin: 15px auto !important;
+}
+
+span.gameover_newhighscore {
+  position: relative !important;
+  top: auto !important;
+  left: auto !important;
+  display: block !important;
+  text-align: center !important;
+  color: lightgreen !important;
+  font-size: 20px !important;
+  margin-bottom: 10px !important;
+}
+
+/* ============================================
+   SELECT LEVEL SCREEN
+   ============================================ */
+div.selectlevel {
+  position: fixed !important;
+  top: 0 !important;
+  left: 0 !important;
+  width: 100vw !important;
+  height: 100vh !important;
+  background: linear-gradient(180deg, #0f0c29 0%, #302b63 50%, #24243e 100%) !important;
+  z-index: 900 !important;
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: center !important;
+  justify-content: center !important;
+  overflow-y: auto !important;
+}
+
+div.selectlevel > img[src="SelectLevel.png"] {
+  display: none !important;
+}
+
+img.selectlevel_button_mainmenu {
+  position: relative !important;
+  top: auto !important;
+  left: auto !important;
+  margin: 20px auto !important;
+  display: block !important;
+  cursor: pointer !important;
+  filter: drop-shadow(0 4px 12px rgba(0, 212, 255, 0.4)) !important;
+}
+
+div.select_levellist {
+  position: relative !important;
+  top: auto !important;
+  left: auto !important;
+  width: auto !important;
+  max-width: 700px !important;
+}
+
+/* ============================================
+   ABOUT SCREEN
+   ============================================ */
+div.about {
+  position: fixed !important;
+  top: 0 !important;
+  left: 0 !important;
+  width: 100vw !important;
+  height: 100vh !important;
+  background: linear-gradient(180deg, #0f0c29 0%, #302b63 50%, #24243e 100%) !important;
+  z-index: 900 !important;
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: center !important;
+  justify-content: center !important;
+  color: white !important;
+}
+
+div.about > img[src="AboutScreen.png"] {
+  display: none !important;
+}
+
+img.about_button_mainmenu {
+  position: relative !important;
+  top: auto !important;
+  left: auto !important;
+  margin: 20px auto !important;
+  display: block !important;
+  cursor: pointer !important;
+  filter: drop-shadow(0 4px 12px rgba(0, 212, 255, 0.4)) !important;
+}
+
+div.aboutcontents {
+  position: relative !important;
+  top: auto !important;
+  left: auto !important;
+  max-width: 600px !important;
+  text-align: center !important;
+  color: white !important;
+  font-size: 16px !important;
+  line-height: 1.6 !important;
+}
+
+/* ============================================
+   TUTORIAL SCREEN
+   ============================================ */
+div#id_div_tutorial {
+  position: fixed !important;
+  top: 0 !important;
+  left: 0 !important;
+  width: 100vw !important;
+  height: 100vh !important;
+  background: #000 !important;
+  z-index: 900 !important;
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: center !important;
+  justify-content: center !important;
+}
+
+img.tutorialpage {
+  position: relative !important;
+  top: auto !important;
+  left: auto !important;
+  max-width: 90% !important;
+  max-height: 80vh !important;
+}
+
+img.tutorial_button_mainmenu,
+img.tutorial_button_back,
+img.tutorial_button_next {
+  position: relative !important;
+  top: auto !important;
+  left: auto !important;
+  display: inline-block !important;
+  margin: 10px !important;
+  cursor: pointer !important;
+}
+
+/* ============================================
+   CONTROL PANEL - 8-BIT RETRO UI
+   ============================================ */
+div.div_controlpanel {
+  position: relative !important;
+  top: auto !important;
+  left: auto !important;
+  width: 960px !important;
+  max-width: 95vw !important;
+  height: 44px !important;
+  margin: 4px auto !important;
+  display: flex !important;
+  align-items: center !important;
+  background: #111122 !important;
+  border-top: 3px solid #4488CC !important;
+  border-bottom: 3px solid #223366 !important;
+  border-left: 3px solid #4488CC !important;
+  border-right: 3px solid #223366 !important;
+  border-radius: 0 !important;
+  padding: 0 8px !important;
+  image-rendering: pixelated !important;
+  gap: 4px !important;
+}
+
+img.control_weapon_01,
+img.control_weapon_02,
+img.control_weapon_03 {
+  position: relative !important;
+  top: auto !important;
+  left: auto !important;
+  cursor: pointer !important;
+  margin-right: 2px !important;
+  width: 32px !important;
+  height: 32px !important;
+  image-rendering: pixelated !important;
+  border: 2px solid #334466 !important;
+  background: #1a1a33 !important;
+  padding: 1px !important;
+  transition: border-color 0.1s !important;
+}
+
+img.control_weapon_01:hover,
+img.control_weapon_02:hover,
+img.control_weapon_03:hover {
+  border-color: #66AAFF !important;
+  background: #222244 !important;
+}
+
+span.control_weapon_label_01,
+span.control_weapon_label_02,
+span.control_weapon_label_03 {
+  position: relative !important;
+  top: auto !important;
+  left: auto !important;
+  color: #88CCFF !important;
+  margin-right: 10px !important;
+  font-family: 'Courier New', monospace !important;
+  font-weight: bold !important;
+}
+
+img.snowstock {
+  position: relative !important;
+  top: auto !important;
+  left: auto !important;
+  margin-left: auto !important;
+  image-rendering: pixelated !important;
+}
+
+span.snowstock_label {
+  position: relative !important;
+  top: auto !important;
+  left: auto !important;
+  color: #AADDFF !important;
+  font-family: 'Courier New', monospace !important;
+  font-weight: bold !important;
+}
+
+img.control_selectedbutton {
+  position: absolute !important;
+  image-rendering: pixelated !important;
+}
+
+/* Ammo and snow stock numbers - 8-bit style */
+span.ammonumber {
+  background: #000011 !important;
+  border: 2px solid #4488CC !important;
+  color: #FFCC00 !important;
+  padding: 1px 5px !important;
+  border-radius: 0 !important;
+  font-size: 13px !important;
+  font-family: 'Courier New', monospace !important;
+  font-weight: bold !important;
+  text-shadow: 1px 1px 0 #664400 !important;
+  letter-spacing: 1px !important;
+}
+
+/* ============================================
+   SCORE & LEVEL DISPLAY - 8-bit retro style
+   ============================================ */
+span.scoreamount,
+span.levelamount {
+  color: #FFCC00 !important;
+  font-size: 18px !important;
+  font-family: 'Courier New', monospace !important;
+  font-weight: bold !important;
+  text-shadow: 2px 2px 0 #664400 !important;
+  letter-spacing: 2px !important;
+}
+
+/* Pause/Quit buttons in topboard */
+span.topbuttons {
+  position: relative !important;
+  top: auto !important;
+  left: auto !important;
+  margin-left: auto !important;
+  display: flex !important;
+  gap: 8px !important;
+}
+
+span.topbuttons img {
+  cursor: pointer !important;
+  filter: drop-shadow(0 2px 6px rgba(0, 212, 255, 0.3)) !important;
+  transition: transform 0.2s ease !important;
+}
+
+span.topbuttons img:hover {
+  transform: scale(1.1) !important;
+}
+
+/* ============================================
+   LOADING SCREEN
+   ============================================ */
+div.loadingprogress_label {
+  color: white !important;
+  font-size: 18px !important;
+  text-shadow: 0 2px 10px rgba(0, 0, 0, 0.5) !important;
+}
+
+div.loadingprogress_border {
+  border: 2px solid #00d4ff !important;
+  background: rgba(0, 0, 0, 0.5) !important;
+  border-radius: 8px !important;
+  overflow: hidden !important;
+  height: 16px !important;
+}
+
+div.loadingprogress_bar {
+  background: linear-gradient(90deg, #667eea 0%, #00d4ff 100%) !important;
+  border-radius: 6px !important;
+  transition: width 0.3s ease !important;
+}
+
+/* ============================================
+   HIGH SCORE DIALOGS
+   ============================================ */
+.highscore-entry,
+.highscore-table {
+  position: fixed !important;
+  top: 50% !important;
+  left: 50% !important;
+  transform: translate(-50%, -50%) !important;
+  width: 400px !important;
+  max-width: 90vw !important;
+  height: auto !important;
+  z-index: 1001 !important;
+}
+
+/* ============================================
+   RESPONSIVE DESIGN
+   ============================================ */
+@media (max-width: 1024px) {
+  /* moviescreenframe stays 960x520 - JS handles transform: scale() */
+
+  .game-title {
+    font-size: 36px;
+  }
+
+  img.mainmenu_button_start,
+  img.mainmenu_button_levelselection,
+  img.mainmenu_button_about,
+  img.mainmenu_button_instructions,
+  img.mainmenu_button_highscores {
+    width: 300px;
+  }
+}
+
+@media (max-width: 768px) {
+  #game-wrapper {
+    padding: 10px;
+  }
+
+  .game-title {
+    font-size: 28px;
+  }
+
+  img.mainmenu_button_start,
+  img.mainmenu_button_levelselection,
+  img.mainmenu_button_about,
+  img.mainmenu_button_instructions,
+  img.mainmenu_button_highscores {
+    width: 250px;
+  }
+
+  .menu-buttons-container {
+    gap: 10px;
+  }
+}
+
+@media (max-width: 480px) {
+  .game-title {
+    font-size: 24px;
+  }
+
+  img.mainmenu_button_start,
+  img.mainmenu_button_levelselection,
+  img.mainmenu_button_about,
+  img.mainmenu_button_instructions,
+  img.mainmenu_button_highscores {
+    width: 200px;
+  }
+}
+
+/* ============================================
+   PORTRAIT MODE - Mobile phones held vertically
+   JS switches viewport to 480xDynamic and sets
+   inline styles on the game frame.
+   ============================================ */
+@media (orientation: portrait) and (max-width: 600px) {
+  #game-wrapper {
+    padding: 0 !important;
+    justify-content: flex-start !important;
+  }
+
+  #game-scale-wrapper {
+    margin: 5px auto !important;
+  }
+
+  /* Control panel adapts to portrait width */
+  div.div_controlpanel {
+    width: 540px !important;
+    max-width: 98vw !important;
+    height: 50px !important;
+    padding: 0 5px !important;
+    margin: 3px auto !important;
+  }
+
+  /* Topboard adapts to portrait width */
+  div.topboard,
+  .topboard {
+    width: 540px !important;
+    max-width: 98vw !important;
+    height: auto !important;
+    padding: 5px 10px !important;
+    margin: 3px auto !important;
+    font-size: 14px !important;
+    gap: 8px !important;
+  }
+
+  /* Bigger weapon buttons on mobile */
+  img.control_weapon_01,
+  img.control_weapon_02,
+  img.control_weapon_03 {
+    width: 40px !important;
+    height: 40px !important;
+  }
+
+  /* Infoscreen adapts */
+  div.infoscreen,
+  div#div_infoscreen {
+    width: 540px !important;
+    max-width: 98vw !important;
+    margin: 3px auto !important;
+  }
+
+  /* Screen containers for menus */
+  .screen-container {
+    width: 540px !important;
+    max-width: 98vw !important;
+    height: auto !important;
+    min-height: 90vh !important;
+  }
+
+  /* Menu buttons sized for portrait */
+  img.mainmenu_button_start,
+  img.mainmenu_button_levelselection,
+  img.mainmenu_button_about,
+  img.mainmenu_button_instructions,
+  img.mainmenu_button_highscores {
+    width: 280px !important;
+  }
+
+  .game-title {
+    font-size: 32px !important;
+  }
+}
+
+/* ============================================
+   UTILITIES
+   ============================================ */
+.div_shown {
+  display: block !important;
+}
+
+/* div_hidden must beat ALL overlay display rules.
+   Overlay containers (selectlevel, about, tutorial, dialogs) use
+   display: flex/fixed with specificity (0,1,1) or higher.
+   We need higher specificity here to ensure hiding works. */
+.div_hidden,
+div.div_hidden,
+div.selectlevel.div_hidden,
+div.about.div_hidden,
+div.gameover.div_hidden,
+div.gameend.div_hidden,
+div.pauselevel.div_hidden,
+div.quitlevelconfirm.div_hidden,
+div.tutorial.div_hidden,
+div#id_div_tutorial.div_hidden,
+.highscore-entry.div_hidden,
+.highscore-table.div_hidden {
+  display: none !important;
+}
+
+/* Smooth transitions for showing/hiding */
+.fade-in {
+  animation: fadeIn 0.3s ease-in;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+/* ============================================
+   FULLSCREEN MODE
+   ============================================ */
+
+/* Fullscreen backdrop */
+:fullscreen {
+  background: #000 !important;
+}
+
+:-webkit-full-screen {
+  background: #000 !important;
+}
+
+::backdrop {
+  background: #000 !important;
+}
+
+::-webkit-backdrop {
+  background: #000 !important;
+}
+
+/* Game wrapper in fullscreen: fixed size, centered, scaled */
+#game-wrapper.fullscreen-mode {
+  width: 960px !important;
+  min-height: auto !important;
+  max-width: none !important;
+  position: fixed !important;
+  top: 50% !important;
+  left: 50% !important;
+  transform-origin: center center !important;
+  background: transparent !important;
+  padding: 0 !important;
+  margin: 0 !important;
+  overflow: visible !important;
+  border-radius: 0 !important;
+  box-shadow: none !important;
+}
+
+/* Hide scrollbars in fullscreen */
+:fullscreen body,
+:-webkit-full-screen body {
+  overflow: hidden !important;
+}
+
+/* Fullscreen toggle button */
+.fullscreen-btn {
+  position: fixed;
+  bottom: 15px;
+  right: 15px;
+  z-index: 99999;
+  width: 44px;
+  height: 44px;
+  border: 2px solid #00d4ff;
+  border-radius: 8px;
+  background: rgba(15, 12, 41, 0.8);
+  color: #00d4ff;
+  font-size: 22px;
+  line-height: 1;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.3s ease;
+  -webkit-tap-highlight-color: transparent;
+  touch-action: manipulation;
+}
+
+.fullscreen-btn:hover {
+  background: rgba(0, 212, 255, 0.2);
+  transform: scale(1.1);
+  box-shadow: 0 0 15px rgba(0, 212, 255, 0.5);
+}
+
+.fullscreen-btn:active {
+  transform: scale(0.95);
+}

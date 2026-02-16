@@ -9,6 +9,7 @@
   // Audio context
   let audioContext = null;
   let audioEnabled = false;
+  let soundsLoaded = false;
 
   // Sound storage
   const sounds = {};        // Audio buffers
@@ -19,19 +20,19 @@
    * Initialize audio context (call on user interaction)
    */
   function initAudio() {
-    if (audioContext) {
-      console.log('[AUDIO] Already initialized');
-      return;
-    }
+    if (audioContext) return;
 
     try {
-      const AudioContext = window.AudioContext || window.webkitAudioContext;
-      audioContext = new AudioContext();
+      var AudioContextClass = window.AudioContext || window.webkitAudioContext;
+      audioContext = new AudioContextClass();
       audioEnabled = true;
-      console.log('[AUDIO] ✓ Initialized successfully');
-      console.log('[AUDIO] State:', audioContext.state);
+      // Always try to resume immediately (some browsers start suspended)
+      if (audioContext.state === 'suspended') {
+        audioContext.resume();
+      }
+      console.log('[AUDIO] Initialized, state:', audioContext.state);
     } catch (e) {
-      console.error('[AUDIO] ❌ Not supported:', e);
+      console.error('[AUDIO] Not supported:', e);
     }
   }
 
@@ -39,89 +40,71 @@
    * Load a sound file
    */
   function loadSound(id, url) {
-    console.log('[AUDIO] Loading:', id, 'from', url);
-
-    if (!audioContext) {
-      console.log('[AUDIO] No context, initializing...');
-      initAudio();
-    }
-    if (!audioContext) {
-      console.error('[AUDIO] ❌ Cannot load - no audio context');
-      return;
-    }
+    if (!audioContext) initAudio();
+    if (!audioContext) return;
 
     fetch(url)
-      .then(response => {
-        console.log('[AUDIO] Fetched:', url, 'status:', response.status);
+      .then(function(response) {
         if (!response.ok) throw new Error('HTTP ' + response.status);
         return response.arrayBuffer();
       })
-      .then(data => {
-        console.log('[AUDIO] Decoding:', id, 'size:', data.byteLength);
+      .then(function(data) {
         return audioContext.decodeAudioData(data);
       })
-      .then(buffer => {
+      .then(function(buffer) {
         sounds[id] = buffer;
-        console.log('[AUDIO] ✓ Loaded:', id, 'duration:', buffer.duration.toFixed(2) + 's');
+        console.log('[AUDIO] Loaded:', id);
 
         // Set duration on Game_Sounds entry for background music looping
         if (window.Game_Sounds) {
-          for (let i = 0; i < Game_Sounds.length; i++) {
+          for (var i = 0; i < Game_Sounds.length; i++) {
             if (Game_Sounds[i].id === id) {
               Game_Sounds[i].duration = buffer.duration;
-              console.log('[AUDIO] Set duration for Game_Sounds[' + i + ']:', buffer.duration);
               break;
             }
           }
         }
       })
-      .catch(err => console.error('[AUDIO] ❌ Failed to load', id, ':', err));
+      .catch(function(err) {
+        console.error('[AUDIO] Failed to load', id, ':', err);
+      });
   }
 
   /**
-   * Play a sound
+   * Play a sound - handles suspended context properly
    */
-  function playSound(id, loop = false) {
-    console.log('[AUDIO] Play request:', id, 'loop:', loop);
+  function playSound(id, loop) {
+    if (!audioContext) return;
+    if (!sounds[id]) return;
 
-    if (!audioContext) {
-      console.error('[AUDIO] ❌ Cannot play - no audio context');
-      initAudio(); // Try to init
-      return;
-    }
-
-    if (!sounds[id]) {
-      console.warn('[AUDIO] ⏳ Sound still loading:', id);
-      return;
-    }
-
-    // Resume context if suspended
+    // If context is suspended, resume first then play
     if (audioContext.state === 'suspended') {
-      console.log('[AUDIO] Resuming suspended context...');
-      audioContext.resume().then(() => {
-        console.log('[AUDIO] Context resumed, state:', audioContext.state);
+      audioContext.resume().then(function() {
+        doPlay(id, loop);
       });
+      return;
     }
 
+    doPlay(id, loop);
+  }
+
+  function doPlay(id, loop) {
+    if (!sounds[id]) return;
     try {
-      const source = audioContext.createBufferSource();
+      var source = audioContext.createBufferSource();
       source.buffer = sounds[id];
-      source.loop = loop;
+      source.loop = !!loop;
       source.connect(audioContext.destination);
       source.start(0);
 
-      console.log('[AUDIO] ✓ Playing:', id, 'state:', audioContext.state);
-
       if (loop) {
-        musicSource = source; // Save music source for stopping
+        musicSource = source;
       } else {
         playing[id] = source;
-        source.onended = () => delete playing[id];
+        source.onended = function() { delete playing[id]; };
       }
-
-      return source;
     } catch (e) {
-      console.error('[AUDIO] ❌ Failed to play', id, ':', e);
+      console.error('[AUDIO] Play error', id, ':', e);
     }
   }
 
@@ -130,10 +113,7 @@
    */
   function stopMusic() {
     if (musicSource) {
-      try {
-        musicSource.stop();
-        console.log('[AUDIO] Stopped music');
-      } catch (e) {}
+      try { musicSource.stop(); } catch (e) {}
       musicSource = null;
     }
   }
@@ -143,9 +123,7 @@
    */
   function stopSound(id) {
     if (playing[id]) {
-      try {
-        playing[id].stop();
-      } catch (e) {}
+      try { playing[id].stop(); } catch (e) {}
       delete playing[id];
     }
   }
@@ -156,43 +134,29 @@
     debugMode: false,
     loaded: true,
 
-    onload: function() {
-      console.log('[AUDIO] soundManager.onload called');
-    },
+    onload: function() {},
 
     createSound: function(options) {
-      const id = options.id;
-      const url = options.url;
+      var id = options.id;
+      var url = options.url;
 
-      console.log('[AUDIO] createSound:', id, url);
-
-      // Load sound immediately
       loadSound(id, url);
 
-      // Return sound object with methods
-      const soundObject = {
+      return {
         id: id,
-        load: function() {
-          console.log('[AUDIO] sound.load() called for', id);
-          // Already loading via loadSound above
-        },
-        play: function(options) {
-          console.log('[AUDIO] sound.play() called for', id, options);
-          const loop = options && (options.loops !== undefined);
+        load: function() {},
+        play: function(opts) {
+          var loop = opts && (opts.loops !== undefined);
           playSound(id, loop);
         },
         stop: function() {
-          console.log('[AUDIO] sound.stop() called for', id);
           stopSound(id);
         }
       };
-
-      return soundObject;
     },
 
     play: function(id, options) {
-      const loop = options && options.loops !== undefined;
-      console.log('[AUDIO] soundManager.play:', id, options);
+      var loop = options && options.loops !== undefined;
       playSound(id, loop);
     },
 
@@ -201,7 +165,7 @@
     },
 
     stopAll: function() {
-      for (let id in playing) {
+      for (var id in playing) {
         stopSound(id);
       }
       stopMusic();
@@ -212,25 +176,51 @@
     }
   };
 
-  // Initialize on user interaction
-  const enableAudio = function() {
+  // Resume audio context on any user interaction (browsers may suspend it)
+  var resumeHandler = function() {
+    if (audioContext && audioContext.state === 'suspended') {
+      audioContext.resume().then(function() {
+        console.log('[AUDIO] Context resumed to:', audioContext.state);
+      });
+    }
+    // Remove once running
+    if (audioContext && audioContext.state === 'running') {
+      document.removeEventListener('mousedown', resumeHandler);
+      document.removeEventListener('click', resumeHandler);
+      document.removeEventListener('touchstart', resumeHandler);
+    }
+  };
+
+  // Initialize on user interaction - listen for ALL event types the game uses
+  var enableAudio = function() {
+    if (soundsLoaded) return;
+    soundsLoaded = true;
+
     console.log('[AUDIO] User interaction detected, initializing...');
     initAudio();
 
-    // Call SoundManager_Loaded if it exists (loads all game sounds)
-    if (typeof SoundManager_Loaded === 'function') {
-      console.log('[AUDIO] Calling SoundManager_Loaded to load game sounds...');
-      SoundManager_Loaded();
-    }
-
+    // Remove init listeners
     document.removeEventListener('click', enableAudio);
+    document.removeEventListener('mousedown', enableAudio);
     document.removeEventListener('touchstart', enableAudio);
     document.removeEventListener('keydown', enableAudio);
+
+    // Add persistent resume listeners (removed once context is running)
+    document.addEventListener('mousedown', resumeHandler);
+    document.addEventListener('click', resumeHandler);
+    document.addEventListener('touchstart', resumeHandler);
+
+    // Load all game sounds
+    if (typeof SoundManager_Loaded === 'function') {
+      SoundManager_Loaded();
+    }
   };
 
+  // The game uses onmousedown for ALL buttons, so mousedown is critical
+  document.addEventListener('mousedown', enableAudio);
   document.addEventListener('click', enableAudio);
   document.addEventListener('touchstart', enableAudio);
   document.addEventListener('keydown', enableAudio);
 
-  console.log('[AUDIO] Simple Audio System loaded and waiting for user interaction');
+  console.log('[AUDIO] Simple Audio System ready');
 })();

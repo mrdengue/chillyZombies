@@ -33,9 +33,11 @@
     }
 
     // Setup event handlers
-    setupNameInput();
-    submitBtn.onclick = submitHighScore;
-    closeBtn.onclick = closeHighScoreTable;
+    if (char1 && char2 && char3) {
+      setupNameInput();
+    }
+    if (submitBtn) submitBtn.onclick = submitHighScore;
+    if (closeBtn) closeBtn.onclick = closeHighScoreTable;
 
     console.log('[HIGHSCORE] ✓ UI ready');
   }
@@ -99,7 +101,8 @@
     currentLevel = level;
 
     // Update score display
-    document.getElementById('highscore_entry_score').textContent = score;
+    var scoreEl = document.getElementById('highscore_entry_score');
+    if (scoreEl) scoreEl.textContent = score;
 
     // Clear previous input
     char1.value = '';
@@ -174,9 +177,9 @@
   }
 
   /**
-   * Show high score table
+   * Show high score table (with online scores)
    */
-  function showHighScoreTable(newEntryName) {
+  async function showHighScoreTable(newEntryName) {
     console.log('[HIGHSCORE] Showing high score table');
 
     if (!window.GameProgress) {
@@ -184,12 +187,19 @@
       return;
     }
 
-    const highScores = GameProgress.getHighScores();
     const listDiv = document.getElementById('highscore_table_list');
-
     if (!listDiv) return;
 
-    // Clear previous list
+    // Show loading message
+    listDiv.innerHTML = '<div style="color: #888; text-align: center; padding: 20px;">Loading global scores...</div>';
+
+    // Show dialog
+    tableDialog.className = 'highscore-table div_shown';
+
+    // Get global high scores (online + local)
+    const highScores = await GameProgress.getGlobalHighScores(10);
+
+    // Clear and display
     listDiv.innerHTML = '';
 
     if (highScores.length === 0) {
@@ -214,9 +224,6 @@
         listDiv.appendChild(item);
       });
     }
-
-    // Show dialog
-    tableDialog.className = 'highscore-table div_shown';
   }
 
   /**

@@ -1,18 +1,24 @@
 <html>
 <!-- (C) 2010 RalphGoodtimes.com .  Please visit www.ralphgoodtimes.com for more information about this page.  -->
 <head>
-<meta name = "viewport" content = "initial-scale:2.3,user-scalable=yes,width=device-height" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover, user-scalable=no" />
 <meta name="apple-mobile-web-app-capable" content="yes">
 <link rel="stylesheet" type="text/css" href="sprites.css">
 <link rel="stylesheet" type="text/css" href="highscore-ui.css">
 <link rel="stylesheet" type="text/css" href="powerups.css">
+<!-- Modern Responsive Layout -->
+<link rel="stylesheet" type="text/css" href="modern-layout.css">
 <!-- <link rel="stylesheet" type="text/css" href="retro-styles.css"> -->
 <link rel="apple-touch-icon" href="Icon.png"/>
 <link rel="apple-touch-startup-image" href="LoadingScreen.png"/>
+<!-- Fullscreen Manager -->
+<script type="text/javascript" src="fullscreen.js"></script>
 <!-- Simple Web Audio System -->
 <script type="text/javascript" src="simple-audio.js"></script>
 <!-- Canvas Renderer -->
 <script type="text/javascript" src="canvas-renderer.js"></script>
+<!-- Online API Client -->
+<script type="text/javascript" src="online-api.js"></script>
 <!-- Game Progress System -->
 <script type="text/javascript" src="game-progress.js"></script>
 <!-- High Score UI -->
@@ -21,17 +27,26 @@
 <script type="text/javascript" src="powerups.js"></script>
 <!-- Retro Graphics Enhancement - DISABLED -->
 <!-- <script type="text/javascript" src="retro-graphics.js"></script> -->
-<script type="text/javascript" src="spriteengine.js"></script>
-<script type="text/javascript" src="gamelevels.js"></script>
-<script type="text/javascript" src="gamelogic.js"></script>
+<script type="text/javascript" src="spriteengine.js?v=1764361071"></script>
+<script type="text/javascript" src="gamelevels.js?v=1764361071"></script>
+<!-- Procedural Level Generation -->
+<script type="text/javascript" src="procedurallevels.js?v=1764361071"></script>
+<script type="text/javascript" src="gamelogic.js?v=1764361071"></script>
 </head>
-<body bgcolor="white" onload="InitSpriteEngine(); return true;" onunload="Game_Exit(); return true;">
+<body onload="InitSpriteEngine(); return true;" onunload="Game_Exit(); return true;">
 <noscript>
   Warning:  The application failed to load properly.
 </noscript>
-<div class="screencontainer"> <!-- screencontainer -->
+
+<div id="game-wrapper">
+
 <div id="id_div_loading" class="div_shown"> <!-- id_div_loading -->
-  <img src="LoadingScreen.png">
+  <div class="screen-container">
+    <div class="menu-content">
+      <h1 class="game-title">CHILLY ZOMBIES</h1>
+      <p style="color: white; font-size: 24px; text-shadow: 0 2px 10px rgba(0,0,0,0.5);">Loading...</p>
+    </div>
+  </div>
 </div> <!-- id_div_loading -->
 
 <div id="id_div_selectlevel" class="selectlevel div_hidden"> <!-- id_div_selectlevel -->
@@ -186,12 +201,25 @@
 </div> <!-- Container -->
 
 <div id="id_div_mainmenu" class="div_hidden"> <!-- id_div_mainmenu -->
-<img src="MainMenu_Screen.png">
-<img src="mainmenu_button_startgame.png" class="mainmenu_button_start" onmousedown="Game_Start(true); return false;">
-<img src="mainmenu_button_selectlevel.png" class="mainmenu_button_levelselection" onmousedown="Game_LevelSelection(); return false;">
-<img src="mainmenu_button_about.png" class="mainmenu_button_about" onmousedown="Game_ShowAboutScreen(); return false;">
-<img src="mainmenu_button_instructions.png" class="mainmenu_button_instructions" onmousedown="Game_Tutorial(); return false;">
-<span id="id_mainmenu_highscore" class="mainmenu_highscore"></span>
+  <div class="screen-container">
+    <img src="MainMenu_Screen.png" class="screen-background" alt="Background">
+
+    <div class="menu-content">
+      <h1 class="game-title">CHILLY ZOMBIES</h1>
+
+      <div class="menu-buttons-container">
+        <img src="mainmenu_button_startgame.png" class="mainmenu_button_start" onmousedown="Game_Start(true); return false;" alt="New Game">
+        <img src="mainmenu_button_selectlevel.png" class="mainmenu_button_levelselection" onmousedown="Game_LevelSelection(); return false;" alt="Select Level">
+        <img src="mainmenu_button_about.png" class="mainmenu_button_about" onmousedown="Game_ShowAboutScreen(); return false;" alt="About">
+        <img src="mainmenu_button_instructions.png" class="mainmenu_button_instructions" onmousedown="Game_Tutorial(); return false;" alt="Instructions">
+      </div>
+
+      <div style="margin-top: 30px; color: white; text-shadow: 0 2px 10px rgba(0,0,0,0.8);">
+        <span style="font-size: 18px;">High Score: </span>
+        <span style="font-size: 28px; font-weight: bold;" id="id_mainmenu_highscore"></span>
+      </div>
+    </div>
+  </div>
 </div> <!-- id_div_mainmenu -->
 
 <div id="id_div_gameover" class="gameover div_hidden"> <!-- id_div_gameover -->
@@ -200,7 +228,7 @@
 <img src="GameOver_MainMenuButton.png" class="gameover_gotomainmenu" onmousedown="Game_FromGameToMainMenu(true); return false;">
 <span id="span_gameover_newhighscore" class="gameover_newhighscore span_hidden">
 New High Score!
-<span>
+</span>
 </div> <!-- id_div_gameover -->
 
 <div id="id_div_gameend" class="gameend div_hidden"> <!-- id_div_gameend -->
@@ -211,11 +239,14 @@ New High Score!
 <!-- High Score Entry Dialog -->
 <div id="id_div_highscore_entry" class="highscore-entry div_hidden">
   <div class="highscore-entry-content">
+    <h2>NEW HIGH SCORE!</h2>
+    <div id="highscore_entry_score" class="highscore-score-display">0</div>
     <div class="highscore-name-input">
       <input type="text" id="highscore_char1" maxlength="1" class="highscore-char" />
       <input type="text" id="highscore_char2" maxlength="1" class="highscore-char" />
       <input type="text" id="highscore_char3" maxlength="1" class="highscore-char" />
     </div>
+    <button id="highscore_submit_btn" class="highscore-btn">OK</button>
   </div>
 </div>
 
@@ -232,6 +263,8 @@ New High Score!
 
 <!-- Enable Canvas Rendering (Simple, Safe) -->
 <script type="text/javascript" src="enable-canvas.js"></script>
+
+</div> <!-- #game-wrapper -->
 
 </body>
 </html>

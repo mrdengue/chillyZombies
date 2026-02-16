@@ -1,0 +1,43 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="64" height="64" viewBox="0 0 16 16" shape-rendering="crispEdges">
+  <!-- Frozen Zombie - Idle -->
+  <!-- Messy hair -->
+  <rect x="6" y="1" width="4" height="1" fill="#2D4A2D"/>
+  <rect x="5" y="2" width="2" height="1" fill="#2D4A2D"/>
+  <rect x="9" y="2" width="2" height="1" fill="#2D4A2D"/>
+  <!-- Head -->
+  <rect x="6" y="2" width="4" height="2" fill="#7BA68B"/>
+  <rect x="6" y="4" width="4" height="1" fill="#6B9679"/>
+  <!-- Eyes (glowing red) -->
+  <rect x="7" y="3" width="1" height="1" fill="#FF3333"/>
+  <rect x="9" y="3" width="1" height="1" fill="#FF3333"/>
+  <!-- Mouth (open, dark) -->
+  <rect x="7" y="4" width="2" height="1" fill="#1A3320"/>
+  <!-- Tattered shirt -->
+  <rect x="5" y="5" width="6" height="1" fill="#556B55"/>
+  <rect x="5" y="6" width="6" height="1" fill="#4A5E4A"/>
+  <rect x="5" y="7" width="5" height="1" fill="#4A5E4A"/>
+  <rect x="5" y="8" width="6" height="1" fill="#3D4F3D"/>
+  <!-- Exposed rib area (torn shirt) -->
+  <rect x="10" y="7" width="1" height="1" fill="#7BA68B"/>
+  <!-- Arms (stiff, zombie-like, reaching forward) -->
+  <rect x="3" y="6" width="2" height="1" fill="#7BA68B"/>
+  <rect x="11" y="6" width="2" height="1" fill="#7BA68B"/>
+  <rect x="2" y="7" width="2" height="1" fill="#7BA68B"/>
+  <rect x="12" y="7" width="1" height="1" fill="#7BA68B"/>
+  <!-- Fingers/claws -->
+  <rect x="1" y="7" width="1" height="1" fill="#6B9679"/>
+  <rect x="13" y="7" width="1" height="1" fill="#6B9679"/>
+  <!-- Tattered pants -->
+  <rect x="6" y="9" width="2" height="1" fill="#3A3A55"/>
+  <rect x="9" y="9" width="2" height="1" fill="#3A3A55"/>
+  <rect x="6" y="10" width="2" height="2" fill="#2E2E44"/>
+  <rect x="9" y="10" width="2" height="2" fill="#2E2E44"/>
+  <!-- Ice crystals on body -->
+  <rect x="11" y="5" width="1" height="1" fill="#AADDEE"/>
+  <rect x="5" y="8" width="1" height="1" fill="#AADDEE"/>
+  <!-- Bare feet (zombie) -->
+  <rect x="5" y="12" width="3" height="1" fill="#6B9679"/>
+  <rect x="9" y="12" width="3" height="1" fill="#6B9679"/>
+  <rect x="5" y="13" width="3" height="1" fill="#5A8568"/>
+  <rect x="9" y="13" width="3" height="1" fill="#5A8568"/>
+</svg>

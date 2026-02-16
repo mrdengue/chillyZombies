@@ -64,13 +64,28 @@ var Game_UserPaused = false;
 var Game_TooltipTime    = 0;
 var Game_TooltipMaxTime = 0;
 
-var Game_ZombieTypes = 
+var Game_ZombieTypes =
               {
                 NormalZombie: { SpriteType: 'Zombie', Worth: 100, Strength: 1, SpawnSound: 'spawned_zombie' },
                 Snowman:      { SpriteType: 'Snowman', Worth: 100, Strength: 1, SpawnSound: 'spawned_snowman'  },
                 Zombiess:     { SpriteType: 'Zombiess', Worth: 300, Strength: 2, SpawnSound: 'spawned_zombiess'  },
                 Sheep:        { SpriteType: 'Sheep', Worth: 50, Strength: 1, SpawnSound: 'spawned_sheep'  },
-                Dinosaur:     { SpriteType: 'Dinosaur', Worth: 1000, Strength: 7, SpawnSound: 'spawned_dinosaur'  }
+                Dinosaur:     { SpriteType: 'Dinosaur', Worth: 1000, Strength: 7, SpawnSound: 'spawned_dinosaur'  },
+                // New snow zombie variants
+                SnowZombie1:  { SpriteType: 'SnowZombie1', Worth: 120, Strength: 1, SpawnSound: 'spawned_snowman'  },
+                SnowZombie2:  { SpriteType: 'SnowZombie2', Worth: 120, Strength: 1, SpawnSound: 'spawned_snowman'  },
+                SnowZombie3:  { SpriteType: 'SnowZombie3', Worth: 150, Strength: 2, SpawnSound: 'spawned_snowman'  },
+                SnowZombie4:  { SpriteType: 'SnowZombie4', Worth: 150, Strength: 2, SpawnSound: 'spawned_snowman'  },
+                SnowZombie5:  { SpriteType: 'SnowZombie5', Worth: 180, Strength: 2, SpawnSound: 'spawned_snowman'  },
+                // Boss types
+                Boss1:        { SpriteType: 'Boss1', Worth: 2000, Strength: 10, SpawnSound: 'spawned_dinosaur'  },
+                Boss2:        { SpriteType: 'Boss2', Worth: 2500, Strength: 12, SpawnSound: 'spawned_dinosaur'  },
+                Boss3:        { SpriteType: 'Boss3', Worth: 3000, Strength: 14, SpawnSound: 'spawned_dinosaur'  },
+                Boss4:        { SpriteType: 'Boss4', Worth: 3500, Strength: 16, SpawnSound: 'spawned_dinosaur'  },
+                Boss5:        { SpriteType: 'Boss5', Worth: 4000, Strength: 18, SpawnSound: 'spawned_dinosaur'  },
+                Boss6:        { SpriteType: 'Boss6', Worth: 4500, Strength: 20, SpawnSound: 'spawned_dinosaur'  },
+                Boss7:        { SpriteType: 'Boss7', Worth: 5000, Strength: 22, SpawnSound: 'spawned_dinosaur'  },
+                Boss8:        { SpriteType: 'Boss8', Worth: 6000, Strength: 25, SpawnSound: 'spawned_dinosaur'  }
               };
               
 var Game_WeaponTypes = 
@@ -80,11 +95,17 @@ var Game_WeaponTypes =
                 Weapon03: { LifeSpan: 35,Strength: 3,HTMLButtonId: 'id_control_weapon_03', SpriteType: 'FireGift', Tooltip: 'FireGift' }
               };
               
-var Player_Sounds = 
+var Player_Sounds =
               {
                 Player:  { Killed: 'bouncewall' },
                 Player2: { Killed: 'bouncewall' },
-                Player3: { Killed: 'bouncewall' }
+                Player3: { Killed: 'bouncewall' },
+                Player4: { Killed: 'bouncewall' },
+                Player5: { Killed: 'bouncewall' },
+                Player6: { Killed: 'bouncewall' },
+                Player7: { Killed: 'bouncewall' },
+                Player8: { Killed: 'bouncewall' },
+                Player9: { Killed: 'bouncewall' }
               };
 
 var Game_Ammo =
@@ -181,13 +202,13 @@ var Game_Sprite_TypeProperties =
         Strength   : 1,
         Weight     : 1,
         VelLimit   : 2,
-        Size       : 1, // Value between 0.05 and 10.  1 = actual size.
+        Size       : 1, // Native 64x64 sprites
 
         Bounceable : true,
         Ghost : false,
         Visible : true,
         Z : 5,
-        
+
         TextBubble    : false,
         TextBubbleX   : 0, // Coordinates in percentage.
         TextBubbleY   : 0,
@@ -200,22 +221,22 @@ var Game_Sprite_TypeProperties =
         SmartTargetVision : 100, // In percentage.  How far this sprite can see the world
                                  // at the time of doing smart-gototarget calculations.
                                  // 100% = the whole world.  50% = about a quarter of it (half width and half height).
-        
+
         SmartTargetSearchLimit : 250, // How many animation frames must pass before the Sprite gives up finding a path.
                                      // Don't make this value dependant of g_FramesPerSecond.
                                      // Programs with more framerate would have more advantage over the rest.
-        
+
         StopToCalculatePath : true, // If StopToCalculatePath is true, the Sprite will stop any movement
                                     // when assigned a smart-gototarget.
         ExcludeObstacleTypeList : ['Player','Player2','Player3','AmmoStation','Material','ShootingSpot','Prop01','Prop02'], // Types of Sprites that will always be ignored as obstacles when calculating target paths.
-        SmartPAttmptBeforeGivingUp : -1, // Number of attempts before a Sprite gives up going through an object, 
+        SmartPAttmptBeforeGivingUp : -1, // Number of attempts before a Sprite gives up going through an object,
                                         // considers it an obstacle and tries to find another path.
                                         // 0:  Give up immediately.  -1:  Never give up.
                                         // N: Try N more times.
-        
+
         Camera       : -1,  // -1:  Sprite is not a Camera.  0:  Sprite is a Camera, but the Camera is not active.
                             //  1:  Sprite is a Camera, and it's active (the view port follows it).
-        
+
         ImageList   : {
                         img_idle:     'anim_player_idle.gif',
                         img_walk01:   'anim_player_walk_01.gif',
@@ -234,13 +255,13 @@ var Game_Sprite_TypeProperties =
         Strength   : 1,
         Weight     : 1,
         VelLimit   : 2,
-        Size       : 1, // Value between 0.05 and 10.  1 = actual size.
+        Size       : 1, // Native 64x64 sprites
 
         Bounceable : true,
         Ghost : false,
         Visible : true,
         Z : 5,
-        
+
         TextBubble    : false,
         TextBubbleX   : 0, // Coordinates in percentage.
         TextBubbleY   : 0,
@@ -250,25 +271,13 @@ var Game_Sprite_TypeProperties =
         LivingState  : 0,
         WalkSum      : 0,
         Target       : 1,
-        SmartTargetVision : 100, // In percentage.  How far this sprite can see the world
-                                 // at the time of doing smart-gototarget calculations.
-                                 // 100% = the whole world.  50% = about a quarter of it (half width and half height).
-        
-        SmartTargetSearchLimit : 250, // How many animation frames must pass before the Sprite gives up finding a path.
-                                     // Don't make this value dependant of g_FramesPerSecond.
-                                     // Programs with more framerate would have more advantage over the rest.
-        
-        StopToCalculatePath : true, // If StopToCalculatePath is true, the Sprite will stop any movement
-                                    // when assigned a smart-gototarget.
-        ExcludeObstacleTypeList : ['Player','Player2','Player3','AmmoStation','Material','ShootingSpot','Prop01','Prop02'], // Types of Sprites that will always be ignored as obstacles when calculating target paths.
-        SmartPAttmptBeforeGivingUp : -1, // Number of attempts before a Sprite gives up going through an object, 
-                                        // considers it an obstacle and tries to find another path.
-                                        // 0:  Give up immediately.  -1:  Never give up.
-                                        // N: Try N more times.
-        
-        Camera       : -1,  // -1:  Sprite is not a Camera.  0:  Sprite is a Camera, but the Camera is not active.
-                            //  1:  Sprite is a Camera, and it's active (the view port follows it).
-        
+        SmartTargetVision : 100,
+        SmartTargetSearchLimit : 250,
+        StopToCalculatePath : true,
+        ExcludeObstacleTypeList : ['Player','Player2','Player3','AmmoStation','Material','ShootingSpot','Prop01','Prop02'],
+        SmartPAttmptBeforeGivingUp : -1,
+        Camera       : -1,
+
         ImageList   : {
                         img_idle:     'anim_player2_idle.gif',
                         img_walk01:   'anim_player2_walk_01.gif',
@@ -287,41 +296,29 @@ var Game_Sprite_TypeProperties =
         Strength   : 1,
         Weight     : 1,
         VelLimit   : 2,
-        Size       : 1, // Value between 0.05 and 10.  1 = actual size.
+        Size       : 1, // Native 64x64 sprites
 
         Bounceable : true,
         Ghost : false,
         Visible : true,
         Z : 5,
-        
+
         TextBubble    : false,
-        TextBubbleX   : 0, // Coordinates in percentage.
+        TextBubbleX   : 0,
         TextBubbleY   : 0,
-        TextBubbleTargetX   : 0, // Coordinates in percentage.
+        TextBubbleTargetX   : 0,
         TextBubbleTargetY   : 0,
 
         LivingState  : 0,
         WalkSum      : 0,
         Target       : 1,
-        SmartTargetVision : 100, // In percentage.  How far this sprite can see the world
-                                 // at the time of doing smart-gototarget calculations.
-                                 // 100% = the whole world.  50% = about a quarter of it (half width and half height).
-        
-        SmartTargetSearchLimit : 250, // How many animation frames must pass before the Sprite gives up finding a path.
-                                     // Don't make this value dependant of g_FramesPerSecond.
-                                     // Programs with more framerate would have more advantage over the rest.
-        
-        StopToCalculatePath : true, // If StopToCalculatePath is true, the Sprite will stop any movement
-                                    // when assigned a smart-gototarget.
-        ExcludeObstacleTypeList : ['Player','Player2','Player3','AmmoStation','Material','ShootingSpot','Prop01','Prop02'], // Types of Sprites that will always be ignored as obstacles when calculating target paths.
-        SmartPAttmptBeforeGivingUp : -1, // Number of attempts before a Sprite gives up going through an object, 
-                                        // considers it an obstacle and tries to find another path.
-                                        // 0:  Give up immediately.  -1:  Never give up.
-                                        // N: Try N more times.
-        
-        Camera       : -1,  // -1:  Sprite is not a Camera.  0:  Sprite is a Camera, but the Camera is not active.
-                            //  1:  Sprite is a Camera, and it's active (the view port follows it).
-        
+        SmartTargetVision : 100,
+        SmartTargetSearchLimit : 250,
+        StopToCalculatePath : true,
+        ExcludeObstacleTypeList : ['Player','Player2','Player3','AmmoStation','Material','ShootingSpot','Prop01','Prop02'],
+        SmartPAttmptBeforeGivingUp : -1,
+        Camera       : -1,
+
         ImageList   : {
                         img_idle:     'anim_player3_idle.gif',
                         img_walk01:   'anim_player3_walk_01.gif',
@@ -332,6 +329,228 @@ var Game_Sprite_TypeProperties =
                         img_dead:     'anim_player3_dead.gif',
                         img_gather:   'anim_player3_gather.gif',
                         img_build:    'anim_player3_build.gif'
+                      }
+      },
+
+    Player4:
+      {
+        Strength   : 1,
+        Weight     : 1,
+        VelLimit   : 2,
+        Size       : 0.4,
+        Bounceable : true,
+        Ghost : false,
+        Visible : true,
+        Z : 5,
+        TextBubble    : false,
+        TextBubbleX   : 0,
+        TextBubbleY   : 0,
+        TextBubbleTargetX   : 0,
+        TextBubbleTargetY   : 0,
+        LivingState  : 0,
+        WalkSum      : 0,
+        Target       : 1,
+        SmartTargetVision : 100,
+        SmartTargetSearchLimit : 250,
+        StopToCalculatePath : true,
+        ExcludeObstacleTypeList : ['Player','Player2','Player3','Player4','Player5','Player6','Player7','Player8','Player9','AmmoStation','Material','ShootingSpot','Prop01','Prop02'],
+        SmartPAttmptBeforeGivingUp : -1,
+        Camera       : -1,
+        ImageList   : {
+                        img_idle:     'anim_player4_idle.gif',
+                        img_walk01:   'anim_player4_walk_01.gif',
+                        img_walk02:   'anim_player4_walk_02.gif',
+                        img_walk03:   'anim_player4_walk_03.gif',
+                        img_walk04:   'anim_player4_walk_04.gif',
+                        img_selector: 'anim_player_selector.gif',
+                        img_dead:     'anim_player4_dead.gif',
+                        img_gather:   'anim_player4_gather.gif',
+                        img_build:    'anim_player4_build.gif'
+                      }
+      },
+
+    Player5:
+      {
+        Strength   : 1,
+        Weight     : 1,
+        VelLimit   : 2,
+        Size       : 0.4,
+        Bounceable : true,
+        Ghost : false,
+        Visible : true,
+        Z : 5,
+        TextBubble    : false,
+        TextBubbleX   : 0,
+        TextBubbleY   : 0,
+        TextBubbleTargetX   : 0,
+        TextBubbleTargetY   : 0,
+        LivingState  : 0,
+        WalkSum      : 0,
+        Target       : 1,
+        SmartTargetVision : 100,
+        SmartTargetSearchLimit : 250,
+        StopToCalculatePath : true,
+        ExcludeObstacleTypeList : ['Player','Player2','Player3','Player4','Player5','Player6','Player7','Player8','Player9','AmmoStation','Material','ShootingSpot','Prop01','Prop02'],
+        SmartPAttmptBeforeGivingUp : -1,
+        Camera       : -1,
+        ImageList   : {
+                        img_idle:     'anim_player5_idle.gif',
+                        img_walk01:   'anim_player5_walk_01.gif',
+                        img_walk02:   'anim_player5_walk_02.gif',
+                        img_walk03:   'anim_player5_walk_03.gif',
+                        img_walk04:   'anim_player5_walk_04.gif',
+                        img_selector: 'anim_player_selector.gif',
+                        img_dead:     'anim_player5_dead.gif',
+                        img_gather:   'anim_player5_gather.gif',
+                        img_build:    'anim_player5_build.gif'
+                      }
+      },
+
+    Player6:
+      {
+        Strength   : 1,
+        Weight     : 1,
+        VelLimit   : 2,
+        Size       : 0.4,
+        Bounceable : true,
+        Ghost : false,
+        Visible : true,
+        Z : 5,
+        TextBubble    : false,
+        TextBubbleX   : 0,
+        TextBubbleY   : 0,
+        TextBubbleTargetX   : 0,
+        TextBubbleTargetY   : 0,
+        LivingState  : 0,
+        WalkSum      : 0,
+        Target       : 1,
+        SmartTargetVision : 100,
+        SmartTargetSearchLimit : 250,
+        StopToCalculatePath : true,
+        ExcludeObstacleTypeList : ['Player','Player2','Player3','Player4','Player5','Player6','Player7','Player8','Player9','AmmoStation','Material','ShootingSpot','Prop01','Prop02'],
+        SmartPAttmptBeforeGivingUp : -1,
+        Camera       : -1,
+        ImageList   : {
+                        img_idle:     'anim_player6_idle.gif',
+                        img_walk01:   'anim_player6_walk_01.gif',
+                        img_walk02:   'anim_player6_walk_02.gif',
+                        img_walk03:   'anim_player6_walk_03.gif',
+                        img_walk04:   'anim_player6_walk_04.gif',
+                        img_selector: 'anim_player_selector.gif',
+                        img_dead:     'anim_player6_dead.gif',
+                        img_gather:   'anim_player6_gather.gif',
+                        img_build:    'anim_player6_build.gif'
+                      }
+      },
+
+    Player7:
+      {
+        Strength   : 1,
+        Weight     : 1,
+        VelLimit   : 2,
+        Size       : 0.4,
+        Bounceable : true,
+        Ghost : false,
+        Visible : true,
+        Z : 5,
+        TextBubble    : false,
+        TextBubbleX   : 0,
+        TextBubbleY   : 0,
+        TextBubbleTargetX   : 0,
+        TextBubbleTargetY   : 0,
+        LivingState  : 0,
+        WalkSum      : 0,
+        Target       : 1,
+        SmartTargetVision : 100,
+        SmartTargetSearchLimit : 250,
+        StopToCalculatePath : true,
+        ExcludeObstacleTypeList : ['Player','Player2','Player3','Player4','Player5','Player6','Player7','Player8','Player9','AmmoStation','Material','ShootingSpot','Prop01','Prop02'],
+        SmartPAttmptBeforeGivingUp : -1,
+        Camera       : -1,
+        ImageList   : {
+                        img_idle:     'anim_player7_idle.gif',
+                        img_walk01:   'anim_player7_walk_01.gif',
+                        img_walk02:   'anim_player7_walk_02.gif',
+                        img_walk03:   'anim_player7_walk_03.gif',
+                        img_walk04:   'anim_player7_walk_04.gif',
+                        img_selector: 'anim_player_selector.gif',
+                        img_dead:     'anim_player7_dead.gif',
+                        img_gather:   'anim_player7_gather.gif',
+                        img_build:    'anim_player7_build.gif'
+                      }
+      },
+
+    Player8:
+      {
+        Strength   : 1,
+        Weight     : 1,
+        VelLimit   : 2,
+        Size       : 0.4,
+        Bounceable : true,
+        Ghost : false,
+        Visible : true,
+        Z : 5,
+        TextBubble    : false,
+        TextBubbleX   : 0,
+        TextBubbleY   : 0,
+        TextBubbleTargetX   : 0,
+        TextBubbleTargetY   : 0,
+        LivingState  : 0,
+        WalkSum      : 0,
+        Target       : 1,
+        SmartTargetVision : 100,
+        SmartTargetSearchLimit : 250,
+        StopToCalculatePath : true,
+        ExcludeObstacleTypeList : ['Player','Player2','Player3','Player4','Player5','Player6','Player7','Player8','Player9','AmmoStation','Material','ShootingSpot','Prop01','Prop02'],
+        SmartPAttmptBeforeGivingUp : -1,
+        Camera       : -1,
+        ImageList   : {
+                        img_idle:     'anim_player8_idle.gif',
+                        img_walk01:   'anim_player8_walk_01.gif',
+                        img_walk02:   'anim_player8_walk_02.gif',
+                        img_walk03:   'anim_player8_walk_03.gif',
+                        img_walk04:   'anim_player8_walk_04.gif',
+                        img_selector: 'anim_player_selector.gif',
+                        img_dead:     'anim_player8_dead.gif',
+                        img_gather:   'anim_player8_gather.gif',
+                        img_build:    'anim_player8_build.gif'
+                      }
+      },
+
+    Player9:
+      {
+        Strength   : 1,
+        Weight     : 1,
+        VelLimit   : 2,
+        Size       : 0.4,
+        Bounceable : true,
+        Ghost : false,
+        Visible : true,
+        Z : 5,
+        TextBubble    : false,
+        TextBubbleX   : 0,
+        TextBubbleY   : 0,
+        TextBubbleTargetX   : 0,
+        TextBubbleTargetY   : 0,
+        LivingState  : 0,
+        WalkSum      : 0,
+        Target       : 1,
+        SmartTargetVision : 100,
+        SmartTargetSearchLimit : 250,
+        StopToCalculatePath : true,
+        ExcludeObstacleTypeList : ['Player','Player2','Player3','Player4','Player5','Player6','Player7','Player8','Player9','AmmoStation','Material','ShootingSpot','Prop01','Prop02'],
+        SmartPAttmptBeforeGivingUp : -1,
+        Camera       : -1,
+        ImageList   : {
+                        img_idle:     'anim_player9_idle.gif',
+                        img_walk01:   'anim_player9_walk_01.gif',
+                        img_walk02:   'anim_player9_walk_02.gif',
+                        img_walk03:   'anim_player9_walk_03.gif',
+                        img_walk04:   'anim_player9_walk_04.gif',
+                        img_selector: 'anim_player_selector.gif',
+                        img_dead:     'anim_player9_dead.gif',
+                        img_gather:   'anim_player9_gather.gif',
+                        img_build:    'anim_player9_build.gif'
                       }
       },
 
@@ -872,7 +1091,7 @@ var Game_Sprite_TypeProperties =
         Strength   : 0.6,
         Weight     : 10,
         VelLimit   : 2,
-        Size       : 1, // Value between 0.05 and 10.  1 = actual size.
+        Size       : 0.7, // Native 64x64 sprite, displays at ~45px
 
         Bounceable : true,
         Ghost : false,
@@ -892,12 +1111,12 @@ var Game_Sprite_TypeProperties =
                                  // at the time of doing smart-gototarget calculations.
 
         SmartTargetSearchLimit : 250,
-        
+
         StopToCalculatePath : true,
 
         ExcludeObstacleTypeList : [],
         SmartPAttmptBeforeGivingUp : -1,
-        
+
         Camera       : -1,
 
         ImageList   : {
@@ -910,7 +1129,7 @@ var Game_Sprite_TypeProperties =
         Strength   : 0.6,
         Weight     : 10,
         VelLimit   : 2,
-        Size       : 1, // Value between 0.05 and 10.  1 = actual size.
+        Size       : 1.5, // Native 44x64 sprite, displays at 66x96px
 
         Bounceable : true,
         Ghost : false,
@@ -1062,7 +1281,7 @@ var Game_Sprite_TypeProperties =
         Strength   : 0.2,
         Weight     : 5,
         VelLimit   : 1,
-        Size       : 1, // Value between 0.05 and 10.  1 = actual size.
+        Size       : 1, // Native 64x64 sprites
 
         Bounceable : true,
         Ghost : false,
@@ -1105,7 +1324,7 @@ var Game_Sprite_TypeProperties =
         Strength   : 2,
         Weight     : 10,
         VelLimit   : 5,
-        Size       : 1, // Value between 0.05 and 10.  1 = actual size.
+        Size       : 0.5, // Native 64x64 sprite, displays at ~32px
 
         Bounceable : true,
         Ghost : false,
@@ -1143,7 +1362,7 @@ var Game_Sprite_TypeProperties =
         Strength   : 2,
         Weight     : 10,
         VelLimit   : 3,
-        Size       : 1, // Value between 0.05 and 10.  1 = actual size.
+        Size       : 0.8, // Native 64x64 sprite, displays at ~51px
 
         Bounceable : true,
         Ghost : false,
@@ -1181,7 +1400,7 @@ var Game_Sprite_TypeProperties =
         Strength   : 3,
         Weight     : 10,
         VelLimit   : 5,
-        Size       : 1, // Value between 0.05 and 10.  1 = actual size.
+        Size       : 0.55, // Native 64x64 sprite, displays at ~35px
 
         Bounceable : true,
         Ghost : false,
@@ -1219,7 +1438,7 @@ var Game_Sprite_TypeProperties =
         Strength   : 0.2,
         Weight     : 5,
         VelLimit   : 1,
-        Size       : 1, // Value between 0.05 and 10.  1 = actual size.
+        Size       : 1, // Native 64x64 sprites
 
         Bounceable : true,
         Ghost : false,
@@ -1262,7 +1481,7 @@ var Game_Sprite_TypeProperties =
         Strength   : 0.5,
         Weight     : 3,
         VelLimit   : 0.75,
-        Size       : 1, // Value between 0.05 and 10.  1 = actual size.
+        Size       : 1, // Native 64x64 sprites
 
         Bounceable : true,
         Ghost : false,
@@ -1294,9 +1513,452 @@ var Game_Sprite_TypeProperties =
                         img_idle:      'anim_snowman_idle.gif',
                         img_walk01:    'anim_snowman_walk_01.gif',
                         img_walk02:    'anim_snowman_walk_02.gif',
-                        img_walk03:    'anim_snowman_walk_02.gif',
-                        img_walk04:    'anim_snowman_walk_01.gif',
+                        img_walk03:    'anim_snowman_walk_01.gif',
+                        img_walk04:    'anim_snowman_walk_02.gif',
                         img_dead:      'anim_snowman_dead.gif'
+                      }
+      },
+
+    SnowZombie1:
+      {
+        Strength   : 0.5,
+        Weight     : 3,
+        VelLimit   : 0.75,
+        Size       : 1, // Native 64x64 sprites
+        Bounceable : true,
+        Ghost : false,
+        Visible : true,
+        Z : 2,
+        TextBubble   : false,
+        TextBubbleX  : 0,
+        TextBubbleY  : 0,
+        TextBubbleTargetX   : 0,
+        TextBubbleTargetY   : 0,
+        LivingState  : 0,
+        WalkSum      : 0,
+        Target       : 1,
+        SmartTargetVision : 100,
+        SmartTargetSearchLimit : 250,
+        StopToCalculatePath : true,
+        ExcludeObstacleTypeList : [],
+        SmartPAttmptBeforeGivingUp : -1,
+        Camera       : -1,
+        ImageList   : {
+                        img_idle:      'anim_SnowZombie1_idle.gif',
+                        img_walk01:    'anim_SnowZombie1_walk_01.gif',
+                        img_walk02:    'anim_SnowZombie1_walk_02.gif',
+                        img_walk03:    'anim_SnowZombie1_walk_03.gif',
+                        img_walk04:    'anim_SnowZombie1_walk_04.gif',
+                        img_dead:      'anim_SnowZombie1_dead.gif'
+                      }
+      },
+
+    SnowZombie2:
+      {
+        Strength   : 0.5,
+        Weight     : 3,
+        VelLimit   : 0.75,
+        Size       : 1, // Native 64x64 sprites
+        Bounceable : true,
+        Ghost : false,
+        Visible : true,
+        Z : 2,
+        TextBubble   : false,
+        TextBubbleX  : 0,
+        TextBubbleY  : 0,
+        TextBubbleTargetX   : 0,
+        TextBubbleTargetY   : 0,
+        LivingState  : 0,
+        WalkSum      : 0,
+        Target       : 1,
+        SmartTargetVision : 100,
+        SmartTargetSearchLimit : 250,
+        StopToCalculatePath : true,
+        ExcludeObstacleTypeList : [],
+        SmartPAttmptBeforeGivingUp : -1,
+        Camera       : -1,
+        ImageList   : {
+                        img_idle:      'anim_SnowZombie2_idle.gif',
+                        img_walk01:    'anim_SnowZombie2_walk_01.gif',
+                        img_walk02:    'anim_SnowZombie2_walk_02.gif',
+                        img_walk03:    'anim_SnowZombie2_walk_03.gif',
+                        img_walk04:    'anim_SnowZombie2_walk_04.gif',
+                        img_dead:      'anim_SnowZombie2_dead.gif'
+                      }
+      },
+
+    SnowZombie3:
+      {
+        Strength   : 0.6,
+        Weight     : 3,
+        VelLimit   : 0.85,
+        Size       : 1, // Native 64x64 sprites
+        Bounceable : true,
+        Ghost : false,
+        Visible : true,
+        Z : 2,
+        TextBubble   : false,
+        TextBubbleX  : 0,
+        TextBubbleY  : 0,
+        TextBubbleTargetX   : 0,
+        TextBubbleTargetY   : 0,
+        LivingState  : 0,
+        WalkSum      : 0,
+        Target       : 1,
+        SmartTargetVision : 100,
+        SmartTargetSearchLimit : 250,
+        StopToCalculatePath : true,
+        ExcludeObstacleTypeList : [],
+        SmartPAttmptBeforeGivingUp : -1,
+        Camera       : -1,
+        ImageList   : {
+                        img_idle:      'anim_SnowZombie3_idle.gif',
+                        img_walk01:    'anim_SnowZombie3_walk_01.gif',
+                        img_walk02:    'anim_SnowZombie3_walk_02.gif',
+                        img_walk03:    'anim_SnowZombie3_walk_03.gif',
+                        img_walk04:    'anim_SnowZombie3_walk_04.gif',
+                        img_dead:      'anim_SnowZombie3_dead.gif'
+                      }
+      },
+
+    SnowZombie4:
+      {
+        Strength   : 0.6,
+        Weight     : 3,
+        VelLimit   : 0.85,
+        Size       : 1, // Native 64x64 sprites
+        Bounceable : true,
+        Ghost : false,
+        Visible : true,
+        Z : 2,
+        TextBubble   : false,
+        TextBubbleX  : 0,
+        TextBubbleY  : 0,
+        TextBubbleTargetX   : 0,
+        TextBubbleTargetY   : 0,
+        LivingState  : 0,
+        WalkSum      : 0,
+        Target       : 1,
+        SmartTargetVision : 100,
+        SmartTargetSearchLimit : 250,
+        StopToCalculatePath : true,
+        ExcludeObstacleTypeList : [],
+        SmartPAttmptBeforeGivingUp : -1,
+        Camera       : -1,
+        ImageList   : {
+                        img_idle:      'anim_SnowZombie4_idle.gif',
+                        img_walk01:    'anim_SnowZombie4_walk_01.gif',
+                        img_walk02:    'anim_SnowZombie4_walk_02.gif',
+                        img_walk03:    'anim_SnowZombie4_walk_03.gif',
+                        img_walk04:    'anim_SnowZombie4_walk_04.gif',
+                        img_dead:      'anim_SnowZombie4_dead.gif'
+                      }
+      },
+
+    SnowZombie5:
+      {
+        Strength   : 0.7,
+        Weight     : 3,
+        VelLimit   : 0.95,
+        Size       : 1, // Native 64x64 sprites
+        Bounceable : true,
+        Ghost : false,
+        Visible : true,
+        Z : 2,
+        TextBubble   : false,
+        TextBubbleX  : 0,
+        TextBubbleY  : 0,
+        TextBubbleTargetX   : 0,
+        TextBubbleTargetY   : 0,
+        LivingState  : 0,
+        WalkSum      : 0,
+        Target       : 1,
+        SmartTargetVision : 100,
+        SmartTargetSearchLimit : 250,
+        StopToCalculatePath : true,
+        ExcludeObstacleTypeList : [],
+        SmartPAttmptBeforeGivingUp : -1,
+        Camera       : -1,
+        ImageList   : {
+                        img_idle:      'anim_SnowZombie5_idle.gif',
+                        img_walk01:    'anim_SnowZombie5_walk_01.gif',
+                        img_walk02:    'anim_SnowZombie5_walk_02.gif',
+                        img_walk03:    'anim_SnowZombie5_walk_03.gif',
+                        img_walk04:    'anim_SnowZombie5_walk_04.gif',
+                        img_dead:      'anim_SnowZombie5_dead.gif'
+                      }
+      },
+
+    // Boss types - progressively stronger and larger
+    Boss1:
+      {
+        Strength   : 1,
+        Weight     : 8,
+        VelLimit   : 0.6,
+        Size       : 1.5, // Larger than regular zombies
+        Bounceable : true,
+        Ghost : false,
+        Visible : true,
+        Z : 3,
+        TextBubble   : false,
+        TextBubbleX  : 0,
+        TextBubbleY  : 0,
+        TextBubbleTargetX   : 0,
+        TextBubbleTargetY   : 0,
+        LivingState  : 0,
+        WalkSum      : 0,
+        Target       : 1,
+        SmartTargetVision : 100,
+        SmartTargetSearchLimit : 250,
+        StopToCalculatePath : true,
+        ExcludeObstacleTypeList : [],
+        SmartPAttmptBeforeGivingUp : -1,
+        Camera       : -1,
+        ImageList   : {
+                        img_idle:      'anim_Boss1_idle.gif',
+                        img_walk01:    'anim_Boss1_walk_01.gif',
+                        img_walk02:    'anim_Boss1_walk_02.gif',
+                        img_walk03:    'anim_Boss1_walk_03.gif',
+                        img_walk04:    'anim_Boss1_walk_04.gif',
+                        img_dead:      'anim_Boss1_dead.gif'
+                      }
+      },
+
+    Boss2:
+      {
+        Strength   : 1,
+        Weight     : 9,
+        VelLimit   : 0.65,
+        Size       : 1.6,
+        Bounceable : true,
+        Ghost : false,
+        Visible : true,
+        Z : 3,
+        TextBubble   : false,
+        TextBubbleX  : 0,
+        TextBubbleY  : 0,
+        TextBubbleTargetX   : 0,
+        TextBubbleTargetY   : 0,
+        LivingState  : 0,
+        WalkSum      : 0,
+        Target       : 1,
+        SmartTargetVision : 100,
+        SmartTargetSearchLimit : 250,
+        StopToCalculatePath : true,
+        ExcludeObstacleTypeList : [],
+        SmartPAttmptBeforeGivingUp : -1,
+        Camera       : -1,
+        ImageList   : {
+                        img_idle:      'anim_Boss2_idle.gif',
+                        img_walk01:    'anim_Boss2_walk_01.gif',
+                        img_walk02:    'anim_Boss2_walk_02.gif',
+                        img_walk03:    'anim_Boss2_walk_03.gif',
+                        img_walk04:    'anim_Boss2_walk_04.gif',
+                        img_dead:      'anim_Boss2_dead.gif'
+                      }
+      },
+
+    Boss3:
+      {
+        Strength   : 1,
+        Weight     : 10,
+        VelLimit   : 0.7,
+        Size       : 1.7,
+        Bounceable : true,
+        Ghost : false,
+        Visible : true,
+        Z : 3,
+        TextBubble   : false,
+        TextBubbleX  : 0,
+        TextBubbleY  : 0,
+        TextBubbleTargetX   : 0,
+        TextBubbleTargetY   : 0,
+        LivingState  : 0,
+        WalkSum      : 0,
+        Target       : 1,
+        SmartTargetVision : 100,
+        SmartTargetSearchLimit : 250,
+        StopToCalculatePath : true,
+        ExcludeObstacleTypeList : [],
+        SmartPAttmptBeforeGivingUp : -1,
+        Camera       : -1,
+        ImageList   : {
+                        img_idle:      'anim_Boss3_idle.gif',
+                        img_walk01:    'anim_Boss3_walk_01.gif',
+                        img_walk02:    'anim_Boss3_walk_02.gif',
+                        img_walk03:    'anim_Boss3_walk_03.gif',
+                        img_walk04:    'anim_Boss3_walk_04.gif',
+                        img_dead:      'anim_Boss3_dead.gif'
+                      }
+      },
+
+    Boss4:
+      {
+        Strength   : 1,
+        Weight     : 11,
+        VelLimit   : 0.75,
+        Size       : 1.8,
+        Bounceable : true,
+        Ghost : false,
+        Visible : true,
+        Z : 3,
+        TextBubble   : false,
+        TextBubbleX  : 0,
+        TextBubbleY  : 0,
+        TextBubbleTargetX   : 0,
+        TextBubbleTargetY   : 0,
+        LivingState  : 0,
+        WalkSum      : 0,
+        Target       : 1,
+        SmartTargetVision : 100,
+        SmartTargetSearchLimit : 250,
+        StopToCalculatePath : true,
+        ExcludeObstacleTypeList : [],
+        SmartPAttmptBeforeGivingUp : -1,
+        Camera       : -1,
+        ImageList   : {
+                        img_idle:      'anim_Boss4_idle.gif',
+                        img_walk01:    'anim_Boss4_walk_01.gif',
+                        img_walk02:    'anim_Boss4_walk_02.gif',
+                        img_walk03:    'anim_Boss4_walk_03.gif',
+                        img_walk04:    'anim_Boss4_walk_04.gif',
+                        img_dead:      'anim_Boss4_dead.gif'
+                      }
+      },
+
+    Boss5:
+      {
+        Strength   : 1,
+        Weight     : 12,
+        VelLimit   : 0.8,
+        Size       : 1.9,
+        Bounceable : true,
+        Ghost : false,
+        Visible : true,
+        Z : 3,
+        TextBubble   : false,
+        TextBubbleX  : 0,
+        TextBubbleY  : 0,
+        TextBubbleTargetX   : 0,
+        TextBubbleTargetY   : 0,
+        LivingState  : 0,
+        WalkSum      : 0,
+        Target       : 1,
+        SmartTargetVision : 100,
+        SmartTargetSearchLimit : 250,
+        StopToCalculatePath : true,
+        ExcludeObstacleTypeList : [],
+        SmartPAttmptBeforeGivingUp : -1,
+        Camera       : -1,
+        ImageList   : {
+                        img_idle:      'anim_Boss5_idle.gif',
+                        img_walk01:    'anim_Boss5_walk_01.gif',
+                        img_walk02:    'anim_Boss5_walk_02.gif',
+                        img_walk03:    'anim_Boss5_walk_03.gif',
+                        img_walk04:    'anim_Boss5_walk_04.gif',
+                        img_dead:      'anim_Boss5_dead.gif'
+                      }
+      },
+
+    Boss6:
+      {
+        Strength   : 1,
+        Weight     : 13,
+        VelLimit   : 0.85,
+        Size       : 2.0,
+        Bounceable : true,
+        Ghost : false,
+        Visible : true,
+        Z : 3,
+        TextBubble   : false,
+        TextBubbleX  : 0,
+        TextBubbleY  : 0,
+        TextBubbleTargetX   : 0,
+        TextBubbleTargetY   : 0,
+        LivingState  : 0,
+        WalkSum      : 0,
+        Target       : 1,
+        SmartTargetVision : 100,
+        SmartTargetSearchLimit : 250,
+        StopToCalculatePath : true,
+        ExcludeObstacleTypeList : [],
+        SmartPAttmptBeforeGivingUp : -1,
+        Camera       : -1,
+        ImageList   : {
+                        img_idle:      'anim_Boss6_idle.gif',
+                        img_walk01:    'anim_Boss6_walk_01.gif',
+                        img_walk02:    'anim_Boss6_walk_02.gif',
+                        img_walk03:    'anim_Boss6_walk_03.gif',
+                        img_walk04:    'anim_Boss6_walk_04.gif',
+                        img_dead:      'anim_Boss6_dead.gif'
+                      }
+      },
+
+    Boss7:
+      {
+        Strength   : 1,
+        Weight     : 14,
+        VelLimit   : 0.9,
+        Size       : 2.2,
+        Bounceable : true,
+        Ghost : false,
+        Visible : true,
+        Z : 3,
+        TextBubble   : false,
+        TextBubbleX  : 0,
+        TextBubbleY  : 0,
+        TextBubbleTargetX   : 0,
+        TextBubbleTargetY   : 0,
+        LivingState  : 0,
+        WalkSum      : 0,
+        Target       : 1,
+        SmartTargetVision : 100,
+        SmartTargetSearchLimit : 250,
+        StopToCalculatePath : true,
+        ExcludeObstacleTypeList : [],
+        SmartPAttmptBeforeGivingUp : -1,
+        Camera       : -1,
+        ImageList   : {
+                        img_idle:      'anim_Boss7_idle.gif',
+                        img_walk01:    'anim_Boss7_walk_01.gif',
+                        img_walk02:    'anim_Boss7_walk_02.gif',
+                        img_walk03:    'anim_Boss7_walk_03.gif',
+                        img_walk04:    'anim_Boss7_walk_04.gif',
+                        img_dead:      'anim_Boss7_dead.gif'
+                      }
+      },
+
+    Boss8:
+      {
+        Strength   : 1,
+        Weight     : 15,
+        VelLimit   : 1.0,
+        Size       : 2.5, // Final boss - largest
+        Bounceable : true,
+        Ghost : false,
+        Visible : true,
+        Z : 3,
+        TextBubble   : false,
+        TextBubbleX  : 0,
+        TextBubbleY  : 0,
+        TextBubbleTargetX   : 0,
+        TextBubbleTargetY   : 0,
+        LivingState  : 0,
+        WalkSum      : 0,
+        Target       : 1,
+        SmartTargetVision : 100,
+        SmartTargetSearchLimit : 250,
+        StopToCalculatePath : true,
+        ExcludeObstacleTypeList : [],
+        SmartPAttmptBeforeGivingUp : -1,
+        Camera       : -1,
+        ImageList   : {
+                        img_idle:      'anim_Boss8_idle.gif',
+                        img_walk01:    'anim_Boss8_walk_01.gif',
+                        img_walk02:    'anim_Boss8_walk_02.gif',
+                        img_walk03:    'anim_Boss8_walk_03.gif',
+                        img_walk04:    'anim_Boss8_walk_04.gif',
+                        img_dead:      'anim_Boss8_dead.gif'
                       }
       },
 
@@ -1305,7 +1967,7 @@ var Game_Sprite_TypeProperties =
         Strength   : 0.9,
         Weight     : 3,
         VelLimit   : 2,
-        Size       : 1, // Value between 0.05 and 10.  1 = actual size.
+        Size       : 1, // Native 64x64 sprites
 
         Bounceable : true,
         Ghost : false,
@@ -1348,7 +2010,7 @@ var Game_Sprite_TypeProperties =
         Strength   : 1,
         Weight     : 1,
         VelLimit   : 1,
-        Size       : 1, // Value between 0.05 and 10.  1 = actual size.
+        Size       : 1, // Native 64x64 sprites
 
         Bounceable : true,
         Ghost : false,
@@ -1605,6 +2267,9 @@ function Game_Start(KickstartTimer)
   
   Game_Camera = PlaceSprite(Game_LevelCameraX,Game_LevelCameraY,'Camera',false);
   Game_Camera.setCamera();
+  // Force immediate viewport update so sprites render at correct positions
+  // from the very first frame (don't wait for SpriteHandler to update)
+  SetViewPort(Game_LevelCameraX, Game_LevelCameraY);
   Game_UpdateScreenScoreInfo();
 }
 
@@ -1629,8 +2294,18 @@ function Game_LoadLevel(Level,Transition)
     Game_InGameTipLabel.ScheduleDestruction = true;
     Game_InGameTipLabel = null;
   }
-  
-  var LevelData = Game_LevelData[Level - 1];
+
+  // Use procedural level generation for levels beyond predefined ones
+  var LevelData;
+  if (Level <= Game_LevelData.length) {
+    LevelData = Game_LevelData[Level - 1];
+  } else if (typeof ProceduralLevels !== 'undefined') {
+    LevelData = ProceduralLevels.generateLevel(Level);
+    console.log('[PROCEDURAL] Generated level', Level, ':', LevelData.LevelComments);
+  } else {
+    // Fallback: loop back to level 1 if no procedural generation
+    LevelData = Game_LevelData[0];
+  }
   
   if (Transition)
   {
@@ -1751,7 +2426,23 @@ function Game_LoadLevel(Level,Transition)
       Game_Blocks.push(ThisBlockSprite);
     }
   }
-  
+
+  // Create decorative NPCs (animals and villagers)
+  if (LevelData.DecorativeNPCs)
+  {
+    for (var NPCIndex in LevelData.DecorativeNPCs)
+    {
+      var ThisNPC = LevelData.DecorativeNPCs[NPCIndex];
+      var ThisNPCSprite = Game_CreateAndPlaceSprite(ThisNPC.X, ThisNPC.Y, ThisNPC.Type);
+      if (ThisNPCSprite)
+      {
+        ThisNPCSprite.setGhost(true); // Make them non-interactive
+        ThisNPCSprite.isDecorativeNPC = true;
+        console.log('[NPC] Spawned decorative NPC:', ThisNPC.Type, 'at', ThisNPC.X, ThisNPC.Y);
+      }
+    }
+  }
+
   var Shooter = null;
   
   Game_BaseX = -1;
@@ -1818,7 +2509,7 @@ function Game_LoadLevel(Level,Transition)
           
           if ((Game_BaseY2 == -1) || (Game_BaseY2 < (ThisPlayerInfo.BaseY + parseInt(g_AnimTypes[ThisPlayerInfo.Type].idle.Image.height))))
           {
-            Game_BaseY2 = ThisPlayerInfo.BaseY + parseInt(g_AnimTypes['Player'].idle.Image.height);
+            Game_BaseY2 = ThisPlayerInfo.BaseY + parseInt(g_AnimTypes[ThisPlayerInfo.Type].idle.Image.height);
           }
         }
         //else
@@ -1843,7 +2534,7 @@ function Game_LoadLevel(Level,Transition)
       
       for (var PlayerInfo in LevelData.PlayersList)
       {
-        ThisPlayerInfo = LevelData.PlayersList[PlayerInfo];
+        var ThisPlayerInfo = LevelData.PlayersList[PlayerInfo];
         
         while ((PlayerIndex < Game_PlayersArray.length) && !Game_PlayersArray[PlayerIndex])
         {
@@ -1857,6 +2548,10 @@ function Game_LoadLevel(Level,Transition)
           Game_PlayersArray[PlayerIndex].BaseX          = ThisPlayerInfo.BaseX;
           Game_PlayersArray[PlayerIndex].BaseY          = ThisPlayerInfo.BaseY;
           Game_PlayersArray[PlayerIndex].BuildAmmoPhase = 0;
+          // Teleport player to new level area (near their start position)
+          // so they don't appear stuck at the previous level's coordinates.
+          Game_PlayersArray[PlayerIndex].X = ThisPlayerInfo.X;
+          Game_PlayersArray[PlayerIndex].Y = ThisPlayerInfo.Y;
           SetSpriteTarget(Game_PlayersArray[PlayerIndex],ThisPlayerInfo.BaseX,ThisPlayerInfo.BaseY,null,true,false);
           
           if (!Shooter)
@@ -1872,6 +2567,26 @@ function Game_LoadLevel(Level,Transition)
         }
       }
       
+      // Move any extra players (from previous level with more players) to the
+      // last assigned player's base position so they stay on-screen.
+      // E.g., level 1 has 3 players but level 2 only defines 2 positions.
+      while (PlayerIndex < Game_PlayersArray.length)
+      {
+        if (Game_PlayersArray[PlayerIndex])
+        {
+          var lastInfo = LevelData.PlayersList[Object.keys(LevelData.PlayersList).pop()];
+          Game_PlayersArray[PlayerIndex].setStateImage('',2);
+          Game_PlayersArray[PlayerIndex].BaseX          = lastInfo.BaseX;
+          Game_PlayersArray[PlayerIndex].BaseY          = lastInfo.BaseY;
+          Game_PlayersArray[PlayerIndex].BuildAmmoPhase = 0;
+          // Teleport extra players to new level area
+          Game_PlayersArray[PlayerIndex].X = lastInfo.X;
+          Game_PlayersArray[PlayerIndex].Y = lastInfo.Y;
+          SetSpriteTarget(Game_PlayersArray[PlayerIndex],lastInfo.BaseX,lastInfo.BaseY,null,true,false);
+        }
+        PlayerIndex++;
+      }
+
       if (Game_PlayerShooter)
       {
         Shooter = Game_PlayerShooter;
@@ -2009,7 +2724,7 @@ function Game_CreateAndPlaceZombie(X,Y,ZombieType)
   var Zombie = Game_CreateAndPlaceSprite(X,Y,Game_ZombieTypes[ZombieType].SpriteType);
   Zombie.isPlayer   = false;
   Zombie.isZombie     = true;
-  Zombie.isDinosaur   = (ZombieType == 'Dinosaur');
+  Zombie.isDinosaur   = (ZombieType == 'Dinosaur' || ZombieType.indexOf('Boss') === 0);
   Zombie.ZombieType = ZombieType;
   Zombie.ZombieStrength = Game_ZombieTypes[ZombieType].Strength;
   
@@ -2368,13 +3083,15 @@ function Game_Frame()
           if (SpawnSpot)
           {
             var TheZombie = Game_CreateAndPlaceZombie(SpawnSpot[0],SpawnSpot[1],Game_CurrentZombieSpawnType);
-            
+
             if (TheZombie)
             {
               TheZombie.findTarget();
+              // Spawn entrance animation
+              Game_SpriteSpawnEffect(TheZombie);
+              Game_ZombieTotalSpawnCount++;
+              Game_ZombiesInGame++;
             }
-            Game_ZombieTotalSpawnCount++;
-            Game_ZombiesInGame++;
             SoundPlay(Game_ZombieTypes[Game_CurrentZombieSpawnType].SpawnSound);
           }
         }
@@ -2570,7 +3287,7 @@ function Game_SpriteDead(Sprite)
     {
       if (Game_PlayersArray[ThisPlayer].Id == Sprite.Id)
       {
-        delete Game_PlayersArray[ThisPlayer.Id];
+        delete Game_PlayersArray[ThisPlayer];
         break;
       }
     }
@@ -2620,9 +3337,11 @@ function Game_BounceCheck(Sprite1,Sprite2)
       {
         SoundPlay('zombiehit');
         WeaponFailed = true;
+        // Visual hit flash on zombie
+        Game_SpriteHitFlash(Sprite2);
       }
     }
-    
+
     Result = false;
   }
   else if (Sprite2.isWeapon)
@@ -2650,9 +3369,11 @@ function Game_BounceCheck(Sprite1,Sprite2)
       {
         SoundPlay('zombiehit');
         WeaponFailed = true;
+        // Visual hit flash on zombie
+        Game_SpriteHitFlash(Sprite1);
       }
     }
-    
+
     Result = false;
   }
   else if (Sprite1.isIceBlock && !Sprite2.isDinosaur)
@@ -2720,6 +3441,9 @@ function Game_BounceCheck(Sprite1,Sprite2)
     if (DeadPlayer && (DeadPlayer.LivingState == 0))
     {
       SoundPlay(Player_Sounds[DeadPlayer.Type].Killed);
+      // Visual damage feedback: hurt flash + screen shake
+      Game_SpriteHurtFlash(DeadPlayer);
+      Game_ScreenShake();
       if (Killer && Killer.isDinosaur)
       {
         Game_SpriteDead(DeadPlayer);
@@ -2795,6 +3519,8 @@ function Game_BounceCheck(Sprite1,Sprite2)
     {
       EatenZombie.doAction('die');
       EatenZombie.setGhost(true);
+      // Visual death effect
+      Game_SpriteDyingEffect(EatenZombie);
     }
     
     Game_ZombiesInGame--;
@@ -2847,6 +3573,8 @@ function Game_PlayerShoot(X,Y,TargetX,TargetY)
     if (Game_Ammo[WeaponType].Count > 0)
     {
       var Weapon    = Game_CreateAndPlaceWeapon(X,Y,WeaponType);
+      // Add projectile glow effect
+      Game_SpriteProjectileEffect(Weapon);
       SetSpriteTarget(Weapon,TargetX,TargetY,null,false,false);
       Weapon.Target = -1;
       Weapon.moveToTarget();
@@ -3030,7 +3758,7 @@ function Game_DismissPauseDialog()
 {
   Game_UserPaused = false;
   TimeLine_SpritePlay(true);
-  Game_PauseLevelScreen.className = 'quitlevelconfirm div_hidden';
+  Game_PauseLevelScreen.className = 'pauselevel div_hidden';
 }
 
 function Game_ReachedWall(Sprite,BounceForce)
@@ -3221,5 +3949,78 @@ function Game_TooltipDisplayCheck()
   if (Game_TooltipTime == 0)
   {
     ReplaceHTML('div_infoscreen','');
+  }
+}
+
+// ==============================================
+// VISUAL EFFECTS SYSTEM
+// ==============================================
+
+// Flash white when a zombie is hit but not killed
+function Game_SpriteHitFlash(Sprite)
+{
+  if (Sprite && Sprite.Image)
+  {
+    Sprite.Image.classList.add('sprite-hit');
+    setTimeout(function() {
+      if (Sprite.Image) Sprite.Image.classList.remove('sprite-hit');
+    }, 120);
+  }
+}
+
+// Red hurt flash when a player takes fatal damage
+function Game_SpriteHurtFlash(Sprite)
+{
+  if (Sprite && Sprite.Image)
+  {
+    Sprite.Image.classList.add('sprite-hurt');
+    setTimeout(function() {
+      if (Sprite.Image) Sprite.Image.classList.remove('sprite-hurt');
+    }, 200);
+  }
+}
+
+// Fade + grayscale when a zombie dies
+function Game_SpriteDyingEffect(Sprite)
+{
+  if (Sprite && Sprite.Image)
+  {
+    Sprite.Image.classList.remove('sprite-shadow');
+    Sprite.Image.classList.add('sprite-dying');
+  }
+}
+
+// Scale-in animation when a zombie spawns
+function Game_SpriteSpawnEffect(Sprite)
+{
+  if (Sprite && Sprite.Image)
+  {
+    Sprite.Image.classList.add('sprite-spawn');
+    setTimeout(function() {
+      if (Sprite.Image) Sprite.Image.classList.remove('sprite-spawn');
+    }, 300);
+  }
+}
+
+// Glow effect on weapon projectiles
+function Game_SpriteProjectileEffect(Sprite)
+{
+  if (Sprite && Sprite.Image)
+  {
+    Sprite.Image.classList.remove('sprite-shadow');
+    Sprite.Image.classList.add('sprite-projectile');
+  }
+}
+
+// Screen shake when a player dies
+function Game_ScreenShake()
+{
+  var container = document.getElementById('div_moviescreenframe');
+  if (container)
+  {
+    container.classList.add('screen-shake');
+    setTimeout(function() {
+      container.classList.remove('screen-shake');
+    }, 200);
   }
 }

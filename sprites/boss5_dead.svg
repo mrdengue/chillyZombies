@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" width="64" height="64" shape-rendering="crispEdges">
+<!-- Boss5: Yeti King - dead (collapsed furry heap) -->
+<!-- Fallen body mass -->
+<rect x="1" y="9" width="14" height="4" fill="#e0e0e0"/>
+<rect x="2" y="8" width="5" height="1" fill="#e8e8e8"/>
+<!-- Head -->
+<rect x="1" y="8" width="4" height="3" fill="#e8e8e8"/>
+<!-- Closed eye -->
+<rect x="2" y="9" width="1" height="1" fill="#880000" opacity="0.5"/>
+<!-- Fur tufts -->
+<rect x="3" y="7" width="1" height="1" fill="#f0f0f0"/>
+<rect x="6" y="8" width="1" height="1" fill="#f0f0f0"/>
+<rect x="11" y="8" width="1" height="1" fill="#f0f0f0"/>
+<!-- Arms -->
+<rect x="0" y="11" width="2" height="2" fill="#d8d8d8"/>
+<rect x="14" y="10" width="2" height="2" fill="#d8d8d8"/>
+<!-- Legs -->
+<rect x="10" y="13" width="4" height="1" fill="#d0d0d0"/>
+<rect x="2" y="13" width="3" height="1" fill="#d0d0d0"/>
+<rect x="1" y="14" width="4" height="1" fill="#999999"/>
+<rect x="11" y="14" width="4" height="1" fill="#999999"/>
+</svg>

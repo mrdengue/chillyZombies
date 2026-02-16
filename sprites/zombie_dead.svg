@@ -1,0 +1,27 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="64" height="64" viewBox="0 0 16 16" shape-rendering="crispEdges">
+  <!-- Frozen Zombie - Dead (collapsed) -->
+  <!-- Head on ground -->
+  <rect x="2" y="10" width="3" height="2" fill="#7BA68B"/>
+  <!-- Closed eyes -->
+  <rect x="3" y="10" width="1" height="1" fill="#444"/>
+  <rect x="4" y="10" width="1" height="1" fill="#444"/>
+  <!-- Body lying flat -->
+  <rect x="5" y="10" width="6" height="2" fill="#4A5E4A"/>
+  <!-- Arms splayed -->
+  <rect x="4" y="9" width="2" height="1" fill="#7BA68B"/>
+  <rect x="10" y="9" width="2" height="1" fill="#7BA68B"/>
+  <!-- Claws on ground -->
+  <rect x="3" y="9" width="1" height="1" fill="#6B9679"/>
+  <rect x="12" y="9" width="1" height="1" fill="#6B9679"/>
+  <!-- Legs -->
+  <rect x="11" y="10" width="3" height="2" fill="#2E2E44"/>
+  <!-- Feet up -->
+  <rect x="14" y="10" width="1" height="1" fill="#6B9679"/>
+  <!-- Ice melting/particles -->
+  <rect x="1" y="12" width="1" height="1" fill="#AADDEE"/>
+  <rect x="7" y="8" width="1" height="1" fill="#AADDEE"/>
+  <rect x="13" y="8" width="1" height="1" fill="#AADDEE"/>
+  <!-- Green goo puddle -->
+  <rect x="4" y="12" width="4" height="1" fill="#3D6B3D"/>
+  <rect x="5" y="13" width="2" height="1" fill="#2D4A2D"/>
+</svg>

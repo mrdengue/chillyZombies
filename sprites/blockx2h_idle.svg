@@ -1,0 +1,58 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 40 20" width="40" height="20" shape-rendering="crispEdges">
+  <!-- Snow cap -->
+  <rect x="1" y="0" width="38" height="1" fill="#ffffff"/>
+  <rect x="0" y="1" width="40" height="1" fill="#e8f0f8"/>
+  <rect x="0" y="2" width="40" height="1" fill="#d0e4f0"/>
+  <rect x="3" y="0" width="2" height="1" fill="#f0f8ff"/>
+  <rect x="12" y="0" width="4" height="1" fill="#f0f8ff"/>
+  <rect x="22" y="0" width="3" height="1" fill="#f0f8ff"/>
+  <rect x="33" y="0" width="3" height="1" fill="#f0f8ff"/>
+  <!-- Snow drips -->
+  <rect x="0" y="3" width="1" height="1" fill="#d0e4f0"/>
+  <rect x="39" y="3" width="1" height="1" fill="#c8dce8"/>
+  <rect x="19" y="3" width="2" height="1" fill="#d8e8f0"/>
+  <!-- Stone body -->
+  <rect x="0" y="3" width="40" height="15" fill="#5a5a6e"/>
+  <rect x="1" y="3" width="38" height="1" fill="#6e6e82"/>
+  <!-- Lighter patches -->
+  <rect x="2" y="5" width="3" height="2" fill="#686880"/>
+  <rect x="8" y="4" width="4" height="2" fill="#686880"/>
+  <rect x="15" y="6" width="3" height="2" fill="#686880"/>
+  <rect x="22" y="5" width="4" height="2" fill="#686880"/>
+  <rect x="30" y="4" width="3" height="2" fill="#686880"/>
+  <rect x="35" y="6" width="3" height="2" fill="#686880"/>
+  <rect x="4" y="10" width="4" height="2" fill="#686880"/>
+  <rect x="12" y="11" width="3" height="2" fill="#686880"/>
+  <rect x="24" y="10" width="4" height="2" fill="#686880"/>
+  <rect x="33" y="11" width="3" height="2" fill="#686880"/>
+  <rect x="1" y="14" width="3" height="2" fill="#686880"/>
+  <rect x="17" y="13" width="4" height="2" fill="#686880"/>
+  <rect x="36" y="14" width="2" height="2" fill="#686880"/>
+  <!-- Cracks -->
+  <rect x="6" y="6" width="1" height="3" fill="#484858"/>
+  <rect x="14" y="4" width="1" height="2" fill="#484858"/>
+  <rect x="26" y="6" width="1" height="3" fill="#484858"/>
+  <rect x="34" y="5" width="1" height="2" fill="#484858"/>
+  <rect x="10" y="11" width="1" height="2" fill="#484858"/>
+  <rect x="29" y="10" width="1" height="2" fill="#484858"/>
+  <!-- Mortar lines -->
+  <rect x="0" y="9" width="19" height="1" fill="#4a4a5a"/>
+  <rect x="21" y="9" width="19" height="1" fill="#4a4a5a"/>
+  <rect x="9" y="3" width="1" height="7" fill="#4a4a5a"/>
+  <rect x="20" y="3" width="1" height="15" fill="#4a4a5a"/>
+  <rect x="29" y="3" width="1" height="7" fill="#4a4a5a"/>
+  <rect x="5" y="9" width="1" height="9" fill="#4a4a5a"/>
+  <rect x="14" y="9" width="1" height="9" fill="#4a4a5a"/>
+  <rect x="25" y="9" width="1" height="9" fill="#4a4a5a"/>
+  <rect x="34" y="9" width="1" height="9" fill="#4a4a5a"/>
+  <!-- Bottom -->
+  <rect x="0" y="17" width="40" height="1" fill="#3e3e50"/>
+  <rect x="0" y="18" width="40" height="2" fill="#2e2e40"/>
+  <rect x="0" y="3" width="1" height="15" fill="#4e4e62"/>
+  <rect x="39" y="3" width="1" height="15" fill="#4e4e62"/>
+  <!-- Snow highlights -->
+  <rect x="5" y="1" width="1" height="1" fill="#ffffff"/>
+  <rect x="15" y="1" width="1" height="1" fill="#ffffff"/>
+  <rect x="25" y="1" width="1" height="1" fill="#ffffff"/>
+  <rect x="35" y="1" width="1" height="1" fill="#ffffff"/>
+</svg>

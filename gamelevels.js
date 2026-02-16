@@ -5,49 +5,47 @@
 // Level 5: More Normal Zombies.
 // Level 6: Intro to Zombiess.  A couple of ice blocks, little ammo, tons of stock.
 // Level 7: No Zombiess here - ice blocks.
-// Level 8: Snow Zombies + Sheep + blocks.
+// Level 8: Snow Zombies + SnowZombie variants + Sheep + blocks.
 // Level 9: Normal Zombies + Sheep + Zombiess + Blocks.
 // Level 10: Normal Zombies + Sheep + Ice Blocks.
 // Level 11: Zombiesses + players in the middle.  They come from both sides.
 // Level 12: Zombiesses + Sheep + players in the middle.
-// Level 13: Zombiesses + Snow Zombies + players in the bottom center.
-// Level 14: Snow Zombies + Normal Zombies + Sheep (back to building... remind the player).
+// Level 13: SnowZombie variants + Zombiesses + players in the bottom center.
+// Level 14: Snow Zombies + SnowZombie variants + Normal Zombies + Sheep.
 // Level 15: Block Labyrinth to the material.
 // Level 16: Ice Block Labyrinth to the material.
-// Level 17: Zombies really close to you (add Zombiesses).  Material close.
-// Level 18: Zombies really close to you.  Material far.
+// Level 17: SnowZombie variants close to you (add Zombiesses).  Material close.
+// Level 18: SnowZombie variants close to you.  Material far.
 // Level 19: Blocks appear/disappear intermittently, material on same side.
-// Level 20: Blocks appear/disappear intermittently, material on opposite side.
-// Level 21: Dinosaur.  With useless blocks.
+// Level 20: SnowZombie variants + blocks appear/disappear, material on opposite side.
+// Level 21: BOSS1 (Ice Golem).  With useless blocks.
 // Level 22: Tons of Zombiesses + 1 sheep in the middle.
 // Level 23: Sheep only.  Tons of them.  Block protection.
 // Level 24: Sheep only.  Tons of them.  Ice block protection.
 // Level 25: Sheep only.  Tons of them.  No protection.
 // Level 26: (Same place as last level, no position change). Sheep only.  Tons of them.  No protection.
 // Level 27: (Same place as last level, no position change). Sheep only.  Just a few of them.  Joke level.
-// Level 28: Dinosaur.
-// Level 29: Snow Zombies appear between you and material gathering.
-// Level 30: Snow Zombies appear between you and material gathering, plus intermittent ice block walls.
+// Level 28: BOSS2 (Snow Wraith).
+// Level 29: SnowZombie4-5 appear between you and material gathering.
+// Level 30: SnowZombie3-5 + intermittent ice block walls.
 // Level 31: Few sheep appear between you and material gathering, plus intermittent block walls.
 // Level 32: Tons of sheep appear between you and material gathering, plus intermittent block walls.
-// Level 33:  Three Dinosaurs + little ammo.
-// Level 34: One dinosaur, lots of zombies (all types), and stations are far apart.
+// Level 33: Two Dinosaurs + BOSS3 (Frost Giant) + little ammo.
+// Level 34: BOSS4 + all zombie types + dinosaur finale.
 
 var Game_LevelData =
 [
   {
     LevelNumber          : 1, // For easy ID and location purposes.
-    LevelComments        : 'Intro',
+    LevelComments        : 'Intro - Learn the basics',
     FramesPerSecond      : gc_MobileInitialFramesPerSecond, // (or gc_MobileInitialFramesPerSecond_Slow,gc_MobileInitialFramesPerSecond_Fast)
     LevelTotalZombies    : 3,
     StartSpawnTimeInSecs : 1,
     ZombieMaxSpawnTime   : 1,
     ZombieSpawnList : [
+                       ['Snowman',1],
+                       ['Snowman',1],
                        ['Snowman',-1]
-//'NormalZombie'
-//'Sheep'
-//'Dinosaur'
-//'NormalZombie'
                       ],
                       
     ZombieSpawnSpots  : [
@@ -75,7 +73,7 @@ var Game_LevelData =
                              Y1: 0 * 260  + 25,
                              Y2: 0 * 260  + 260
                            },
-    PlayersList : 
+    PlayersList :
     {
       1:  {
             X     : 28 * 480 + 400,
@@ -139,7 +137,11 @@ var Game_LevelData =
     StartSpawnTimeInSecs : 1,
     ZombieMaxSpawnTime   : 1.5,
     ZombieSpawnList : [
-                       ['Snowman',-1]
+                       ['Snowman',1],
+                       ['Snowman',1],
+                       ['Snowman',1],
+                       ['NormalZombie',1],
+                       ['NormalZombie',-1]
                       ],
                       
     ZombieSpawnSpots  : [
@@ -167,7 +169,7 @@ var Game_LevelData =
                              Y1: 0 * 260  + 25,
                              Y2: 0 * 260  + 260
                            },
-    PlayersList : 
+    PlayersList :
     {
       1:  {
             X     : 27 * 480 + 400,
@@ -182,13 +184,6 @@ var Game_LevelData =
             BaseX : 27 * 480 + 430,
             BaseY : 0  * 260 + 205,
             Type  : 'Player2'
-          },
-      3:  {
-            X     : 27 * 480 + 320,
-            Y     : 0  * 260 + 50,
-            BaseX : 27 * 480 + 460,
-            BaseY : 0  * 260 + 205,
-            Type  : 'Player3'
           }
     },
     
@@ -726,12 +721,12 @@ var Game_LevelData =
     ZombieSpawnList : [
                        ['Snowman',5],
                        ['Sheep',9],
-                       ['Snowman',13],
+                       ['SnowZombie1',13],
                        ['Sheep',17],
-                       ['Snowman',20],
+                       ['SnowZombie2',20],
                        ['Sheep',-1]
                       ],
-                      
+
     ZombieSpawnSpots  : [
                          [22 * 480 + 180,1 * 260 + 25],
                          [22 * 480 + 330,1 * 260 + 25]
@@ -1207,10 +1202,10 @@ var Game_LevelData =
     StartSpawnTimeInSecs : 1.5,
     ZombieMaxSpawnTime   : 0.2,
     ZombieSpawnList : [
-                       ['Snowman',2],
+                       ['SnowZombie2',2],
                        ['Zombiess',4],
                        ['Snowman',6],
-                       ['Zombiess',-1]
+                       ['SnowZombie3',-1]
                       ],
                       
     ZombieSpawnSpots  : [
@@ -1304,9 +1299,9 @@ var Game_LevelData =
     ZombieSpawnList : [
                        ['Snowman',5],
                        ['NormalZombie',10],
-                       ['Snowman',18],
+                       ['SnowZombie1',18],
                        ['NormalZombie',26],
-                       ['Snowman',27],
+                       ['SnowZombie3',27],
                        ['Sheep',32],
                        ['NormalZombie',-1]
                       ],
@@ -1601,14 +1596,14 @@ var Game_LevelData =
     ZombieMaxSpawnTime   : 0.2,
     ZombieSpawnList : [
                        ['NormalZombie',5],
-                       ['Snowman',10],
+                       ['SnowZombie2',10],
                        ['NormalZombie',15],
                        ['Zombiess',16],
-                       ['Snowman',21],
+                       ['SnowZombie4',21],
                        ['NormalZombie',26],
-                       ['Snowman',-1]
+                       ['SnowZombie1',-1]
                       ],
-                      
+
     ZombieSpawnSpots  : [
                          [15 * 480 +  300,3 * 260 + 70],
                          [15 * 480 +  300,3 * 260 + 100],
@@ -1699,13 +1694,13 @@ var Game_LevelData =
     ZombieMaxSpawnTime   : 0.25,
     ZombieSpawnList : [
                        ['NormalZombie',5],
-                       ['Snowman',10],
+                       ['SnowZombie3',10],
                        ['NormalZombie',15],
                        ['Zombiess',16],
-                       ['Snowman',21],
+                       ['SnowZombie5',21],
                        ['NormalZombie',-1]
                       ],
-                      
+
     ZombieSpawnSpots  : [
                          [14 * 480 +  300,3 * 260 + 70],
                          [14 * 480 +  300,3 * 260 + 200]
@@ -1892,16 +1887,16 @@ var Game_LevelData =
     StartSpawnTimeInSecs : 12,
     ZombieMaxSpawnTime   : 1,
     ZombieSpawnList : [
-                       ['Snowman',4],
+                       ['SnowZombie3',4],
                        ['NormalZombie',8],
-                       ['Snowman',10],
+                       ['SnowZombie4',10],
                        ['Zombiess',11],
                        ['NormalZombie',15],
                        ['Zombiess',18],
-                       ['NormalZombie',25],
+                       ['SnowZombie5',25],
                        ['Snowman',32],
                        ['NormalZombie',37],
-                       ['Snowman',-1]
+                       ['SnowZombie1',-1]
                       ],
                       
     ZombieSpawnSpots  : [
@@ -1998,9 +1993,9 @@ var Game_LevelData =
     StartSpawnTimeInSecs : 1,
     ZombieMaxSpawnTime   : 0.2,
     ZombieSpawnList : [
-                       ['Snowman',12],
-                       ['Dinosaur',13],
-                       ['Snowman',-1]
+                       ['SnowZombie2',12],
+                       ['Boss1',13],
+                       ['SnowZombie4',-1]
                       ],
                       
     ZombieSpawnSpots  : [
@@ -2678,9 +2673,9 @@ var Game_LevelData =
  StartSpawnTimeInSecs : 3,
  ZombieMaxSpawnTime   : 0.3,
  ZombieSpawnList : [
-                    ['Dinosaur',-1]
+                    ['Boss2',-1]
                     ],
- 
+
  ZombieSpawnSpots  : [
                       [8 * 480 +  10,5 * 260 + 10]
                       //,
@@ -2779,9 +2774,10 @@ var Game_LevelData =
  StartSpawnTimeInSecs : 14,
  ZombieMaxSpawnTime   : 0.8,
  ZombieSpawnList : [
-                    ['Snowman',-1]
+                    ['SnowZombie4',6],
+                    ['SnowZombie5',-1]
                     ],
- 
+
  ZombieSpawnSpots  : [
                       [8 * 480 +  250,4 * 260 + 70]
                       //,
@@ -2869,9 +2865,11 @@ var Game_LevelData =
  StartSpawnTimeInSecs : 15,
  ZombieMaxSpawnTime   : 0.5,
  ZombieSpawnList : [
+                    ['SnowZombie3',5],
+                    ['SnowZombie5',10],
                     ['Snowman',-1]
                     ],
- 
+
  ZombieSpawnSpots  : [
                       [7 * 480 +  250,4 * 260 + 70]
                       //,
@@ -3157,11 +3155,8 @@ var Game_LevelData =
  StartSpawnTimeInSecs : 23,
  ZombieMaxSpawnTime   : 0.25,
  ZombieSpawnList : [
-                    ['Dinosaur',4],
-                    ['NormalZombie',6],
-                    ['Dinosaur',10],
-                    ['NormalZombie',11],
-                    ['Dinosaur',-1]
+                    ['Dinosaur',2],
+                    ['Boss3',-1]
                     ],
  
  ZombieSpawnSpots  : [
@@ -3257,13 +3252,13 @@ var Game_LevelData =
  ZombieMaxSpawnTime   : 0.20,
  ZombieSpawnList : [
                     ['NormalZombie',6],
-                    ['Zombiess',7],
-                    ['Snowman',14],
+                    ['SnowZombie3',7],
+                    ['SnowZombie5',14],
                     ['Zombiess',15],
-                    ['NormalZombie',20],
+                    ['SnowZombie1',20],
                     ['Sheep',27],
-                    ['Zombiess',31],
-                    ['Snowman',32],
+                    ['SnowZombie4',31],
+                    ['Boss4',32],
                     ['Sheep',39],
                     ['Dinosaur',-1],
                     ],

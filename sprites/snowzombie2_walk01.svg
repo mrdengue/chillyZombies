@@ -1,0 +1,33 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="64" height="64" viewBox="0 0 16 16" shape-rendering="crispEdges">
+  <!-- Snow Zombie 2 - Ice Crawler - Walk 01 (front legs forward) -->
+  <!-- Bald head (frostbitten purple) -->
+  <rect x="6" y="2" width="4" height="1" fill="#887799"/>
+  <rect x="6" y="3" width="4" height="2" fill="#9988AA"/>
+  <!-- Sunken eyes (yellow glow) -->
+  <rect x="7" y="3" width="1" height="1" fill="#FFCC44"/>
+  <rect x="9" y="3" width="1" height="1" fill="#FFCC44"/>
+  <!-- Open jaw -->
+  <rect x="7" y="5" width="3" height="1" fill="#553355"/>
+  <rect x="8" y="5" width="1" height="1" fill="#221122"/>
+  <!-- Hunched body (dark purple rags) -->
+  <rect x="4" y="5" width="8" height="1" fill="#665577"/>
+  <rect x="4" y="6" width="8" height="1" fill="#554466"/>
+  <rect x="5" y="7" width="7" height="1" fill="#665577"/>
+  <rect x="5" y="8" width="6" height="1" fill="#554466"/>
+  <!-- Long arms (reaching) -->
+  <rect x="2" y="5" width="2" height="1" fill="#9988AA"/>
+  <rect x="12" y="5" width="2" height="1" fill="#9988AA"/>
+  <rect x="1" y="6" width="2" height="1" fill="#887799"/>
+  <rect x="13" y="6" width="2" height="1" fill="#887799"/>
+  <!-- Frostbite marks -->
+  <rect x="3" y="6" width="1" height="1" fill="#AADDFF"/>
+  <rect x="12" y="6" width="1" height="1" fill="#AADDFF"/>
+  <!-- Legs - front legs forward -->
+  <rect x="5" y="9" width="2" height="1" fill="#443355"/>
+  <rect x="4" y="10" width="2" height="2" fill="#443355"/>
+  <rect x="9" y="9" width="2" height="2" fill="#443355"/>
+  <rect x="10" y="11" width="2" height="1" fill="#332244"/>
+  <!-- Feet -->
+  <rect x="3" y="12" width="3" height="1" fill="#887799"/>
+  <rect x="10" y="12" width="3" height="1" fill="#887799"/>
+</svg>

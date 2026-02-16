@@ -1,0 +1,39 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="64" height="64" viewBox="0 0 16 16" shape-rendering="crispEdges">
+  <!-- Frozen Zombie - Walk 3 (lurching left) -->
+  <!-- Messy hair -->
+  <rect x="5" y="1" width="4" height="1" fill="#2D4A2D"/>
+  <rect x="4" y="2" width="2" height="1" fill="#2D4A2D"/>
+  <rect x="8" y="2" width="2" height="1" fill="#2D4A2D"/>
+  <!-- Head tilted other way -->
+  <rect x="5" y="2" width="4" height="2" fill="#7BA68B"/>
+  <rect x="5" y="4" width="4" height="1" fill="#6B9679"/>
+  <!-- Eyes -->
+  <rect x="6" y="3" width="1" height="1" fill="#FF3333"/>
+  <rect x="8" y="3" width="1" height="1" fill="#FF3333"/>
+  <!-- Mouth -->
+  <rect x="6" y="4" width="2" height="1" fill="#1A3320"/>
+  <!-- Tattered shirt -->
+  <rect x="5" y="5" width="6" height="1" fill="#556B55"/>
+  <rect x="5" y="6" width="6" height="1" fill="#4A5E4A"/>
+  <rect x="5" y="7" width="6" height="1" fill="#4A5E4A"/>
+  <rect x="5" y="8" width="6" height="1" fill="#3D4F3D"/>
+  <!-- Arms reaching forward -->
+  <rect x="3" y="6" width="2" height="1" fill="#7BA68B"/>
+  <rect x="3" y="7" width="1" height="1" fill="#7BA68B"/>
+  <rect x="11" y="5" width="2" height="1" fill="#7BA68B"/>
+  <rect x="12" y="6" width="2" height="1" fill="#7BA68B"/>
+  <!-- Claws -->
+  <rect x="2" y="7" width="1" height="1" fill="#6B9679"/>
+  <rect x="14" y="6" width="1" height="1" fill="#6B9679"/>
+  <!-- Pants - left leg forward -->
+  <rect x="5" y="9" width="2" height="1" fill="#3A3A55"/>
+  <rect x="9" y="9" width="2" height="1" fill="#3A3A55"/>
+  <rect x="5" y="10" width="2" height="2" fill="#2E2E44"/>
+  <rect x="9" y="10" width="2" height="1" fill="#2E2E44"/>
+  <rect x="8" y="11" width="2" height="1" fill="#2E2E44"/>
+  <!-- Ice crystals -->
+  <rect x="10" y="8" width="1" height="1" fill="#AADDEE"/>
+  <!-- Feet -->
+  <rect x="4" y="12" width="3" height="1" fill="#6B9679"/>
+  <rect x="8" y="12" width="3" height="1" fill="#6B9679"/>
+</svg>

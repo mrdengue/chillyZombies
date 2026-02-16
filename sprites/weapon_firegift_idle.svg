@@ -1,0 +1,28 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="64" height="64" viewBox="0 0 16 16" shape-rendering="crispEdges">
+  <!-- FireGift - Wrapped present on fire -->
+  <!-- Box body (purple/magenta) -->
+  <rect x="4" y="6" width="8" height="1" fill="#AA44CC"/>
+  <rect x="4" y="7" width="8" height="1" fill="#9933BB"/>
+  <rect x="4" y="8" width="8" height="1" fill="#AA44CC"/>
+  <rect x="4" y="9" width="8" height="1" fill="#9933BB"/>
+  <rect x="4" y="10" width="8" height="1" fill="#882299"/>
+  <!-- Box lid -->
+  <rect x="3" y="5" width="10" height="1" fill="#BB55DD"/>
+  <!-- Ribbon (gold vertical) -->
+  <rect x="7" y="5" width="2" height="6" fill="#FFCC00"/>
+  <!-- Ribbon (gold horizontal) -->
+  <rect x="4" y="7" width="8" height="1" fill="#FFCC00"/>
+  <!-- Bow on top -->
+  <rect x="5" y="4" width="2" height="1" fill="#FFDD44"/>
+  <rect x="9" y="4" width="2" height="1" fill="#FFDD44"/>
+  <rect x="7" y="3" width="2" height="1" fill="#FFCC00"/>
+  <rect x="7" y="4" width="2" height="1" fill="#FFEE66"/>
+  <!-- Flames -->
+  <rect x="5" y="2" width="1" height="1" fill="#FF8800"/>
+  <rect x="7" y="1" width="1" height="2" fill="#FFAA00"/>
+  <rect x="9" y="2" width="1" height="1" fill="#FF6600"/>
+  <rect x="8" y="0" width="1" height="1" fill="#FFCC00"/>
+  <rect x="10" y="1" width="1" height="1" fill="#FF8800"/>
+  <!-- Bottom shadow -->
+  <rect x="4" y="11" width="8" height="1" fill="#662288"/>
+</svg>

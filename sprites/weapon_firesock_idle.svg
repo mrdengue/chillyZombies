@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="64" height="64" viewBox="0 0 16 16" shape-rendering="crispEdges">
+  <!-- FireSock - Flaming Christmas stocking projectile -->
+  <!-- Stocking body (red) -->
+  <rect x="6" y="4" width="4" height="1" fill="#CC2222"/>
+  <rect x="5" y="5" width="5" height="1" fill="#DD3333"/>
+  <rect x="5" y="6" width="5" height="1" fill="#CC2222"/>
+  <rect x="5" y="7" width="5" height="1" fill="#DD3333"/>
+  <rect x="5" y="8" width="5" height="1" fill="#CC2222"/>
+  <!-- Stocking cuff (white fur trim) -->
+  <rect x="5" y="3" width="5" height="1" fill="#FFFFFF"/>
+  <rect x="6" y="2" width="4" height="1" fill="#EEEEFF"/>
+  <!-- Stocking toe (curved right) -->
+  <rect x="5" y="9" width="5" height="1" fill="#DD3333"/>
+  <rect x="4" y="10" width="4" height="1" fill="#CC2222"/>
+  <rect x="3" y="11" width="3" height="1" fill="#BB1111"/>
+  <!-- Flames coming from top -->
+  <rect x="6" y="1" width="1" height="1" fill="#FF8800"/>
+  <rect x="8" y="0" width="1" height="2" fill="#FFAA00"/>
+  <rect x="7" y="1" width="1" height="1" fill="#FFCC00"/>
+  <rect x="9" y="1" width="1" height="1" fill="#FF6600"/>
+  <!-- Flame glow -->
+  <rect x="7" y="0" width="1" height="1" fill="#FFDD44"/>
+</svg>

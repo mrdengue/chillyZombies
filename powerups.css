@@ -3,20 +3,23 @@
  * Visual effects for collectible power-ups
  */
 
-/* Power-up sprite animation */
-@keyframes powerup-pulse {
+/* Power-up bob animation - gentle up/down like a collectible item */
+@keyframes powerup-bob {
   0%, 100% {
-    transform: scale(1) rotate(0deg);
-    box-shadow: 0 0 20px currentColor;
+    transform: translateY(0px);
   }
   50% {
-    transform: scale(1.2) rotate(180deg);
-    box-shadow: 0 0 40px currentColor;
+    transform: translateY(-4px);
   }
 }
 
-/* Power-up collection notification */
-.powerup-notification {
+/* Power-up sprite in world - pixel art style matching game objects */
+.powerup-sprite {
+  animation: powerup-bob 1.5s ease-in-out infinite;
+}
+
+/* Power-up collection notification - DISABLED (using inline styles in JS instead) */
+/*.powerup-notification {
   position: fixed;
   top: 50%;
   left: 50%;
@@ -50,7 +53,7 @@
     opacity: 0;
     transform: translate(-50%, -50%) scale(0.8);
   }
-}
+}*/
 
 .powerup-notif-icon {
   font-size: 48px;
@@ -130,14 +133,10 @@
   text-align: right;
 }
 
-/* Power-up sprite in world */
-.powerup-sprite {
-  transition: transform 0.2s ease;
-}
-
 .powerup-sprite:hover {
-  transform: scale(1.3) !important;
-  z-index: 101 !important;
+  animation: none;
+  transform: scale(1.2);
+  z-index: 51;
 }
 
 /* Rarity colors */
@@ -155,7 +154,6 @@
 
 .powerup-epic {
   border-color: #ff00ff;
-  animation: powerup-pulse 0.5s ease-in-out infinite, epic-rainbow 2s linear infinite;
 }
 
 @keyframes epic-rainbow {

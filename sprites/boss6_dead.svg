@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" width="64" height="64" shape-rendering="crispEdges">
+<!-- Boss6: Frozen Knight - dead (fallen armor) -->
+<!-- Fallen armored body -->
+<rect x="1" y="10" width="12" height="3" fill="#8090a8"/>
+<rect x="2" y="9" width="4" height="1" fill="#a0a8b8"/>
+<!-- Helmet fallen -->
+<rect x="1" y="9" width="3" height="2" fill="#a0a8b8"/>
+<rect x="1" y="10" width="2" height="1" fill="#2244aa"/>
+<!-- Shield fallen -->
+<rect x="0" y="11" width="2" height="2" fill="#4488cc"/>
+<!-- Sword on ground -->
+<rect x="8" y="8" width="6" height="1" fill="#88ccee"/>
+<rect x="8" y="9" width="6" height="1" fill="#66aacc"/>
+<rect x="14" y="8" width="1" height="1" fill="#aaddff"/>
+<!-- Armor pieces -->
+<rect x="2" y="13" width="3" height="1" fill="#7080a0"/>
+<rect x="9" y="13" width="3" height="1" fill="#7080a0"/>
+<rect x="1" y="14" width="4" height="1" fill="#606878"/>
+<rect x="10" y="14" width="4" height="1" fill="#606878"/>
+</svg>

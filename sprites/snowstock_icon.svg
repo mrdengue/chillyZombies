@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="48" height="16" viewBox="0 0 16 6" shape-rendering="crispEdges">
+  <!-- 8-bit Snow Stock icon -->
+  <!-- Snow pile -->
+  <rect x="2" y="3" width="8" height="2" fill="#FFFFFF"/>
+  <rect x="3" y="2" width="6" height="1" fill="#F0F0FF"/>
+  <rect x="4" y="1" width="4" height="1" fill="#E8E8FF"/>
+  <rect x="1" y="4" width="10" height="1" fill="#CCCCEE"/>
+  <!-- Sparkles -->
+  <rect x="5" y="2" width="1" height="1" fill="#88CCFF"/>
+  <rect x="8" y="3" width="1" height="1" fill="#88CCFF"/>
+  <!-- STOCK text placeholder area -->
+  <rect x="12" y="1" width="3" height="4" fill="none"/>
+</svg>

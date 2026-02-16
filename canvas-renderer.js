@@ -21,8 +21,8 @@
     // Create canvas element
     canvas = document.createElement('canvas');
     canvas.id = 'game-canvas';
-    canvas.width = 480;  // g_FixedScreen_Width
-    canvas.height = 260; // g_FixedScreen_Height
+    canvas.width = 960;  // g_FixedScreen_Width
+    canvas.height = 520; // g_FixedScreen_Height
     canvas.style.position = 'absolute';
     canvas.style.left = '0px';
     canvas.style.top = '0px';
@@ -30,6 +30,7 @@
     canvas.style.imageRendering = 'pixelated'; // Crisp pixel art
     canvas.style.imageRendering = '-moz-crisp-edges';
     canvas.style.imageRendering = 'crisp-edges';
+    canvas.style.pointerEvents = 'none'; // Let clicks pass through to sprite divs
 
     // Get 2D context
     ctx = canvas.getContext('2d', {
@@ -43,7 +44,7 @@
     ctx.webkitImageSmoothingEnabled = false;
     ctx.msImageSmoothingEnabled = false;
 
-    console.log('[CANVAS] ✓ Canvas created: 480x260');
+    console.log('[CANVAS] ✓ Canvas created: 960x520');
 
     return canvas;
   }
@@ -232,6 +233,23 @@
     return canvasOnlyMode;
   }
 
+  /**
+   * Resize canvas to match new viewport dimensions
+   */
+  function resizeCanvas(width, height) {
+    if (!canvas) return;
+    canvas.width = width;
+    canvas.height = height;
+    // Re-disable image smoothing after resize (canvas reset clears it)
+    if (ctx) {
+      ctx.imageSmoothingEnabled = false;
+      ctx.mozImageSmoothingEnabled = false;
+      ctx.webkitImageSmoothingEnabled = false;
+      ctx.msImageSmoothingEnabled = false;
+    }
+    console.log('[CANVAS] Resized to ' + width + 'x' + height);
+  }
+
   // Export to global scope
   window.CanvasRenderer = {
     init: initCanvas,
@@ -243,6 +261,7 @@
     isCanvasOnlyMode: isCanvasOnlyMode,
     renderAll: renderAllSprites,
     renderSprite: renderSpriteToCanvas,
+    resize: resizeCanvas,
     getCanvas: () => canvas,
     getContext: () => ctx
   };

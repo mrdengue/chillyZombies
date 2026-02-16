@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" width="64" height="64" shape-rendering="crispEdges">
+<!-- Boss3: Frost Giant - dead (fallen face down) -->
+<!-- Fallen body -->
+<rect x="1" y="10" width="14" height="3" fill="#2a4a6a"/>
+<rect x="2" y="9" width="4" height="1" fill="#2a4a6a"/>
+<!-- Head turned -->
+<rect x="1" y="9" width="3" height="2" fill="#1e3e5e"/>
+<rect x="1" y="9" width="1" height="1" fill="#ff4444" opacity="0.3"/>
+<!-- Broken horns -->
+<rect x="0" y="8" width="1" height="1" fill="#a0d8f0" opacity="0.6"/>
+<rect x="3" y="8" width="1" height="1" fill="#a0d8f0" opacity="0.4"/>
+<!-- Arms splayed -->
+<rect x="0" y="11" width="1" height="2" fill="#1e3e5e"/>
+<rect x="15" y="11" width="1" height="2" fill="#1e3e5e"/>
+<!-- Legs -->
+<rect x="10" y="13" width="3" height="1" fill="#1e3e5e"/>
+<rect x="3" y="13" width="3" height="1" fill="#1e3e5e"/>
+<rect x="2" y="14" width="3" height="1" fill="#1a3a5a"/>
+<rect x="11" y="14" width="3" height="1" fill="#1a3a5a"/>
+</svg>

@@ -1,0 +1,26 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="64" height="64" viewBox="0 0 16 16" shape-rendering="crispEdges">
+  <!-- Evil Snowman - Dead (melted puddle) -->
+  <!-- Hat fallen off to the side -->
+  <rect x="1" y="9" width="3" height="1" fill="#1A1A2E"/>
+  <rect x="1" y="8" width="2" height="1" fill="#2D2D44"/>
+  <!-- Melted snow puddle -->
+  <rect x="3" y="11" width="10" height="2" fill="#E8E8F0"/>
+  <rect x="4" y="10" width="8" height="1" fill="#F0F0FF"/>
+  <rect x="5" y="9" width="6" height="1" fill="#FFFFFF"/>
+  <!-- Carrot nose sticking out of puddle -->
+  <rect x="8" y="9" width="2" height="1" fill="#FF8833"/>
+  <rect x="10" y="9" width="1" height="1" fill="#FF6611"/>
+  <!-- Coal buttons scattered -->
+  <rect x="5" y="10" width="1" height="1" fill="#111111"/>
+  <rect x="8" y="11" width="1" height="1" fill="#111111"/>
+  <rect x="11" y="10" width="1" height="1" fill="#111111"/>
+  <!-- Stick arms broken -->
+  <rect x="2" y="10" width="2" height="1" fill="#5C3A1E"/>
+  <rect x="12" y="11" width="2" height="1" fill="#5C3A1E"/>
+  <!-- Scarf in puddle -->
+  <rect x="6" y="10" width="3" height="1" fill="#CC2222"/>
+  <!-- Water puddle around -->
+  <rect x="4" y="13" width="8" height="1" fill="#AABBCC"/>
+  <rect x="3" y="12" width="1" height="1" fill="#AABBCC"/>
+  <rect x="13" y="12" width="1" height="1" fill="#AABBCC"/>
+</svg>

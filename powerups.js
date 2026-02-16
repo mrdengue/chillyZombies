@@ -13,6 +13,7 @@
       name: 'Speed Boost',
       letter: 'S',
       color: '#ffff00',
+      icon: 'powerup_icon_speed.png',
       duration: 10000, // 10 seconds
       rarity: 'common',
       description: 'Move 2x faster!'
@@ -22,6 +23,7 @@
       name: 'Rapid Fire',
       letter: 'R',
       color: '#ff6600',
+      icon: 'powerup_icon_rapidfire.png',
       duration: 12000,
       rarity: 'common',
       description: 'Shoot faster!'
@@ -31,6 +33,7 @@
       name: 'Shield',
       letter: 'H',
       color: '#00ccff',
+      icon: 'powerup_icon_shield.png',
       duration: 8000,
       rarity: 'rare',
       description: 'Invulnerable!'
@@ -40,6 +43,7 @@
       name: 'Mega Ammo',
       letter: 'A',
       color: '#00ff00',
+      icon: 'powerup_icon_ammo.png',
       duration: 0, // Instant
       rarity: 'common',
       description: '+50 Snow Stock!'
@@ -49,6 +53,7 @@
       name: 'Freeze',
       letter: 'F',
       color: '#66ccff',
+      icon: 'powerup_icon_freeze.png',
       duration: 5000,
       rarity: 'rare',
       description: 'Freeze all zombies!'
@@ -58,6 +63,7 @@
       name: 'Double Damage',
       letter: 'D',
       color: '#ff0000',
+      icon: 'powerup_icon_damage.png',
       duration: 12000,
       rarity: 'uncommon',
       description: '2x Weapon damage!'
@@ -67,6 +73,7 @@
       name: 'Bomb',
       letter: 'B',
       color: '#ff00ff',
+      icon: 'powerup_icon_bomb.png',
       duration: 0, // Instant
       rarity: 'epic',
       description: 'Clear all zombies!'
@@ -76,6 +83,7 @@
       name: 'Magnet',
       letter: 'M',
       color: '#cc00cc',
+      icon: 'powerup_icon_magnet.png',
       duration: 15000,
       rarity: 'uncommon',
       description: 'Auto-collect materials!'
@@ -203,21 +211,21 @@
    */
   function getRandomSpawnPosition() {
     // Get level boundaries from labyrinth constraints
-    const levelData = window.Game_LevelData ? Game_LevelData[window.Game_CurrentLevel - 1] : null;
+    var levelData = window.Game_LevelData ? Game_LevelData[window.Game_CurrentLevel - 1] : null;
 
     if (!levelData || !levelData.LabyrinthConstraints) {
-      // Fallback to simple position
+      console.warn('[POWERUP] No LabyrinthConstraints for level', window.Game_CurrentLevel);
       return { x: 200, y: 100 };
     }
 
     // Spawn within level boundaries, with margin from edges
-    const constraints = levelData.LabyrinthConstraints;
-    const margin = 50;
+    var constraints = levelData.LabyrinthConstraints;
+    var margin = 50;
 
-    const minX = constraints[0] + margin;
-    const maxX = constraints[1] - margin;
-    const minY = constraints[2] + margin;
-    const maxY = constraints[3] - margin;
+    var minX = constraints.X1 + margin;
+    var maxX = constraints.X2 - margin;
+    var minY = constraints.Y1 + margin;
+    var maxY = constraints.Y2 - margin;
 
     return {
       x: minX + Math.random() * (maxX - minX),
@@ -226,40 +234,40 @@
   }
 
   /**
-   * Create visual sprite for power-up
+   * Create visual sprite for power-up (looks like an in-game object)
    */
   function createPowerupSprite(powerup) {
-    // Create a div element for the power-up
-    const sprite = document.createElement('div');
+    var sprite = document.createElement('div');
     sprite.id = powerup.id;
     sprite.className = 'powerup-sprite';
     sprite.style.position = 'absolute';
-    sprite.style.width = '30px';
-    sprite.style.height = '30px';
-    sprite.style.fontSize = '20px';
-    sprite.style.fontFamily = 'Arial, sans-serif';
-    sprite.style.fontWeight = 'bold';
-    sprite.style.textAlign = 'center';
-    sprite.style.lineHeight = '30px';
-    sprite.style.backgroundColor = powerup.type.color;
-    sprite.style.color = '#000';
-    sprite.style.border = '3px solid #fff';
-    sprite.style.borderRadius = '50%';
-    sprite.style.boxShadow = '0 0 15px ' + powerup.type.color;
-    sprite.style.zIndex = '100';
+    sprite.style.width = '32px';
+    sprite.style.height = '32px';
+    sprite.style.backgroundImage = 'url(' + powerup.type.icon + ')';
+    sprite.style.backgroundSize = '100% 100%';
+    sprite.style.backgroundRepeat = 'no-repeat';
+    sprite.style.imageRendering = 'pixelated';
+    sprite.style.zIndex = '50';
     sprite.style.cursor = 'pointer';
-    sprite.style.animation = 'powerup-pulse 1s ease-in-out infinite';
-    sprite.textContent = powerup.type.letter;
+    sprite.style.pointerEvents = 'auto';
+
+    // Set initial position immediately using viewport offset
+    if (window.g_ViewPort_X !== undefined && window.g_ViewPort_Y !== undefined) {
+      sprite.style.left = (powerup.x + g_ViewPort_X) + 'px';
+      sprite.style.top = (powerup.y + g_ViewPort_Y) + 'px';
+    } else {
+      // Hide offscreen until viewport is available
+      sprite.style.left = '-100px';
+      sprite.style.top = '-100px';
+    }
 
     // Add click handler to collect power-up
     sprite.onclick = function(e) {
       e.preventDefault();
       e.stopPropagation();
 
-      // Find the power-up in the array
-      const index = spawnedPowerups.findIndex(p => p.id === powerup.id);
+      var index = spawnedPowerups.findIndex(function(p) { return p.id === powerup.id; });
       if (index !== -1) {
-        // Collect it
         collectPowerup(powerup, null);
         removePowerup(index);
       }
@@ -268,7 +276,7 @@
     };
 
     // Add to game container
-    const container = document.getElementById('div_moviescreenframe');
+    var container = document.getElementById('div_moviescreenframe');
     if (container) {
       container.appendChild(sprite);
     }
@@ -280,7 +288,7 @@
    * Update power-up sprite position (follow camera)
    */
   function updatePowerupPositions() {
-    if (!window.g_ViewPort_X || !window.g_ViewPort_Y) return;
+    if (window.g_ViewPort_X === undefined || window.g_ViewPort_Y === undefined) return;
 
     spawnedPowerups.forEach(powerup => {
       if (powerup.sprite) {
@@ -350,14 +358,25 @@
     switch (powerupType.id) {
       case 'speed_boost':
         activatePowerup(powerupType, () => {
-          // Double player speed
-          if (player && player.setVelocity) {
-            const originalSpeed = player.VelLimit || 3;
-            player.setVelocity(originalSpeed * 2);
+          // Double all players' speed
+          if (window.Game_PlayersArray) {
+            for (let i in Game_PlayersArray) {
+              const p = Game_PlayersArray[i];
+              if (p && p.VelLimit) {
+                p._originalSpeed = p.VelLimit;
+                p.VelLimit = p.VelLimit * 2;
+              }
+            }
 
             return () => {
               // Restore original speed
-              player.setVelocity(originalSpeed);
+              for (let i in Game_PlayersArray) {
+                const p = Game_PlayersArray[i];
+                if (p && p._originalSpeed) {
+                  p.VelLimit = p._originalSpeed;
+                  delete p._originalSpeed;
+                }
+              }
             };
           }
         });
@@ -367,19 +386,34 @@
         // Instant: Add ammo
         if (window.Game_SnowStock !== undefined) {
           Game_SnowStock += 50;
-          updateSnowStockDisplay();
+          // Update UI
+          const snowDisplay = document.getElementById('id_control_snowstock');
+          if (snowDisplay) {
+            snowDisplay.innerHTML = Game_SnowStock;
+          }
         }
         break;
 
       case 'shield':
         activatePowerup(powerupType, () => {
-          // Make player invulnerable
-          if (player) {
-            player._originalStrength = player.Strength;
-            player.Strength = 9999;
+          // Make all players invulnerable
+          if (window.Game_PlayersArray) {
+            for (let i in Game_PlayersArray) {
+              const p = Game_PlayersArray[i];
+              if (p) {
+                p._originalStrength = p.Strength;
+                p.Strength = 9999;
+              }
+            }
 
             return () => {
-              player.Strength = player._originalStrength || 5;
+              for (let i in Game_PlayersArray) {
+                const p = Game_PlayersArray[i];
+                if (p && p._originalStrength !== undefined) {
+                  p.Strength = p._originalStrength;
+                  delete p._originalStrength;
+                }
+              }
             };
           }
         });
@@ -388,21 +422,22 @@
       case 'freeze':
         activatePowerup(powerupType, () => {
           // Freeze all zombies
-          if (window.Game_ZombiesArray) {
-            for (let key in Game_ZombiesArray) {
-              const zombie = Game_ZombiesArray[key];
-              if (zombie && zombie.setVelocity) {
+          if (window.Game_Zombies) {
+            for (let key in Game_Zombies) {
+              const zombie = Game_Zombies[key];
+              if (zombie && zombie.VelLimit) {
                 zombie._originalSpeed = zombie.VelLimit;
-                zombie.setVelocity(0.1);
+                zombie.VelLimit = 0.1;
               }
             }
 
             return () => {
               // Unfreeze
-              for (let key in Game_ZombiesArray) {
-                const zombie = Game_ZombiesArray[key];
-                if (zombie && zombie._originalSpeed) {
-                  zombie.setVelocity(zombie._originalSpeed);
+              for (let key in Game_Zombies) {
+                const zombie = Game_Zombies[key];
+                if (zombie && zombie._originalSpeed !== undefined) {
+                  zombie.VelLimit = zombie._originalSpeed;
+                  delete zombie._originalSpeed;
                 }
               }
             };
@@ -412,9 +447,9 @@
 
       case 'bomb':
         // Instant: Kill all zombies
-        if (window.Game_ZombiesArray) {
-          for (let key in Game_ZombiesArray) {
-            const zombie = Game_ZombiesArray[key];
+        if (window.Game_Zombies) {
+          for (let key in Game_Zombies) {
+            const zombie = Game_Zombies[key];
             if (zombie && zombie.doDie) {
               zombie.doDie();
             }
@@ -504,16 +539,16 @@
     // Create notification element
     const notif = document.createElement('div');
     notif.style.position = 'absolute';
-    notif.style.top = '50%';
+    notif.style.top = '100px';
     notif.style.left = '50%';
-    notif.style.transform = 'translate(-50%, -50%)';
+    notif.style.transform = 'translateX(-50%)';
     notif.style.background = '#fff';
     notif.style.border = '3px solid ' + powerupType.color;
     notif.style.borderRadius = '10px';
-    notif.style.padding = '15px 30px';
+    notif.style.padding = '10px 20px';
     notif.style.zIndex = '10000';
     notif.style.fontFamily = 'Arial, sans-serif';
-    notif.style.fontSize = '18px';
+    notif.style.fontSize = '16px';
     notif.style.fontWeight = 'bold';
     notif.style.color = '#000';
     notif.style.textAlign = 'center';
@@ -526,13 +561,13 @@
       : '';
 
     notif.innerHTML = `
-      <div style="font-size: 14px; color: #666; margin-bottom: 5px;">POWER-UP!</div>
-      <div style="color: ${powerupType.color}; font-size: 22px;">${powerupType.name}</div>
-      <div style="font-size: 14px; margin-top: 5px;">${powerupType.description}${durationText}</div>
+      <div style="font-size: 12px; color: #666; margin-bottom: 3px;">POWER-UP!</div>
+      <div style="color: ${powerupType.color}; font-size: 18px;">${powerupType.name}</div>
+      <div style="font-size: 12px; margin-top: 3px;">${powerupType.description}${durationText}</div>
     `;
 
-    // Add to game container, not body
-    const container = document.getElementById('id_div_container');
+    // Add to game canvas container
+    const container = document.getElementById('div_moviescreenframe');
     if (container) {
       container.appendChild(notif);
     } else {
@@ -559,14 +594,15 @@
     if (!uiContainer) {
       uiContainer = document.createElement('div');
       uiContainer.id = 'active-powerups-ui';
-      uiContainer.style.position = 'fixed';
-      uiContainer.style.top = '45px';
+      uiContainer.style.position = 'absolute';
+      uiContainer.style.top = '5px';
       uiContainer.style.left = '10px';
-      uiContainer.style.zIndex = '1000';
+      uiContainer.style.zIndex = '100';
       uiContainer.style.display = 'flex';
       uiContainer.style.flexDirection = 'column';
       uiContainer.style.gap = '5px';
-      document.body.appendChild(uiContainer);
+      var gameContainer = document.getElementById('div_moviescreenframe') || document.body;
+      gameContainer.appendChild(uiContainer);
     }
 
     // Clear and rebuild

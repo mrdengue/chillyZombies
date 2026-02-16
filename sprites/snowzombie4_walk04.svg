@@ -1,0 +1,38 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="64" height="64" viewBox="0 0 16 16" shape-rendering="crispEdges">
+  <!-- Snow Zombie 4 - Blizzard Wraith - Walk 04 (legs wide) -->
+  <!-- Wispy hair/head -->
+  <rect x="5" y="0" width="1" height="2" fill="#CCDDEE"/>
+  <rect x="10" y="0" width="1" height="2" fill="#CCDDEE"/>
+  <rect x="6" y="1" width="4" height="1" fill="#BBCCDD"/>
+  <!-- Head (white/pale) -->
+  <rect x="6" y="2" width="4" height="3" fill="#DDEEFF"/>
+  <!-- Empty eye sockets (dark blue) -->
+  <rect x="7" y="3" width="1" height="1" fill="#224488"/>
+  <rect x="9" y="3" width="1" height="1" fill="#224488"/>
+  <!-- Gaping mouth -->
+  <rect x="7" y="4" width="2" height="1" fill="#113366"/>
+  <!-- Tattered robes (white/ghostly) -->
+  <rect x="5" y="5" width="6" height="1" fill="#CCDDEE"/>
+  <rect x="4" y="6" width="8" height="1" fill="#BBCCDD"/>
+  <rect x="4" y="7" width="8" height="1" fill="#AABBCC"/>
+  <rect x="4" y="8" width="8" height="1" fill="#BBCCDD"/>
+  <rect x="5" y="9" width="6" height="1" fill="#CCDDEE"/>
+  <!-- Ethereal trail from robes -->
+  <rect x="3" y="8" width="1" height="1" fill="#CCDDEE"/>
+  <rect x="12" y="7" width="1" height="1" fill="#CCDDEE"/>
+  <!-- Arms (skeletal, wispy) -->
+  <rect x="2" y="6" width="2" height="1" fill="#DDEEFF"/>
+  <rect x="12" y="6" width="2" height="1" fill="#DDEEFF"/>
+  <rect x="1" y="7" width="2" height="1" fill="#CCDDEE"/>
+  <rect x="13" y="7" width="1" height="1" fill="#CCDDEE"/>
+  <!-- Ice glow -->
+  <rect x="7" y="7" width="2" height="1" fill="#88CCFF"/>
+  <!-- Legs - wide spread -->
+  <rect x="4" y="10" width="2" height="1" fill="#AABBCC"/>
+  <rect x="3" y="11" width="2" height="1" fill="#AABBCC"/>
+  <rect x="10" y="10" width="2" height="1" fill="#AABBCC"/>
+  <rect x="11" y="11" width="2" height="1" fill="#AABBCC"/>
+  <!-- Feet -->
+  <rect x="2" y="12" width="3" height="1" fill="#99AABB"/>
+  <rect x="11" y="12" width="3" height="1" fill="#99AABB"/>
+</svg>

@@ -1,0 +1,36 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" width="64" height="64" shape-rendering="crispEdges">
+<!-- Boss7: Glacier Wyrm - walk 1 (body undulating left) -->
+<rect x="5" y="0" width="6" height="4" fill="#2a8a8a"/>
+<rect x="4" y="1" width="1" height="2" fill="#3aa0a0"/>
+<rect x="11" y="1" width="1" height="2" fill="#3aa0a0"/>
+<rect x="4" y="0" width="1" height="1" fill="#e0f0f0"/>
+<rect x="11" y="0" width="1" height="1" fill="#e0f0f0"/>
+<rect x="6" y="1" width="1" height="1" fill="#ffdd00"/>
+<rect x="9" y="1" width="1" height="1" fill="#ffdd00"/>
+<rect x="6" y="3" width="4" height="1" fill="#1a7a7a"/>
+<rect x="7" y="3" width="1" height="1" fill="#ffffff"/>
+<rect x="9" y="3" width="1" height="1" fill="#ffffff"/>
+<!-- Neck angled left -->
+<rect x="5" y="4" width="4" height="2" fill="#3aa0a0"/>
+<!-- Body shifted left -->
+<rect x="2" y="6" width="6" height="3" fill="#2a8a8a"/>
+<rect x="1" y="6" width="1" height="2" fill="#3aa0a0"/>
+<rect x="4" y="7" width="3" height="2" fill="#c0e8e8"/>
+<!-- Body curve right -->
+<rect x="6" y="9" width="7" height="3" fill="#2a8a8a"/>
+<rect x="13" y="9" width="1" height="2" fill="#3aa0a0"/>
+<rect x="7" y="10" width="3" height="2" fill="#c0e8e8"/>
+<!-- Tail -->
+<rect x="2" y="12" width="5" height="2" fill="#2a8a8a"/>
+<rect x="1" y="13" width="2" height="1" fill="#4ab8b8"/>
+<rect x="0" y="14" width="2" height="1" fill="#5ac8c8"/>
+<!-- Spines -->
+<rect x="3" y="5" width="1" height="1" fill="#e0f0f0"/>
+<rect x="5" y="5" width="1" height="1" fill="#e0f0f0"/>
+<rect x="7" y="8" width="1" height="1" fill="#e0f0f0"/>
+<rect x="9" y="8" width="1" height="1" fill="#e0f0f0"/>
+<rect x="4" y="11" width="1" height="1" fill="#e0f0f0"/>
+<!-- Claws -->
+<rect x="2" y="9" width="1" height="1" fill="#1a7a7a"/>
+<rect x="12" y="12" width="1" height="1" fill="#1a7a7a"/>
+</svg>

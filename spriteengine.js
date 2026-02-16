@@ -41,6 +41,11 @@ var g_AnimationMode = false;
 
 var g_BackgroundLoaded = true;
 
+// Sprite container: use moviescreenframe if available (modern layout), fallback to body
+function getSpriteContainer() {
+  return document.getElementById('div_moviescreenframe') || document.body;
+}
+
 var g_FramesPerSecond;
 var g_Timer_TimeOut; // Main animation timer object parameter.  Set by InitSpriteEngine(), which in turn calls SetAnimationFPS().
 var g_NFramesOffCameraBeforeDestroying; // Number of frames before a Sprite image is destroyed after 
@@ -67,6 +72,7 @@ if (document.defaultView)
 }
 
 var g_isMobileSafari = ((navigator.userAgent.match(/iPhone/i)) || (navigator.userAgent.match(/iPod/i)));
+var g_isTouchDevice = ('ontouchstart' in window) || (navigator.maxTouchPoints > 0);
 
 var g_ObjectsToLoadAtStart = 0;
 var g_TotalObjectsLoaded   = 0;
@@ -137,12 +143,46 @@ var g_UseRequestAnimationFrame = true; // Use modern rAF instead of setTimeout
 var g_MainWorld_Width    = 600;
 var g_MainWorld_Height   = 500;
 
-var g_FixedScreen_Width  = 480;
+var g_FixedScreen_Width  = 960;
 var g_FixedScreen_HalfWidth  = Math.round(g_FixedScreen_Width * 0.5);
-var g_FixedScreen_Height = 260;
+var g_FixedScreen_Height = 520;
 var g_FixedScreen_HalfHeight  = Math.round(g_FixedScreen_Height * 0.5);
 var g_FixedScreen_Top    = 25;
 var g_FixedScreen_Left   = 0;
+
+/**
+ * Change the game viewport size at runtime.
+ * Used for portrait mode on mobile - switches from 960x520 to 480x720.
+ * All viewport math, sprite clipping, and click handling auto-adjust.
+ */
+function setGameViewportSize(width, height) {
+  g_FixedScreen_Width = width;
+  g_FixedScreen_Height = height;
+  g_FixedScreen_HalfWidth = Math.round(width * 0.5);
+  g_FixedScreen_HalfHeight = Math.round(height * 0.5);
+
+  // Resize the game frame DOM element
+  var frame = document.getElementById('div_moviescreenframe');
+  if (frame) {
+    frame.style.setProperty('width', width + 'px', 'important');
+    frame.style.setProperty('height', height + 'px', 'important');
+  }
+
+  // Resize the canvas if it exists
+  if (typeof CanvasRenderer !== 'undefined' && CanvasRenderer.resize) {
+    CanvasRenderer.resize(width, height);
+  }
+
+  // Force camera update to recalculate viewport offsets
+  // Game_Camera is the main game camera; g_CurrentActiveCameraSprite is the editor camera
+  if (typeof Game_Camera !== 'undefined' && Game_Camera) {
+    SetViewPort(Game_Camera.X, Game_Camera.Y);
+  } else if (g_CurrentActiveCameraSprite) {
+    SetViewPort(g_CurrentActiveCameraSprite.X, g_CurrentActiveCameraSprite.Y);
+  }
+
+  console.log('[ENGINE] Viewport resized to ' + width + 'x' + height);
+}
 
 var g_SpriteDivMovieScreenFrame;
 
@@ -337,11 +377,15 @@ function DragDrop_MakeSelectable(object,targetobject,SpriteObjectAssociated,Grou
   {
     object.onmousedown = function(e)
     {
+      // Stop propagation so SpriteDivMain_MouseDown doesn't immediately
+      // deselect this sprite (sprites are children of moviescreenframe)
+      if (e && e.stopPropagation) e.stopPropagation();
+
       var PreviouslySelected = g_SelectedSprite;
-      
+
       SelectSprite(SpriteObjectAssociated,true);
       Game_SpriteSelected(g_SelectedSprite,PreviouslySelected);
-      
+
       g_SpriteScheduleForceDrawing = true;
 
       return false;
@@ -354,14 +398,21 @@ function SpriteDivMain_MouseDown(e)
   var ShowHelp = false;
 
   e = e || window.event;
- 
+
   var PreviouslySelectedSprite = g_SelectedSprite;
   SelectSprite(null,false);
-  var MousePosition = DragDrop_MouseCoordinates(e);
-  var DropCoordinatesX = MousePosition.x - g_FixedScreen_Left - g_ViewPort_X;
-  var DropCoordinatesY = MousePosition.y - g_FixedScreen_Top - g_ViewPort_Y;
+
+  // Use getBoundingClientRect for accurate coordinates at any CSS scale
+  var rect = g_SpriteDivMovieScreenFrame.getBoundingClientRect();
+  var scaleX = rect.width / g_FixedScreen_Width;
+  var scaleY = rect.height / g_FixedScreen_Height;
+  var clientX = (e.clientX !== undefined) ? e.clientX : e.pageX;
+  var clientY = (e.clientY !== undefined) ? e.clientY : e.pageY;
+
+  var DropCoordinatesX = (clientX - rect.left) / scaleX - g_ViewPort_X;
+  var DropCoordinatesY = (clientY - rect.top) / scaleY - g_ViewPort_Y;
   Game_GroundClicked(DropCoordinatesX,DropCoordinatesY,PreviouslySelectedSprite);
-  
+
   return false;
 }
 
@@ -444,7 +495,7 @@ function InitSpriteEngine()
     CanvasRenderer.init();
   }
 
-  if (g_isMobileSafari)
+  if (g_isMobileSafari || g_isTouchDevice)
   {
     document.onclick     = function(e) {e.preventDefault(); return false;};
     document.addEventListener('touchstart', touchHandler, true);
@@ -1883,21 +1934,26 @@ function SpriteObject_CreateImages(SpriteObject,CreateActualImage)
     
     SpriteObject_GenerateImage(SpriteObject,'ImgSelector','selector','_selector','OriginalImgSelector','RealImgSelector',true,SpriteObject.Image,CreateActualImage);
     
-    document.body.appendChild(SpriteObject.Image);
+    var spriteContainer = getSpriteContainer();
+    spriteContainer.appendChild(SpriteObject.Image);
     SpriteObject.Image.style.zIndex = SpriteObject.Z;
+    // Add drop shadow for visual depth
+    SpriteObject.Image.classList.add('sprite-shadow');
+    // Add type-specific CSS class for visual styling (e.g., 'sprite-type-player')
+    SpriteObject.Image.classList.add('sprite-type-' + SpriteObject.Type.toLowerCase());
 
     if (SpriteObject.TextBubble)
     {
-      document.body.appendChild(SpriteObject.BubbleCaption);
+      spriteContainer.appendChild(SpriteObject.BubbleCaption);
       SpriteObject.BubbleCaption.style.zIndex       = 14;
-      
+
       if (SpriteObject.BubbleCaptionText)
       {
         SpriteObject.setCaption(SpriteObject.BubbleCaptionText);
       }
     }
 
-    document.body.appendChild(SpriteObject.ImgSelector);
+    spriteContainer.appendChild(SpriteObject.ImgSelector);
     SpriteObject.ImgSelector.style.zIndex = (SpriteObject.Camera == -1)?15:17;
       
   }
@@ -1905,21 +1961,22 @@ function SpriteObject_CreateImages(SpriteObject,CreateActualImage)
     
 function SpriteObject_DeleteImages(SpriteObject)
 {
+  var spriteContainer = getSpriteContainer();
   if (SpriteObject.Image)
   {
-    document.body.removeChild(SpriteObject.Image);
+    if (SpriteObject.Image.parentNode) SpriteObject.Image.parentNode.removeChild(SpriteObject.Image);
     SpriteObject.Image = null;
   }
-  
+
   if (SpriteObject.ImgSelector)
   {
-    document.body.removeChild(SpriteObject.ImgSelector);
+    if (SpriteObject.ImgSelector.parentNode) SpriteObject.ImgSelector.parentNode.removeChild(SpriteObject.ImgSelector);
     SpriteObject.ImgSelector = null;
   }
-  
+
   if (SpriteObject.TextBubble && SpriteObject.BubbleCaption)
   {
-    document.body.removeChild(SpriteObject.BubbleCaption);
+    if (SpriteObject.BubbleCaption.parentNode) SpriteObject.BubbleCaption.parentNode.removeChild(SpriteObject.BubbleCaption);
     SpriteObject.BubbleCaption = null;
   }
 }
@@ -1952,8 +2009,9 @@ function SpriteObject_GenerateImage(SpriteObject,ImageName,ImageSourceName,IdSuf
     SpriteObject[ImageName].style.height = SpriteObject[RealImageHeight];
     
     SpriteObject[ImageName].StateImageSrc = g_AnimTypes[SpriteObject.Type][ImageSourceName].Image.src;
-    SpriteObject[ImageName].style.backgroundImage  = 'url(' + SpriteObject[ImageName].StateImageSrc + ')';	
+    SpriteObject[ImageName].style.backgroundImage  = 'url(' + SpriteObject[ImageName].StateImageSrc + ')';
     SpriteObject[ImageName].style.backgroundRepeat  = 'no-repeat';
+    SpriteObject[ImageName].style.backgroundSize    = '100% 100%';
     
     if (DoMakeDraggable)
     {
@@ -2722,6 +2780,15 @@ function SetViewPort(ViewX,ViewY)
 function InitSound()
 {
   g_SoundAvailable = true;
+
+  // Skip PhoneGap Media API - we use Web Audio via simple-audio.js
+  // Sound loading happens on first user interaction via SoundManager_Loaded()
+  if (typeof Media === 'undefined')
+  {
+    g_SndLoadingErrorsOccurred = true;
+    return;
+  }
+
   for (var SoundName in Game_Sounds)
   {
     Game_Sounds[SoundName].player = null;
@@ -2732,7 +2799,7 @@ function InitSound()
     catch (e)
     {
     }
-	  
+
     if (Game_Sounds[SoundName].player)
     {
       g_SoundsToLoadAtStart++;
@@ -4344,9 +4411,12 @@ function SelectSprite(ThisSprite,DoSelect)
 
 function StopAllSounds()
 {
-  for (var SoundName in Game_Sounds)
+  try
   {
-    StopSound(SoundName);
+    soundManager.stopAll();
+  }
+  catch (e)
+  {
   }
 }
 
@@ -4379,12 +4449,12 @@ function SoundPlay(SoundName)
 
 function StopSound(SoundId)
 {
-  if (Game_Sounds[SoundId])
+  try
   {
-    if (Game_Sounds[SoundId].player && Game_Sounds[SoundId].player.stop)
-    {
-      Game_Sounds[SoundId].player.stop();
-    }
+    soundManager.stop(SoundId);
+  }
+  catch (e)
+  {
   }
 }
 

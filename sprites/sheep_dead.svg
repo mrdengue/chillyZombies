@@ -1,0 +1,24 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="64" height="64" viewBox="0 0 16 16" shape-rendering="crispEdges">
+  <!-- Winter Sheep - Dead (on side) -->
+  <!-- Body on side -->
+  <rect x="2" y="8" width="10" height="1" fill="#F5F0E0"/>
+  <rect x="2" y="9" width="11" height="1" fill="#FFFFFF"/>
+  <rect x="2" y="10" width="11" height="1" fill="#F5F0E0"/>
+  <rect x="3" y="11" width="9" height="1" fill="#CCCCBB"/>
+  <!-- Head (fallen) -->
+  <rect x="11" y="7" width="3" height="1" fill="#3A2A1A"/>
+  <rect x="11" y="8" width="4" height="2" fill="#4A3A2A"/>
+  <rect x="11" y="10" width="3" height="1" fill="#3A2A1A"/>
+  <!-- X eyes (dead) -->
+  <rect x="12" y="8" width="1" height="1" fill="#FF4444"/>
+  <rect x="14" y="8" width="1" height="1" fill="#FF4444"/>
+  <!-- Legs sticking up -->
+  <rect x="4" y="6" width="1" height="2" fill="#3A2A1A"/>
+  <rect x="6" y="6" width="1" height="2" fill="#3A2A1A"/>
+  <rect x="8" y="6" width="1" height="2" fill="#3A2A1A"/>
+  <rect x="10" y="7" width="1" height="1" fill="#3A2A1A"/>
+  <!-- Wool puffs scattered -->
+  <rect x="3" y="7" width="1" height="1" fill="#FFFFFF"/>
+  <rect x="5" y="7" width="1" height="1" fill="#FFFFFF"/>
+  <rect x="7" y="7" width="1" height="1" fill="#FFFFFF"/>
+</svg>
