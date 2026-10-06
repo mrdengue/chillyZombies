@@ -1,0 +1,15 @@
+[Unit]
+Description=Chilly Zombies - juego estatico (puerto 8000)
+After=network.target
+
+[Service]
+Type=simple
+User=jorge
+Group=jorge
+WorkingDirectory=/home/jorge/chilly
+ExecStart=/usr/bin/python3 -m http.server 8000 --bind 0.0.0.0
+Restart=always
+RestartSec=3
+
+[Install]
+WantedBy=multi-user.target
