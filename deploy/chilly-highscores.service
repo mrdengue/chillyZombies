@@ -1,0 +1,15 @@
+[Unit]
+Description=Chilly Zombies - servidor de records online (Flask, puerto 5000)
+After=network.target
+
+[Service]
+Type=simple
+User=jorge
+Group=jorge
+WorkingDirectory=/home/jorge/chilly/server
+ExecStart=/home/jorge/chilly/server/venv/bin/python app.py
+Restart=always
+RestartSec=3
+
+[Install]
+WantedBy=multi-user.target

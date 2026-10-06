@@ -23,6 +23,6 @@ build/
 # Python server
 server/venv/
 server/__pycache__/
-*.pyc
-*.log
 __pycache__/
+*.pyc
+server/highscores.db
