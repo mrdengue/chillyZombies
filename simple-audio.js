@@ -214,6 +214,16 @@
     if (typeof SoundManager_Loaded === 'function') {
       SoundManager_Loaded();
     }
+
+    // After sounds load, play menu music if still on main menu
+    setTimeout(function() {
+      var mainMenu = document.getElementById('id_div_mainmenu');
+      if (mainMenu && mainMenu.className.indexOf('div_shown') !== -1) {
+        if (window.Game_Noise_Owl) {
+          soundManager.play(Game_Noise_Owl, {loops: 1});
+        }
+      }
+    }, 2000);
   };
 
   // The game uses onmousedown for ALL buttons, so mousedown is critical

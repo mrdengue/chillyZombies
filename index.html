@@ -7,12 +7,12 @@
 <link rel="stylesheet" type="text/css" href="highscore-ui.css">
 <link rel="stylesheet" type="text/css" href="powerups.css">
 <!-- Modern Responsive Layout -->
-<link rel="stylesheet" type="text/css" href="modern-layout.css">
+<link rel="stylesheet" type="text/css" href="modern-layout.css?v=1764361073">
 <!-- <link rel="stylesheet" type="text/css" href="retro-styles.css"> -->
 <link rel="apple-touch-icon" href="Icon.png"/>
 <link rel="apple-touch-startup-image" href="LoadingScreen.png"/>
 <!-- Fullscreen Manager -->
-<script type="text/javascript" src="fullscreen.js"></script>
+<script type="text/javascript" src="fullscreen.js?v=1764361073"></script>
 <!-- Simple Web Audio System -->
 <script type="text/javascript" src="simple-audio.js"></script>
 <!-- Canvas Renderer -->
@@ -24,14 +24,14 @@
 <!-- High Score UI -->
 <script type="text/javascript" src="highscore-ui.js"></script>
 <!-- Power-up System -->
-<script type="text/javascript" src="powerups.js"></script>
+<script type="text/javascript" src="powerups.js?v=1764361073"></script>
 <!-- Retro Graphics Enhancement - DISABLED -->
 <!-- <script type="text/javascript" src="retro-graphics.js"></script> -->
-<script type="text/javascript" src="spriteengine.js?v=1764361071"></script>
-<script type="text/javascript" src="gamelevels.js?v=1764361071"></script>
+<script type="text/javascript" src="spriteengine.js?v=1764361073"></script>
+<script type="text/javascript" src="gamelevels.js?v=1764361073"></script>
 <!-- Procedural Level Generation -->
-<script type="text/javascript" src="procedurallevels.js?v=1764361071"></script>
-<script type="text/javascript" src="gamelogic.js?v=1764361071"></script>
+<script type="text/javascript" src="procedurallevels.js?v=1764361073"></script>
+<script type="text/javascript" src="gamelogic.js?v=1764361073"></script>
 </head>
 <body onload="InitSpriteEngine(); return true;" onunload="Game_Exit(); return true;">
 <noscript>
@@ -41,11 +41,17 @@
 <div id="game-wrapper">
 
 <div id="id_div_loading" class="div_shown"> <!-- id_div_loading -->
-  <div class="screen-container">
-    <div class="menu-content">
-      <h1 class="game-title">CHILLY ZOMBIES</h1>
-      <p style="color: white; font-size: 24px; text-shadow: 0 2px 10px rgba(0,0,0,0.5);">Loading...</p>
+  <div class="splash-screen">
+    <div class="splash-logo">
+      <img src="sprites/logo_chillyzombies.svg" alt="Chilly Zombies" class="splash-logo-img">
     </div>
+    <div class="splash-loading">
+      <div class="splash-bar-border">
+        <div id="id_div_loadingprogress_bar" class="splash-bar-fill"></div>
+      </div>
+      <div class="splash-loading-text">LOADING<span class="splash-dots"></span></div>
+    </div>
+    <div class="splash-footer">&#x2744; HOLIDAY LEFTOVERS EDITION &#x2744;</div>
   </div>
 </div> <!-- id_div_loading -->
 
@@ -154,46 +160,87 @@
 </div> <!-- id_div_tutorial -->
 
 <div id="id_div_pauselevelscreen" class="pauselevel div_hidden"> <!-- id_div_pauselevelscreen -->
-<img src="PausedDialog.png" class="pauseddialog" onmousedown="Game_DismissPauseDialog(); return false;">
+  <div class="retro-dialog pause-dialog">
+    <div class="retro-dialog-title pause-title">PAUSED</div>
+    <div class="retro-dialog-body">
+      <div class="retro-stat-row"><span class="retro-stat-label">SCORE</span><span id="pause_score" class="retro-stat-value">0</span></div>
+      <div class="retro-stat-row"><span class="retro-stat-label">LEVEL</span><span id="pause_level" class="retro-stat-value">1</span></div>
+      <div class="retro-stat-row"><span class="retro-stat-label">KILLS</span><span id="pause_kills" class="retro-stat-value">0</span></div>
+      <div class="retro-stat-row"><span class="retro-stat-label">SNOW</span><span id="pause_snow" class="retro-stat-value">0</span></div>
+    </div>
+    <div class="retro-dialog-buttons">
+      <div class="retro-btn-action" onmousedown="Game_DismissPauseDialog(); return false;">RESUME</div>
+      <div class="retro-btn-action retro-btn-secondary" onmousedown="Game_QuitLevel(); return false;">QUIT</div>
+    </div>
+  </div>
 </div> <!-- id_div_pauselevelscreen -->
 
 <div id="id_div_quitelevelconfirm" class="quitlevelconfirm div_hidden"> <!-- id_div_quitelevelconfirm -->
-<img src="QuitConfirmDialog.png">
-<img src="QuitConfirmDialog_Yes.png" class="quitconfirmdialog_yes" onmousedown="Game_FromGameToMainMenu(true); return false;">
-<img src="QuitConfirmDialog_No.png" class="quitconfirmdialog_no" onmousedown="Game_DismissQuitLevelConfirm(); return false;">
+  <div class="retro-dialog quit-dialog">
+    <div class="retro-dialog-title quit-title">QUIT LEVEL?</div>
+    <div class="retro-dialog-body" style="padding:10px 0;">
+      <div style="color:#88CCFF;font-size:13px;letter-spacing:1px;">Progress will be lost!</div>
+    </div>
+    <div class="retro-dialog-buttons">
+      <div class="retro-btn-action retro-btn-danger" onmousedown="Game_FromGameToMainMenu(true); return false;">YES</div>
+      <div class="retro-btn-action" onmousedown="Game_DismissQuitLevelConfirm(); return false;">NO</div>
+    </div>
+  </div>
 </div> <!-- id_div_quitelevelconfirm -->
 
 <div id="id_div_container" class="div_hidden"> <!-- General container.  For some reason, the sound module requires it -->
-<div id="div_moviescreenframe" class="moviescreenframe"> <!-- div_moviescreenframe -->
+<div id="div_moviescreenframe" class="moviescreenframe" style="width:960px;height:520px"> <!-- div_moviescreenframe -->
 </div>  <!-- div_moviescreenframe -->
 
 <div id="controlpanel" class="div_controlpanel">
-  <img id="id_control_selectedbutton" src="control_action_selectedbutton.gif" id="id_control_selectedbutton" class="control_selectedbutton img_hidden">
+  <img id="id_control_selectedbutton" src="control_action_selectedbutton.gif" class="control_selectedbutton img_hidden">
   
-  <img id="id_control_weapon_01" src="buttonaction_weapon_firesock.gif" class="control_weapon_01" onmousedown="Game_SelectWeapon('Weapon01',true);return false;">
-    <span id="id_control_label_weapon_01" class="control_weapon_label_01" onmousedown="Game_SelectWeapon('Weapon01',true);return false;"><span id="id_weapon_01" class="ammonumber">0</span></span>
-  <img id="id_control_weapon_02" src="buttonaction_weapon_snowball.gif" class="control_weapon_02" onmousedown="Game_SelectWeapon('Weapon02',true);return false;">
-    <span id="id_control_label_weapon_02" class="control_weapon_label_02" onmousedown="Game_SelectWeapon('Weapon02',true);return false;"><span id="id_weapon_02" class="ammonumber">0</span></span>
-  <img id="id_control_weapon_03" src="buttonaction_weapon_firegift.gif" class="control_weapon_03" onmousedown="Game_SelectWeapon('Weapon03',true);return false;">
-    <span id="id_control_label_weapon_03" class="control_weapon_label_03" onmousedown="Game_SelectWeapon('Weapon03',true);return false;"><span id="id_weapon_03" class="ammonumber">0</span></span>
-  
-  <img id="id_snowstock_img" src="snowstock.png" class="snowstock">
+  <div class="weapon-slot" onmousedown="Game_SelectWeapon('Weapon01',true);return false;">
+    <img id="id_control_weapon_01" src="buttonaction_weapon_firesock.gif" class="control_weapon_01">
+    <span class="weapon-name">SOCK</span>
+    <span id="id_control_label_weapon_01" class="control_weapon_label_01"><span id="id_weapon_01" class="ammonumber">0</span></span>
+  </div>
+  <div class="weapon-slot" onmousedown="Game_SelectWeapon('Weapon02',true);return false;">
+    <img id="id_control_weapon_02" src="buttonaction_weapon_snowball.gif" class="control_weapon_02">
+    <span class="weapon-name">BALL</span>
+    <span id="id_control_label_weapon_02" class="control_weapon_label_02"><span id="id_weapon_02" class="ammonumber">0</span></span>
+  </div>
+  <div class="weapon-slot" onmousedown="Game_SelectWeapon('Weapon03',true);return false;">
+    <img id="id_control_weapon_03" src="buttonaction_weapon_firegift.gif" class="control_weapon_03">
+    <span class="weapon-name">GIFT</span>
+    <span id="id_control_label_weapon_03" class="control_weapon_label_03"><span id="id_weapon_03" class="ammonumber">0</span></span>
+  </div>
+
+  <div class="snow-stock-display">
+    <img id="id_snowstock_img" src="snowstock.png" class="snowstock">
+    <span class="snow-stock-label">SNOW</span>
     <span id="id_control_label_snowstock" class="snowstock_label"><span id="id_snowstock" class="ammonumber">0</span></span>
+  </div>
+  <div class="control-extras">
+    <div id="id_turret_btn" class="ctrl-btn" onmousedown="Game_TurretMode=!Game_TurretMode;this.style.borderColor=Game_TurretMode?'#FFD700':'#4488CC';if(Game_TurretMode)Game_ShowFloatingText('CLICK GROUND TO PLACE (COST:'+Game_TurretCost+')',&#39;#FFD700&#39;,{X:Game_PlayerShooter?Game_PlayerShooter.X:0,Y:Game_PlayerShooter?Game_PlayerShooter.Y-20:0});return false;" title="Build Turret (75 Snow)">&#x1F3F0;</div>
+    <div id="ability-freezeAll" class="ctrl-btn" onmousedown="Game_UseAbility('freezeAll');return false;" title="Freeze All"><div class="cooldown-overlay"></div>&#x2744;</div>
+    <div id="ability-snowStorm" class="ctrl-btn" onmousedown="Game_UseAbility('snowStorm');return false;" title="Snow Storm"><div class="cooldown-overlay"></div>&#x26A1;</div>
+    <div id="ability-healPlayer" class="ctrl-btn" onmousedown="Game_UseAbility('healPlayer');return false;" title="Heal Player"><div class="cooldown-overlay"></div>&#x2764;</div>
+    <div id="speed-btn" class="ctrl-btn" onmousedown="Game_CycleSpeed();return false;" title="Speed">&#x23E9;</div>
+    <div id="autoshoot-btn" class="ctrl-btn" onmousedown="Game_ToggleAutoShoot();return false;" title="Auto-Shoot">&#x1F3AF;</div>
+  </div>
 </div>
 <div id="div_topboard" class="topboard">
-<img src="ScoreSign.png">
-  <span id="span_scoreboard" class="scoreboard">
-  </span>
-  &nbsp;&nbsp;
-<img src="LevelSign.png">
-  <span id="span_levelboard" class="levelboard">
-  45
+  <span class="hud-label">SCORE</span>
+  <span id="span_scoreboard" class="scoreboard"></span>
+  <span class="hud-divider"></span>
+  <span class="hud-label">LVL</span>
+  <span id="span_levelboard" class="levelboard"></span>
+  <span id="span_progress" class="progress-container">
+    <span id="span_progress_bar" class="progress-bar"></span>
+    <span id="span_progress_text" class="progress-text">0/0</span>
   </span>
   <span id="span_topbuttons" class="topbuttons">
-    <img src="PauseSign.png" onmousedown="Game_PauseLevel(); return false;">
-    <img src="QuitSign.png" onmousedown="Game_QuitLevel(); return false;">
+    <span class="hud-btn" onmousedown="Game_PauseLevel(); return false;">&#x23F8;</span>
+    <span class="hud-btn hud-btn-quit" onmousedown="Game_QuitLevel(); return false;">&#x2716;</span>
   </span>
 </div>
+<div id="combo-display"></div>
 
 <div id="div_infoscreen" class="infoscreen"> <!-- div_infoscreen -->
 </div>  <!-- div_infoscreen -->
@@ -201,34 +248,45 @@
 </div> <!-- Container -->
 
 <div id="id_div_mainmenu" class="div_hidden"> <!-- id_div_mainmenu -->
-  <div class="screen-container">
-    <img src="MainMenu_Screen.png" class="screen-background" alt="Background">
-
-    <div class="menu-content">
-      <h1 class="game-title">CHILLY ZOMBIES</h1>
-
-      <div class="menu-buttons-container">
-        <img src="mainmenu_button_startgame.png" class="mainmenu_button_start" onmousedown="Game_Start(true); return false;" alt="New Game">
-        <img src="mainmenu_button_selectlevel.png" class="mainmenu_button_levelselection" onmousedown="Game_LevelSelection(); return false;" alt="Select Level">
-        <img src="mainmenu_button_about.png" class="mainmenu_button_about" onmousedown="Game_ShowAboutScreen(); return false;" alt="About">
-        <img src="mainmenu_button_instructions.png" class="mainmenu_button_instructions" onmousedown="Game_Tutorial(); return false;" alt="Instructions">
-      </div>
-
-      <div style="margin-top: 30px; color: white; text-shadow: 0 2px 10px rgba(0,0,0,0.8);">
-        <span style="font-size: 18px;">High Score: </span>
-        <span style="font-size: 28px; font-weight: bold;" id="id_mainmenu_highscore"></span>
-      </div>
+  <div class="mainmenu-screen">
+    <div class="mainmenu-logo">
+      <img src="sprites/logo_chillyzombies.svg" alt="Chilly Zombies" class="mainmenu-logo-img">
     </div>
+    <div class="mainmenu-score">HIGH SCORE: <span id="id_mainmenu_highscore">0</span></div>
+    <div class="mainmenu-buttons">
+      <div class="mainmenu-btn mainmenu-btn-primary" onmousedown="Game_Start(true); return false;">START GAME</div>
+      <div class="mainmenu-btn" onmousedown="Game_LevelSelection(); return false;">SELECT LEVEL</div>
+      <div class="mainmenu-btn mainmenu-btn-endless" onmousedown="Game_StartEndlessMode(); return false;">ENDLESS MODE</div>
+    </div>
+    <div class="mainmenu-row">
+      <div class="mainmenu-btn-sm" onmousedown="Game_ShowCharacterSelect(); return false;">CHARACTERS</div>
+      <div class="mainmenu-btn-sm" onmousedown="Game_ShowSkillTree(); return false;">SKILL TREE</div>
+      <div class="mainmenu-btn-sm" onmousedown="Game_ShowOnlineLeaderboard(); return false;">LEADERBOARD</div>
+    </div>
+    <div class="mainmenu-row">
+      <div class="mainmenu-btn-sm mainmenu-btn-muted" onmousedown="Game_Tutorial(); return false;">HOW TO PLAY</div>
+      <div class="mainmenu-btn-sm mainmenu-btn-muted" onmousedown="Game_ShowAboutScreen(); return false;">ABOUT</div>
+    </div>
+    <div class="mainmenu-footer">&#x2744; HOLIDAY LEFTOVERS EDITION &#x2744;</div>
   </div>
 </div> <!-- id_div_mainmenu -->
 
 <div id="id_div_gameover" class="gameover div_hidden"> <!-- id_div_gameover -->
-<img src="GameOverSign.png" class="gameoverdialog">
-<img src="GameOver_RestartButton.png" class="gameover_restartlevel" onmousedown="Game_RestartLevel(); return false;">
-<img src="GameOver_MainMenuButton.png" class="gameover_gotomainmenu" onmousedown="Game_FromGameToMainMenu(true); return false;">
-<span id="span_gameover_newhighscore" class="gameover_newhighscore span_hidden">
-New High Score!
-</span>
+  <div class="retro-dialog gameover-dialog">
+    <div class="retro-dialog-title gameover-title">GAME OVER</div>
+    <div id="gameover_stats" class="retro-dialog-body">
+      <div class="retro-stat-row"><span class="retro-stat-label">SCORE</span><span id="gameover_score" class="retro-stat-value">0</span></div>
+      <div class="retro-stat-row"><span class="retro-stat-label">LEVEL</span><span id="gameover_level" class="retro-stat-value">1</span></div>
+      <div class="retro-stat-row"><span class="retro-stat-label">KILLS</span><span id="gameover_kills" class="retro-stat-value">0</span></div>
+      <div class="retro-stat-row"><span class="retro-stat-label">ACCURACY</span><span id="gameover_accuracy" class="retro-stat-value">0%</span></div>
+      <div class="retro-stat-row"><span class="retro-stat-label">BEST COMBO</span><span id="gameover_combo" class="retro-stat-value">x1</span></div>
+    </div>
+    <div id="gameover_highscore_notice" class="retro-highscore-notice" style="display:none;">NEW HIGH SCORE!</div>
+    <div class="retro-dialog-buttons">
+      <div class="retro-btn-action" onmousedown="Game_RestartLevel(); return false;">RETRY</div>
+      <div class="retro-btn-action retro-btn-secondary" onmousedown="Game_FromGameToMainMenu(true); return false;">MENU</div>
+    </div>
+  </div>
 </div> <!-- id_div_gameover -->
 
 <div id="id_div_gameend" class="gameend div_hidden"> <!-- id_div_gameend -->
@@ -263,6 +321,9 @@ New High Score!
 
 <!-- Enable Canvas Rendering (Simple, Safe) -->
 <script type="text/javascript" src="enable-canvas.js"></script>
+
+<!-- Start splash snow immediately -->
+<script>if (typeof Game_StartSplashSnow === 'function') Game_StartSplashSnow();</script>
 
 </div> <!-- #game-wrapper -->
 

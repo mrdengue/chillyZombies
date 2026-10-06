@@ -108,8 +108,9 @@ var g_SpriteImageAnimNames =
     'walk04',
     'selector',
     'dead',
-    'active'
-    //,
+    'active',
+    'gather',
+    'build'
 ];
 
 var g_SoundLoop      = new Object();
@@ -4330,11 +4331,68 @@ function HandleLoading(IsSound,IsError)
   return true;
 }
 
+var g_SplashMinDisplayMs = 2500;
+var g_SplashMaxDisplayMs = 8000; // Hard cap - always dismiss after 8s
+var g_SplashTimerElapsed = false;
+var g_SplashDismissed = false;
+
 function ShowApplicationAfterLoading()
 {
-  document.getElementById('id_div_loading').className = 'div_hidden';
-  PerformAfterLoadingTasks();
+  // Fill progress bar to 100%
+  var bar = document.getElementById('id_div_loadingprogress_bar');
+  if (bar) bar.style.width = '100%';
+
+  // Init the game (menu shows behind the splash overlay)
+  try { PerformAfterLoadingTasks(); } catch(e) { console.error('[SPLASH] Init error:', e); }
+
+  // If the minimum timer already elapsed, dismiss now
+  if (g_SplashTimerElapsed)
+  {
+    g_DismissSplash();
+  }
+  // Otherwise the timer callback will dismiss when it fires
 }
+
+function g_DismissSplash()
+{
+  if (g_SplashDismissed) return;
+  g_SplashDismissed = true;
+
+  // Stop splash snow
+  if (typeof Game_StopSplashSnow === 'function') Game_StopSplashSnow();
+
+  var splashEl = document.getElementById('id_div_loading');
+  if (splashEl && splashEl.className !== 'div_hidden')
+  {
+    splashEl.classList.add('splash-fadeout');
+    setTimeout(function() {
+      splashEl.className = 'div_hidden';
+    }, 500);
+  }
+}
+
+// After minimum time: dismiss if assets loaded, otherwise wait for them
+setTimeout(function() {
+  g_SplashTimerElapsed = true;
+  // If ShowApplicationAfterLoading already ran, dismiss now
+  // (check by seeing if Game_Init was called - main menu would exist)
+  var menu = document.getElementById('id_div_mainmenu');
+  if (menu && menu.className.indexOf('div_shown') !== -1)
+  {
+    g_DismissSplash();
+  }
+  // If not, ShowApplicationAfterLoading will call g_DismissSplash when ready
+}, g_SplashMinDisplayMs);
+
+// Hard cap: always dismiss after max time regardless of loading state
+setTimeout(function() {
+  if (!g_SplashDismissed)
+  {
+    console.warn('[SPLASH] Force dismiss after timeout');
+    try { PerformAfterLoadingTasks(); } catch(e) {}
+    g_DismissSplash();
+  }
+}, g_SplashMaxDisplayMs);
 
 // These tasks must be performed after the main screen is shown to the user, becasuse
 // they involve the use of the getDimensions() function, which returns accurate values

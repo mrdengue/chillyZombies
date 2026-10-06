@@ -1,0 +1,335 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Chilly Zombies - Sprite Gallery</title>
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body {
+  background: #e8edf2;
+  color: #222;
+  font-family: 'Courier New', monospace;
+  padding: 20px;
+}
+h1 {
+  text-align: center;
+  color: #2a6496;
+  margin-bottom: 10px;
+  font-size: 24px;
+}
+.back-link {
+  display: block;
+  text-align: center;
+  color: #2a6496;
+  margin-bottom: 20px;
+  font-size: 16px;
+  text-decoration: none;
+}
+.back-link:hover { color: #1a3a5c; }
+.filters {
+  text-align: center;
+  margin-bottom: 20px;
+}
+.filters button {
+  background: #fff;
+  color: #445;
+  border: 1px solid #b0c4d8;
+  padding: 6px 14px;
+  margin: 3px;
+  cursor: pointer;
+  border-radius: 4px;
+  font-family: inherit;
+  font-size: 13px;
+}
+.filters button:hover, .filters button.active {
+  background: #2a6496;
+  color: #fff;
+  border-color: #2a6496;
+}
+.category {
+  margin-bottom: 30px;
+  border: 1px solid #c0cdd8;
+  border-radius: 8px;
+  overflow: hidden;
+}
+.category-header {
+  background: #d0dae4;
+  padding: 10px 16px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.category-header h2 {
+  color: #2a4a6a;
+  font-size: 16px;
+}
+.badge {
+  background: #b0c4d8;
+  color: #445;
+  padding: 2px 8px;
+  border-radius: 10px;
+  font-size: 12px;
+}
+.badge.original { background: #a8d5ba; color: #1a5c32; }
+.badge.new { background: #f0d8a8; color: #7a5a20; }
+.sprite-row {
+  padding: 8px 12px;
+  border-top: 1px solid #c0cdd8;
+}
+.sprite-row-label {
+  font-size: 13px;
+  margin-bottom: 6px;
+}
+.sprite-row-label.original { color: #1a7a3a; }
+.sprite-row-label.svg { color: #8a6a10; }
+.sprite-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  background: #ffffff;
+  padding: 12px;
+  border-radius: 4px;
+}
+.sprite-card {
+  background: #f4f8fc;
+  border: 1px solid #d0dae4;
+  border-radius: 6px;
+  padding: 8px;
+  text-align: center;
+  min-width: 90px;
+}
+.sprite-card img {
+  image-rendering: pixelated;
+  image-rendering: -moz-crisp-edges;
+  image-rendering: crisp-edges;
+  display: block;
+  margin: 0 auto 6px;
+  background: #ffffff;
+  min-height: 32px;
+}
+.sprite-card .name {
+  font-size: 10px;
+  color: #667;
+  word-break: break-all;
+}
+.sprite-card .dims {
+  font-size: 9px;
+  color: #999;
+  margin-top: 2px;
+}
+.legend {
+  text-align: center;
+  margin-bottom: 16px;
+  font-size: 12px;
+  color: #667;
+}
+.legend span { margin: 0 10px; }
+.legend .orig { color: #1a7a3a; }
+.legend .svg-label { color: #8a6a10; }
+</style>
+</head>
+<body>
+
+<h1>SPRITE GALLERY</h1>
+<a href="index.html" class="back-link">&larr; Back to Game</a>
+
+<div class="legend">
+  <span class="orig">&#9632; Original (2010)</span>
+  <span class="svg-label">&#9632; SVG Generated (new)</span>
+</div>
+
+<div class="filters">
+  <button class="active" onclick="filterAll(this)">All</button>
+  <button onclick="filterCat(this,'players')">Players</button>
+  <button onclick="filterCat(this,'enemies')">Enemies</button>
+  <button onclick="filterCat(this,'bosses')">Bosses</button>
+  <button onclick="filterCat(this,'weapons')">Weapons</button>
+  <button onclick="filterCat(this,'objects')">Objects</button>
+  <button onclick="filterCat(this,'ui')">UI</button>
+</div>
+
+<div id="gallery"></div>
+
+<script>
+var sprites = {
+  players: {
+    label: 'Players',
+    items: [
+      { name: 'Player (Blue)', files: ['anim_player_idle.gif','anim_player_walk_01.gif','anim_player_walk_02.gif','anim_player_walk_03.gif','anim_player_walk_04.gif','anim_player_dead.gif','anim_player_gather.gif','anim_player_build.gif','anim_player_selector.gif'], svg: false },
+      { name: 'Player2 (Red)', files: ['anim_player2_idle.gif','anim_player2_walk_01.gif','anim_player2_walk_02.gif','anim_player2_walk_03.gif','anim_player2_walk_04.gif','anim_player2_dead.gif','anim_player2_gather.gif','anim_player2_build.gif'], svg: false },
+      { name: 'Player3 (Green)', files: ['anim_player3_idle.gif','anim_player3_walk_01.gif','anim_player3_walk_02.gif','anim_player3_walk_03.gif','anim_player3_walk_04.gif','anim_player3_dead.gif','anim_player3_gather.gif','anim_player3_build.gif'], svg: false },
+      { name: 'Player4', files: ['anim_player4_idle.gif','anim_player4_walk_01.gif','anim_player4_walk_02.gif','anim_player4_walk_03.gif','anim_player4_walk_04.gif','anim_player4_dead.gif','anim_player4_gather.gif','anim_player4_build.gif'], svg: true },
+      { name: 'Player5', files: ['anim_player5_idle.gif','anim_player5_walk_01.gif','anim_player5_walk_02.gif','anim_player5_walk_03.gif','anim_player5_walk_04.gif','anim_player5_dead.gif','anim_player5_gather.gif','anim_player5_build.gif'], svg: true },
+      { name: 'Player6', files: ['anim_player6_idle.gif','anim_player6_walk_01.gif','anim_player6_walk_02.gif','anim_player6_walk_03.gif','anim_player6_walk_04.gif','anim_player6_dead.gif','anim_player6_gather.gif','anim_player6_build.gif'], svg: true },
+      { name: 'Player7', files: ['anim_player7_idle.gif','anim_player7_walk_01.gif','anim_player7_walk_02.gif','anim_player7_walk_03.gif','anim_player7_walk_04.gif','anim_player7_dead.gif','anim_player7_gather.gif','anim_player7_build.gif'], svg: true },
+      { name: 'Player8', files: ['anim_player8_idle.gif','anim_player8_walk_01.gif','anim_player8_walk_02.gif','anim_player8_walk_03.gif','anim_player8_walk_04.gif','anim_player8_dead.gif','anim_player8_gather.gif','anim_player8_build.gif'], svg: true },
+      { name: 'Player9', files: ['anim_player9_idle.gif','anim_player9_walk_01.gif','anim_player9_walk_02.gif','anim_player9_walk_03.gif','anim_player9_walk_04.gif','anim_player9_dead.gif','anim_player9_gather.gif','anim_player9_build.gif'], svg: true }
+    ]
+  },
+  enemies: {
+    label: 'Enemies',
+    items: [
+      { name: 'Zombie', files: ['anim_zombie_idle.gif','anim_zombie_walk_01.gif','anim_zombie_walk_02.gif','anim_zombie_walk_03.gif','anim_zombie_walk_04.gif','anim_zombie_dead.gif'], svg: false },
+      { name: 'Zombiess (Strong)', files: ['anim_zombiess_idle.gif','anim_zombiess_walk_01.gif','anim_zombiess_walk_02.gif','anim_zombiess_walk_03.gif','anim_zombiess_walk_04.gif','anim_zombiess_dead.gif'], svg: false },
+      { name: 'Snowman', files: ['anim_snowman_idle.gif','anim_snowman_walk_01.gif','anim_snowman_walk_02.gif','anim_snowman_dead.gif'], svg: false },
+      { name: 'Sheep', files: ['anim_sheep_idle.gif','anim_sheep_walk_01.gif','anim_sheep_walk_02.gif','anim_sheep_walk_03.gif','anim_sheep_walk_04.gif','anim_sheep_dead.gif'], svg: false },
+      { name: 'Dinosaur (Boss)', files: ['anim_dinosaur_idle.gif','anim_dinosaur_walk_01.gif','anim_dinosaur_walk_02.gif','anim_dinosaur_walk_03.gif','anim_dinosaur_walk_04.gif','anim_dinosaur_dead.gif'], svg: false },
+      { name: 'SnowZombie1', files: ['anim_SnowZombie1_idle.gif','anim_SnowZombie1_walk_01.gif','anim_SnowZombie1_walk_02.gif','anim_SnowZombie1_walk_03.gif','anim_SnowZombie1_walk_04.gif','anim_SnowZombie1_dead.gif'], svg: true },
+      { name: 'SnowZombie2', files: ['anim_SnowZombie2_idle.gif','anim_SnowZombie2_walk_01.gif','anim_SnowZombie2_walk_02.gif','anim_SnowZombie2_walk_03.gif','anim_SnowZombie2_walk_04.gif','anim_SnowZombie2_dead.gif'], svg: true },
+      { name: 'SnowZombie3', files: ['anim_SnowZombie3_idle.gif','anim_SnowZombie3_walk_01.gif','anim_SnowZombie3_walk_02.gif','anim_SnowZombie3_walk_03.gif','anim_SnowZombie3_walk_04.gif','anim_SnowZombie3_dead.gif'], svg: true },
+      { name: 'SnowZombie4', files: ['anim_SnowZombie4_idle.gif','anim_SnowZombie4_walk_01.gif','anim_SnowZombie4_walk_02.gif','anim_SnowZombie4_walk_03.gif','anim_SnowZombie4_walk_04.gif','anim_SnowZombie4_dead.gif'], svg: true },
+      { name: 'SnowZombie5', files: ['anim_SnowZombie5_idle.gif','anim_SnowZombie5_walk_01.gif','anim_SnowZombie5_walk_02.gif','anim_SnowZombie5_walk_03.gif','anim_SnowZombie5_walk_04.gif','anim_SnowZombie5_dead.gif'], svg: true }
+    ]
+  },
+  bosses: {
+    label: 'Bosses',
+    items: [
+      { name: 'Boss1', files: ['anim_Boss1_idle.gif','anim_Boss1_walk_01.gif','anim_Boss1_walk_02.gif','anim_Boss1_walk_03.gif','anim_Boss1_walk_04.gif','anim_Boss1_dead.gif'], svg: true },
+      { name: 'Boss2', files: ['anim_Boss2_idle.gif','anim_Boss2_walk_01.gif','anim_Boss2_walk_02.gif','anim_Boss2_walk_03.gif','anim_Boss2_walk_04.gif','anim_Boss2_dead.gif'], svg: true },
+      { name: 'Boss3', files: ['anim_Boss3_idle.gif','anim_Boss3_walk_01.gif','anim_Boss3_walk_02.gif','anim_Boss3_walk_03.gif','anim_Boss3_walk_04.gif','anim_Boss3_dead.gif'], svg: true },
+      { name: 'Boss4', files: ['anim_Boss4_idle.gif','anim_Boss4_walk_01.gif','anim_Boss4_walk_02.gif','anim_Boss4_walk_03.gif','anim_Boss4_walk_04.gif','anim_Boss4_dead.gif'], svg: true },
+      { name: 'Boss5', files: ['anim_Boss5_idle.gif','anim_Boss5_walk_01.gif','anim_Boss5_walk_02.gif','anim_Boss5_walk_03.gif','anim_Boss5_walk_04.gif','anim_Boss5_dead.gif'], svg: true },
+      { name: 'Boss6', files: ['anim_Boss6_idle.gif','anim_Boss6_walk_01.gif','anim_Boss6_walk_02.gif','anim_Boss6_walk_03.gif','anim_Boss6_walk_04.gif','anim_Boss6_dead.gif'], svg: true },
+      { name: 'Boss7', files: ['anim_Boss7_idle.gif','anim_Boss7_walk_01.gif','anim_Boss7_walk_02.gif','anim_Boss7_walk_03.gif','anim_Boss7_walk_04.gif','anim_Boss7_dead.gif'], svg: true },
+      { name: 'Boss8', files: ['anim_Boss8_idle.gif','anim_Boss8_walk_01.gif','anim_Boss8_walk_02.gif','anim_Boss8_walk_03.gif','anim_Boss8_walk_04.gif','anim_Boss8_dead.gif'], svg: true }
+    ]
+  },
+  weapons: {
+    label: 'Weapons',
+    items: [
+      { name: 'FireSock', files: ['anim_weapon_firesock_idle.gif'], svg: false },
+      { name: 'Snowball', files: ['anim_weapon_snowball_idle.gif'], svg: false },
+      { name: 'FireGift', files: ['anim_weapon_firegift_idle.gif'], svg: false }
+    ]
+  },
+  objects: {
+    label: 'Objects & Blocks',
+    items: [
+      { name: 'Material', files: ['anim_material_idle.gif'], svg: false },
+      { name: 'AmmoStation', files: ['anim_ammostation_idle.gif'], svg: false },
+      { name: 'ShootingSpot', files: ['anim_shootingspot_idle.gif'], svg: false },
+      { name: 'Block 1x1', files: ['anim_block_idle.gif'], svg: false },
+      { name: 'Block 2xH', files: ['anim_blockx2h_idle.gif'], svg: false },
+      { name: 'Block 2xV', files: ['anim_blockx2v_idle.gif'], svg: false },
+      { name: 'Block 3xH', files: ['anim_blockx3h_idle.gif'], svg: false },
+      { name: 'Block 3xV', files: ['anim_blockx3v_idle.gif'], svg: false },
+      { name: 'Block 4xH', files: ['anim_blockx4h_idle.gif'], svg: false },
+      { name: 'Block 4xV', files: ['anim_blockx4v_idle.gif'], svg: false },
+      { name: 'IceBlock 1x1', files: ['anim_iceblock_idle.gif'], svg: false },
+      { name: 'IceBlock 2xH', files: ['anim_iceblockx2h_idle.gif'], svg: false },
+      { name: 'IceBlock 2xV', files: ['anim_iceblockx2v_idle.gif'], svg: false },
+      { name: 'IceBlock 3xH', files: ['anim_iceblockx3h_idle.gif'], svg: false },
+      { name: 'IceBlock 3xV', files: ['anim_iceblockx3v_idle.gif'], svg: false },
+      { name: 'IceBlock 4xH', files: ['anim_iceblockx4h_idle.gif'], svg: false },
+      { name: 'IceBlock 4xV', files: ['anim_iceblockx4v_idle.gif'], svg: false },
+      { name: 'Prop 01', files: ['anim_prop_01_idle.gif'], svg: false },
+      { name: 'Prop 02', files: ['anim_prop_02_idle.gif'], svg: false }
+    ]
+  },
+  ui: {
+    label: 'UI & Misc',
+    items: [
+      { name: 'Camera', files: ['anim_camera_idle.gif','anim_camera_spritebar.gif'], svg: false },
+      { name: 'TextBubble', files: ['anim_textbubble_idle.gif','anim_textbubble_selector.gif'], svg: false },
+      { name: 'TextLabel', files: ['anim_textlabel_idle.gif','anim_textlabel_selector.gif'], svg: false },
+      { name: 'Unknown', files: ['anim_unknown.gif'], svg: false }
+    ]
+  }
+};
+
+function createSpriteCard(file) {
+  var card = document.createElement('div');
+  card.className = 'sprite-card';
+
+  var img = document.createElement('img');
+  img.src = file;
+  img.alt = file;
+  img.onerror = function() { this.style.border = '1px dashed red'; };
+  card.appendChild(img);
+
+  var nameEl = document.createElement('div');
+  nameEl.className = 'name';
+  nameEl.textContent = file.replace('anim_','').replace('.gif','');
+  card.appendChild(nameEl);
+
+  var dimsEl = document.createElement('div');
+  dimsEl.className = 'dims';
+  dimsEl.textContent = '...';
+  card.appendChild(dimsEl);
+
+  img.onload = function() {
+    dimsEl.textContent = this.naturalWidth + 'x' + this.naturalHeight;
+  };
+
+  return card;
+}
+
+function createCategorySection(catKey, cat) {
+  var section = document.createElement('div');
+  section.className = 'category';
+  section.setAttribute('data-cat', catKey);
+
+  var header = document.createElement('div');
+  header.className = 'category-header';
+
+  var h2 = document.createElement('h2');
+  h2.textContent = cat.label;
+  header.appendChild(h2);
+
+  var badge = document.createElement('span');
+  badge.className = 'badge';
+  badge.textContent = cat.items.length + ' types';
+  header.appendChild(badge);
+
+  section.appendChild(header);
+
+  cat.items.forEach(function(item) {
+    var row = document.createElement('div');
+    row.className = 'sprite-row';
+
+    var label = document.createElement('div');
+    label.className = 'sprite-row-label ' + (item.svg ? 'svg' : 'original');
+    label.textContent = item.name + (item.svg ? ' (SVG Generated)' : ' (Original 2010)');
+    row.appendChild(label);
+
+    var grid = document.createElement('div');
+    grid.className = 'sprite-grid';
+
+    item.files.forEach(function(file) {
+      grid.appendChild(createSpriteCard(file));
+    });
+
+    row.appendChild(grid);
+    section.appendChild(row);
+  });
+
+  return section;
+}
+
+function render(filter) {
+  var gallery = document.getElementById('gallery');
+  gallery.textContent = '';
+
+  Object.keys(sprites).forEach(function(catKey) {
+    if (filter && filter !== catKey) return;
+    gallery.appendChild(createCategorySection(catKey, sprites[catKey]));
+  });
+}
+
+function filterAll(btn) {
+  document.querySelectorAll('.filters button').forEach(function(b) { b.classList.remove('active'); });
+  btn.classList.add('active');
+  render(null);
+}
+
+function filterCat(btn, cat) {
+  document.querySelectorAll('.filters button').forEach(function(b) { b.classList.remove('active'); });
+  btn.classList.add('active');
+  render(cat);
+}
+
+render(null);
+</script>
+</body>
+</html>

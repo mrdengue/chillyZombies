@@ -1,0 +1,33 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 14 12" width="14" height="12" shape-rendering="crispEdges">
+  <!-- Small collectible snow pile - visible against white background -->
+  <!-- Ground shadow (dark, gives depth) -->
+  <rect x="2" y="10" width="10" height="2" fill="#8899aa"/>
+  <rect x="1" y="11" width="12" height="1" fill="#778899"/>
+  <!-- Outer edge / border (blue-grey to contrast with white bg) -->
+  <rect x="4" y="2" width="4" height="1" fill="#99bbdd"/>
+  <rect x="2" y="3" width="8" height="1" fill="#88aacc"/>
+  <rect x="1" y="4" width="10" height="1" fill="#88aacc"/>
+  <rect x="1" y="5" width="10" height="1" fill="#88aacc"/>
+  <rect x="0" y="6" width="12" height="1" fill="#7799bb"/>
+  <rect x="0" y="7" width="12" height="1" fill="#7799bb"/>
+  <rect x="1" y="8" width="10" height="1" fill="#7799bb"/>
+  <rect x="1" y="9" width="10" height="1" fill="#6688aa"/>
+  <!-- Inner snow body (lighter, sits inside the border) -->
+  <rect x="5" y="2" width="2" height="1" fill="#FFFFFF"/>
+  <rect x="3" y="3" width="6" height="1" fill="#EEEEFF"/>
+  <rect x="2" y="4" width="8" height="1" fill="#FFFFFF"/>
+  <rect x="2" y="5" width="8" height="1" fill="#DDEEFF"/>
+  <rect x="1" y="6" width="10" height="1" fill="#EEEEFF"/>
+  <rect x="1" y="7" width="10" height="1" fill="#DDEEFF"/>
+  <rect x="2" y="8" width="8" height="1" fill="#CCDDEE"/>
+  <rect x="2" y="9" width="8" height="1" fill="#BBCCDD"/>
+  <!-- Snow sparkles -->
+  <rect x="4" y="4" width="1" height="1" fill="#FFFFFF"/>
+  <rect x="7" y="5" width="1" height="1" fill="#FFFFFF"/>
+  <rect x="3" y="7" width="1" height="1" fill="#FFFFFF"/>
+  <!-- Blue ice accents -->
+  <rect x="5" y="7" width="1" height="1" fill="#99BBEE"/>
+  <rect x="8" y="6" width="1" height="1" fill="#99BBEE"/>
+  <!-- Snowflake hint on top -->
+  <rect x="6" y="1" width="1" height="1" fill="#BBDDFF"/>
+</svg>

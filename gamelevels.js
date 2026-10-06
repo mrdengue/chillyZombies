@@ -119,13 +119,16 @@ var Game_LevelData =
              {Type: 'Prop01',
                              X: 28 * 480 + 320,
                              Y: 200
-             }
+             },
+             {Type: 'SnowPile', X: 28 * 480 + 200, Y: 60},
+             {Type: 'SnowPile', X: 28 * 480 + 150, Y: 180},
+             {Type: 'SnowPile', X: 28 * 480 + 350, Y: 130}
             ],
-            
+
     Blocks : [
             ],
-            
-   InGameTip  : 'Tap on or around the Zombies to shoot at them.',
+
+   InGameTip  : 'Click snow piles for +25 snow! Tap zombies to shoot.',
    InGameTipX : 28 * 480 + 300,
    InGameTipY : 0  * 260 + 25
   }
@@ -205,9 +208,11 @@ var Game_LevelData =
              {Type: 'Prop02',
                              X: 27 * 480 + 380,
                              Y: 150
-             }
+             },
+             {Type: 'SnowPile', X: 27 * 480 + 250, Y: 80},
+             {Type: 'SnowPile', X: 27 * 480 + 300, Y: 180}
             ],
-            
+
     Blocks : [
               {Type: 'IceBlockx2v',X: 27 * 480 + 100,Y: 50},
               {Type: 'IceBlockx2v',X: 27 * 480 + 100,Y: 100},

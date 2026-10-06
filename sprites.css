@@ -95,6 +95,43 @@ canvas {
 }
 
 /* ==============================================
+   PLAYER SELECTOR INDICATOR
+   ============================================== */
+
+/* Selector: transparent overlay, only shows a small arrow via ::after */
+@keyframes selector-bounce {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-4px); }
+}
+
+[id$="_selector"] {
+  background: none !important;
+  background-image: none !important;
+  background-color: transparent !important;
+  background-size: 0 0 !important;
+  border: none !important;
+  box-shadow: none !important;
+  overflow: visible !important;
+  pointer-events: none !important;
+}
+
+[id$="_selector"]::after {
+  content: '';
+  position: absolute;
+  top: -12px;
+  left: 50%;
+  margin-left: -6px;
+  width: 0;
+  height: 0;
+  border-left: 6px solid transparent;
+  border-right: 6px solid transparent;
+  border-top: 8px solid #FFDD00;
+  filter: drop-shadow(0 0 3px rgba(255,221,0,0.8));
+  animation: selector-bounce 0.8s ease-in-out infinite;
+  pointer-events: none;
+}
+
+/* ==============================================
    COMBAT & STATE EFFECTS
    ============================================== */
 
@@ -640,7 +677,7 @@ span.scoreamount
   font-weight: bold;
   font-size: 18px;
   font-style: italic;
-  color: #4C5C6A;
+  color: #FFD700;
 }
 
 span.levelamount
@@ -648,7 +685,7 @@ span.levelamount
   font-weight: bold;
   font-size: 18px;
   font-style: italic;
-  color: #4C5C6A;
+  color: #00d4ff;
 }
 
 span.topbuttons

@@ -19,3 +19,9 @@ npm-debug.log*
 
 # Build outputs
 build/
+
+# Python server
+server/venv/
+server/__pycache__/
+*.pyc
+*.log

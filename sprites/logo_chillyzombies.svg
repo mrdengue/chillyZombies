@@ -1,0 +1,43 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 360 90">
+  <defs>
+    <linearGradient id="iceGrad" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#CCEDFF"/>
+      <stop offset="35%" stop-color="#66AAEE"/>
+      <stop offset="100%" stop-color="#2255AA"/>
+    </linearGradient>
+    <linearGradient id="zombieGrad" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#66DD66"/>
+      <stop offset="100%" stop-color="#228822"/>
+    </linearGradient>
+    <filter id="shadow">
+      <feDropShadow dx="3" dy="3" stdDeviation="0" flood-color="#0a0a1a" flood-opacity="1"/>
+    </filter>
+    <filter id="iceglow">
+      <feDropShadow dx="0" dy="0" stdDeviation="4" flood-color="#4488CC" flood-opacity="0.6"/>
+    </filter>
+  </defs>
+
+  <!-- "CHILLY" - ice blue title -->
+  <text x="180" y="42" text-anchor="middle"
+    font-family="'Courier New', monospace" font-size="46" font-weight="bold"
+    fill="url(#iceGrad)" stroke="#112244" stroke-width="2"
+    filter="url(#shadow)" letter-spacing="8">CHILLY</text>
+
+  <!-- Icicle drips from CHILLY -->
+  <polygon points="85,46 87,56 83,56" fill="#88CCEE" opacity="0.7"/>
+  <polygon points="140,46 141,52 139,52" fill="#88CCEE" opacity="0.5"/>
+  <polygon points="222,46 224,54 220,54" fill="#88CCEE" opacity="0.6"/>
+  <polygon points="270,46 271,50 269,50" fill="#88CCEE" opacity="0.5"/>
+
+  <!-- "ZOMBIES" - green zombie text -->
+  <text x="180" y="78" text-anchor="middle"
+    font-family="'Courier New', monospace" font-size="32" font-weight="bold"
+    fill="url(#zombieGrad)" stroke="#0a2a0a" stroke-width="1.5"
+    filter="url(#shadow)" letter-spacing="10">ZOMBIES</text>
+
+  <!-- Snowflakes -->
+  <text x="18" y="30" font-size="16" fill="#6699BB" opacity="0.5">&#x2744;</text>
+  <text x="335" y="70" font-size="14" fill="#6699BB" opacity="0.4">&#x2744;</text>
+  <text x="10" y="75" font-size="10" fill="#6699BB" opacity="0.3">&#x2744;</text>
+  <text x="342" y="25" font-size="11" fill="#6699BB" opacity="0.3">&#x2744;</text>
+</svg>
