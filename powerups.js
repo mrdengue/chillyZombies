@@ -13,7 +13,7 @@
       name: 'Speed Boost',
       letter: 'S',
       color: '#ffff00',
-      icon: 'sprites/powerup_speed.svg',
+      icon: 'sprites/powerup_speed.png',
       duration: 15000, // 15 seconds
       rarity: 'common',
       description: 'Move 3x faster!'
@@ -23,7 +23,7 @@
       name: 'Rapid Fire',
       letter: 'R',
       color: '#ff6600',
-      icon: 'sprites/powerup_rapidfire.svg',
+      icon: 'sprites/powerup_rapidfire.png',
       duration: 15000,
       rarity: 'common',
       description: 'Double ammo capacity!'
@@ -33,7 +33,7 @@
       name: 'Shield',
       letter: 'H',
       color: '#00ccff',
-      icon: 'sprites/powerup_shield.svg',
+      icon: 'sprites/powerup_shield.png',
       duration: 12000,
       rarity: 'rare',
       description: 'Invulnerable!'
@@ -43,7 +43,7 @@
       name: 'Mega Ammo',
       letter: 'A',
       color: '#00ff00',
-      icon: 'sprites/powerup_ammo.svg',
+      icon: 'sprites/powerup_ammo.png',
       duration: 0, // Instant
       rarity: 'common',
       description: '+100 Snow Stock!'
@@ -53,7 +53,7 @@
       name: 'Freeze',
       letter: 'F',
       color: '#66ccff',
-      icon: 'sprites/powerup_freeze.svg',
+      icon: 'sprites/powerup_freeze.png',
       duration: 8000,
       rarity: 'rare',
       description: 'Freeze all zombies!'
@@ -63,7 +63,7 @@
       name: 'Double Damage',
       letter: 'D',
       color: '#ff0000',
-      icon: 'sprites/powerup_damage.svg',
+      icon: 'sprites/powerup_damage.png',
       duration: 15000,
       rarity: 'uncommon',
       description: '3x Weapon damage!'
@@ -73,7 +73,7 @@
       name: 'Lightning',
       letter: '\u26A1',
       color: '#88ccff',
-      icon: 'sprites/powerup_bomb.svg',
+      icon: 'sprites/powerup_bomb.png',
       duration: 0, // Instant
       rarity: 'epic',
       description: 'Lightning strike!'
@@ -83,7 +83,7 @@
       name: 'Magnet',
       letter: 'M',
       color: '#cc00cc',
-      icon: 'sprites/powerup_magnet.svg',
+      icon: 'sprites/powerup_magnet.png',
       duration: 20000,
       rarity: 'uncommon',
       description: 'Auto-collect materials!'
@@ -93,7 +93,7 @@
       name: 'Free FireSocks',
       letter: '1',
       color: '#ff4400',
-      icon: 'sprites/powerup_ammo.svg',
+      icon: 'sprites/powerup_ammo.png',
       duration: 0,
       rarity: 'common',
       description: '+5 FireSocks!'
@@ -103,7 +103,7 @@
       name: 'Free Snowballs',
       letter: '2',
       color: '#44aaff',
-      icon: 'sprites/powerup_ammo.svg',
+      icon: 'sprites/powerup_ammo.png',
       duration: 0,
       rarity: 'uncommon',
       description: '+5 Snowballs!'
@@ -113,7 +113,7 @@
       name: 'Free FireGifts',
       letter: '3',
       color: '#ff00aa',
-      icon: 'sprites/powerup_ammo.svg',
+      icon: 'sprites/powerup_ammo.png',
       duration: 0,
       rarity: 'rare',
       description: '+3 FireGifts!'

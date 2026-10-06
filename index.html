@@ -1,6 +1,8 @@
 <html>
 <!-- (C) 2010 RalphGoodtimes.com .  Please visit www.ralphgoodtimes.com for more information about this page.  -->
 <head>
+<meta charset="utf-8">
+<title>Chilly Zombies</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover, user-scalable=no" />
 <meta name="apple-mobile-web-app-capable" content="yes">
 <link rel="stylesheet" type="text/css" href="sprites.css">
@@ -8,6 +10,8 @@
 <link rel="stylesheet" type="text/css" href="powerups.css">
 <!-- Modern Responsive Layout -->
 <link rel="stylesheet" type="text/css" href="modern-layout.css?v=1764361073">
+<!-- LucasArts 1993 theme (visual only) -->
+<link rel="stylesheet" type="text/css" href="dott-theme.css">
 <!-- <link rel="stylesheet" type="text/css" href="retro-styles.css"> -->
 <link rel="apple-touch-icon" href="Icon.png"/>
 <link rel="apple-touch-startup-image" href="LoadingScreen.png"/>
@@ -32,6 +36,9 @@
 <!-- Procedural Level Generation -->
 <script type="text/javascript" src="procedurallevels.js?v=1764361073"></script>
 <script type="text/javascript" src="gamelogic.js?v=1764361073"></script>
+<!-- LucasArts-style presentation layer + AdLib FM music -->
+<script type="text/javascript" src="dott-fx.js"></script>
+<script type="text/javascript" src="adlib-music.js"></script>
 </head>
 <body onload="InitSpriteEngine(); return true;" onunload="Game_Exit(); return true;">
 <noscript>
@@ -43,7 +50,7 @@
 <div id="id_div_loading" class="div_shown"> <!-- id_div_loading -->
   <div class="splash-screen">
     <div class="splash-logo">
-      <img src="sprites/logo_chillyzombies.svg" alt="Chilly Zombies" class="splash-logo-img">
+      <img src="logo_dott.png" alt="Chilly Zombies" class="splash-logo-img">
     </div>
     <div class="splash-loading">
       <div class="splash-bar-border">
@@ -250,7 +257,7 @@
 <div id="id_div_mainmenu" class="div_hidden"> <!-- id_div_mainmenu -->
   <div class="mainmenu-screen">
     <div class="mainmenu-logo">
-      <img src="sprites/logo_chillyzombies.svg" alt="Chilly Zombies" class="mainmenu-logo-img">
+      <img src="logo_dott.png" alt="Chilly Zombies" class="mainmenu-logo-img">
     </div>
     <div class="mainmenu-score">HIGH SCORE: <span id="id_mainmenu_highscore">0</span></div>
     <div class="mainmenu-buttons">

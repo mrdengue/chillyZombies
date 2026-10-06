@@ -288,3 +288,35 @@ Implementar sistema de high scores en servidor para leaderboard global.
 - Ajustes y balanceo
 
 **El proyecto está funcional y listo para seguir expandiendo.**
+
+---
+
+## 🎨 Reskin "LucasArts 1993" (estilo Day of the Tentacle)
+
+**La lógica del juego no cambió.** Solo cambian el arte, la interfaz y el sonido.
+
+### Gráficos
+- Todo el arte (sprites, objetos, interfaz, tutorial, fondos) se genera con
+  `python3 tools/build_art.py` (requiere `pip install pillow numpy`).
+  - `tools/pixart.py`: mini motor de pixel art (paleta VGA, sombreado con
+    dithering Bayer, líneas interiores y contorno negro).
+  - `tools/art_people.py`, `art_monsters.py`, `art_objects.py`, `art_scenes.py`:
+    personajes, monstruos, objetos y escenas.
+  - Cada imagen conserva **el mismo nombre y tamaño** que la original, porque el
+    motor usa el tamaño natural de la imagen para colisiones (el script lo verifica).
+- `dott-theme.css`: interfaz estilo SCUMM (paneles morados biselados, verbos en
+  verde, fuente pixelada, cursor de cruz). Se carga después de `modern-layout.css`.
+- `dott-fx.js`: capa de presentación:
+  - pinta el suelo nevado (`ground_tile.png`) en el canvas siguiendo la cámara
+    (el renderer original dibujaba en un canvas que no estaba en la página, por
+    eso el fondo era blanco);
+  - texto flotante y frases de los personajes en su color con contorno negro;
+  - cursor que cicla colores; habilidades como verbos de texto.
+- Fuentes en `fonts/` (Pixelify Sans OFL, Luckiest Guy Apache 2.0).
+
+### Sonido
+- `python3 tools/adlib_sfx.py` regenera los 13 `.mp3` con un sintetizador FM
+  estilo AdLib/OPL2 (requiere numpy y ffmpeg).
+- `adlib-music.js`: reproductor FM en tiempo real (Web Audio) con dos temas
+  originales: `menu` y `level`. Cambia de tema según la pantalla visible, baja
+  el volumen en pausa y la tecla **M** silencia la música.

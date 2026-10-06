@@ -1,0 +1,552 @@
+/* =====================================================================
+   CHILLY ZOMBIES - Tema "LucasArts 1993"
+   Interfaz estilo SCUMM / Day of the Tentacle: paneles morados biselados,
+   verbos en verde, textos pixelados con contorno negro, cursor de cruz.
+   Se carga DESPUES de modern-layout.css y solo cambia la apariencia.
+   ===================================================================== */
+
+@font-face {
+  font-family: 'Pixelify Sans';
+  src: url('fonts/PixelifySans-Regular.ttf') format('truetype');
+  font-weight: 400;
+  font-display: block;
+}
+@font-face {
+  font-family: 'Pixelify Sans';
+  src: url('fonts/PixelifySans-Bold.ttf') format('truetype');
+  font-weight: 700;
+  font-display: block;
+}
+@font-face {
+  font-family: 'Luckiest Guy';
+  src: url('fonts/LuckiestGuy-Regular.ttf') format('truetype');
+  font-display: block;
+}
+
+:root {
+  --scumm-black: #0a0512;
+  --scumm-ink: #12081c;
+  --scumm-panel: #2a0e40;
+  --scumm-panel-2: #3e1860;
+  --scumm-bevel-hi: #9638c0;
+  --scumm-bevel-lo: #0a0412;
+  --scumm-verb: #3ec0a8;
+  --scumm-verb-hi: #ffe040;
+  --scumm-text: #ece8ff;
+  --scumm-cyan: #8ad8f8;
+  --scumm-green: #7af0a0;
+  --scumm-red: #ff6a5a;
+  --scumm-orange: #ff9a30;
+  --scumm-snow: #cccaf6;
+  --scumm-outline: 2px 0 0 #12081c, -2px 0 0 #12081c, 0 2px 0 #12081c, 0 -2px 0 #12081c,
+                   2px 2px 0 #12081c, -2px -2px 0 #12081c, 2px -2px 0 #12081c, -2px 2px 0 #12081c;
+  --scumm-outline-1: 1px 0 0 #12081c, -1px 0 0 #12081c, 0 1px 0 #12081c, 0 -1px 0 #12081c,
+                     1px 1px 0 #12081c, -1px -1px 0 #12081c, 1px -1px 0 #12081c, -1px 1px 0 #12081c;
+}
+
+/* ---------- Base ------------------------------------------------------ */
+html, body {
+  background: var(--scumm-black) !important;
+}
+body, body * {
+  font-family: 'Pixelify Sans', 'Courier New', monospace !important;
+  -webkit-font-smoothing: none;
+  font-smooth: never;
+}
+#game-wrapper {
+  background:
+    radial-gradient(ellipse at 50% 40%, rgba(86, 26, 126, 0.35) 0%, rgba(10, 5, 18, 0) 70%),
+    var(--scumm-black) !important;
+}
+img, canvas, #div_moviescreenframe div {
+  image-rendering: pixelated !important;
+  image-rendering: crisp-edges;
+}
+
+/* Cursor de cruz que cambia de color (dott-fx.js alterna data-cursor) */
+body[data-cursor="0"], body[data-cursor="0"] * { cursor: url('cursor_0.png') 15 15, crosshair !important; }
+body[data-cursor="1"], body[data-cursor="1"] * { cursor: url('cursor_1.png') 15 15, crosshair !important; }
+body[data-cursor="2"], body[data-cursor="2"] * { cursor: url('cursor_2.png') 15 15, crosshair !important; }
+body[data-cursor="3"], body[data-cursor="3"] * { cursor: url('cursor_3.png') 15 15, crosshair !important; }
+input, textarea { cursor: text !important; }
+
+/* ---------- Sprites: sin brillos modernos, sombra pixelada dura -------- */
+.sprite-shadow,
+.sprite-type-player, .sprite-type-player2, .sprite-type-player3,
+.sprite-type-zombie, .sprite-type-zombiess, .sprite-type-snowman,
+.sprite-type-sheep, .sprite-type-dinosaur {
+  filter: drop-shadow(2px 2px 0 rgba(42, 20, 90, 0.38)) !important;
+}
+
+/* ---------- Area de juego ("la pantalla") ------------------------------ */
+div.moviescreenframe {
+  background: #bebcf0 !important;
+  border: 0 !important;
+  outline: 3px solid var(--scumm-ink);
+  box-shadow:
+    0 0 0 6px var(--scumm-panel),
+    0 0 0 8px var(--scumm-bevel-hi),
+    0 0 0 11px var(--scumm-ink),
+    0 18px 40px rgba(0, 0, 0, 0.7) !important;
+}
+/* adios scanlines; viñeta suave tipo fondo pintado */
+div.moviescreenframe::after {
+  background: radial-gradient(ellipse at 50% 50%, rgba(0, 0, 0, 0) 62%, rgba(36, 8, 58, 0.28) 100%) !important;
+}
+#id_div_container.div_shown { gap: 10px; padding-top: 6px; }
+
+/* ---------- Barra superior (marcador) ---------------------------------- */
+div.topboard, .topboard {
+  background: var(--scumm-black) !important;
+  border: 0 !important;
+  border-radius: 0 !important;
+  box-shadow: 0 0 0 2px var(--scumm-ink), 0 0 0 4px var(--scumm-panel-2) !important;
+  padding: 4px 12px !important;
+  font-size: 18px !important;
+  text-shadow: var(--scumm-outline-1) !important;
+}
+.hud-label {
+  color: var(--scumm-verb) !important;
+  font-size: 15px !important;
+  letter-spacing: 1px;
+}
+#span_scoreboard, .scoreboard { color: var(--scumm-verb-hi) !important; }
+#span_levelboard, .levelboard { color: var(--scumm-cyan) !important; }
+.hud-divider { background: var(--scumm-panel-2) !important; }
+.progress-container {
+  background: var(--scumm-ink) !important;
+  border: 2px solid var(--scumm-panel-2) !important;
+  border-radius: 0 !important;
+  height: 16px !important;
+}
+.progress-bar {
+  border-radius: 0 !important;
+  background: repeating-linear-gradient(90deg, #3eac30 0 6px, #9cf060 6px 8px) !important;
+}
+.progress-text { font-size: 12px !important; text-shadow: var(--scumm-outline-1) !important; }
+.hud-btn {
+  color: var(--scumm-verb) !important;
+  background: var(--scumm-panel) !important;
+  border: 0 !important;
+  box-shadow: inset 2px 2px 0 var(--scumm-bevel-hi), inset -2px -2px 0 var(--scumm-bevel-lo) !important;
+  border-radius: 0 !important;
+  padding: 2px 10px !important;
+}
+.hud-btn:hover { color: var(--scumm-verb-hi) !important; }
+
+/* ---------- Panel inferior = verbos + inventario SCUMM ----------------- */
+div.div_controlpanel {
+  height: 52px !important;
+  background: var(--scumm-black) !important;
+  border: 0 !important;
+  box-shadow: 0 0 0 2px var(--scumm-ink), 0 0 0 4px var(--scumm-panel-2) !important;
+  padding: 0 10px !important;
+}
+.weapon-slot {
+  display: flex !important;
+  align-items: center !important;
+  gap: 4px !important;
+}
+img.control_weapon_01, img.control_weapon_02, img.control_weapon_03 {
+  width: 40px !important;
+  height: 40px !important;
+  border: 0 !important;
+  padding: 0 !important;
+  background: transparent !important;
+  box-shadow: 0 0 0 2px var(--scumm-ink);
+}
+img.control_weapon_01:hover, img.control_weapon_02:hover, img.control_weapon_03:hover {
+  box-shadow: 0 0 0 2px var(--scumm-verb-hi);
+}
+.weapon-name, .snow-stock-label {
+  color: var(--scumm-verb) !important;
+  font-size: 13px !important;
+  writing-mode: horizontal-tb !important;
+  transform: none !important;
+  text-shadow: none !important;
+}
+span.ammonumber {
+  background: transparent !important;
+  border: 0 !important;
+  color: var(--scumm-verb-hi) !important;
+  font-size: 18px !important;
+  text-shadow: var(--scumm-outline-1) !important;
+  padding: 0 2px !important;
+}
+.snow-stock-display {
+  background: transparent !important;
+  border: 0 !important;
+  box-shadow: none !important;
+}
+img.control_selectedbutton {
+  width: 40px !important;
+  height: 40px !important;
+  z-index: 5 !important;
+  pointer-events: none !important;
+}
+img.snowstock { width: 48px !important; height: 16px !important; }
+
+/* Habilidades como VERBOS de texto */
+.control-extras { gap: 2px !important; margin-left: 12px !important; }
+.ctrl-btn {
+  width: auto !important;
+  min-width: 0 !important;
+  height: 22px !important;
+  padding: 0 6px !important;
+  background: transparent !important;
+  border: 0 !important;
+  color: var(--scumm-verb) !important;
+  font-size: 15px !important;
+  line-height: 22px !important;
+  letter-spacing: 0.5px;
+}
+.ctrl-btn:hover { color: var(--scumm-verb-hi) !important; }
+.ctrl-btn.on-cooldown { color: #2a5a52 !important; }
+.ctrl-btn .cooldown-overlay { background: rgba(10, 5, 18, 0.65) !important; }
+/* estados activos que el juego marca cambiando el borde inline */
+.ctrl-btn[style*="rgb(0, 255, 136)"],
+.ctrl-btn[style*="rgb(255, 215, 0)"],
+.ctrl-btn[style*="#00FF88"],
+.ctrl-btn[style*="#FFD700"] {
+  color: var(--scumm-verb-hi) !important;
+  text-shadow: 0 0 0 var(--scumm-verb-hi), var(--scumm-outline-1) !important;
+}
+.ctrl-btn[style*="rgb(0, 255, 136)"]::before,
+.ctrl-btn[style*="rgb(255, 215, 0)"]::before { content: '\25B8'; margin-right: 2px; }
+
+/* ---------- Linea de frase (sentence line) ----------------------------- */
+div#div_infoscreen {
+  background: var(--scumm-black) !important;
+  border: 0 !important;
+  border-radius: 0 !important;
+  color: var(--scumm-cyan) !important;
+  font-size: 17px !important;
+  text-shadow: none !important;
+  min-height: 28px !important;
+  padding: 4px 12px !important;
+}
+
+/* ---------- Textos flotantes y notificaciones del juego ---------------- */
+.dott-say {
+  position: absolute;
+  z-index: 260;
+  pointer-events: none;
+  font-weight: 700;
+  font-size: 17px;
+  line-height: 1.1;
+  text-align: center;
+  white-space: nowrap;
+  text-shadow: var(--scumm-outline);
+  transform: translateX(-50%);
+  transition: opacity 0.3s steps(3), top 0.9s steps(9);
+}
+.dott-float {
+  position: absolute;
+  z-index: 250;
+  pointer-events: none;
+  font-weight: 700;
+  font-size: 16px;
+  text-shadow: var(--scumm-outline);
+  transition: top 0.85s steps(8), opacity 0.85s steps(4);
+}
+/* Cajas creadas por gamelogic.js con estilos inline */
+#div_moviescreenframe > div[style*="#0f0c29"],
+body > div[style*="#0f0c29"],
+div[style*="background:#0f0c29"],
+div[style*="background: rgb(15, 12, 41)"] {
+  background: var(--scumm-panel) !important;
+  border: 0 !important;
+  border-radius: 0 !important;
+  box-shadow: inset 2px 2px 0 var(--scumm-bevel-hi), inset -2px -2px 0 var(--scumm-bevel-lo),
+              0 0 0 3px var(--scumm-ink) !important;
+}
+#div_moviescreenframe div[style*="text-shadow"] { text-shadow: var(--scumm-outline-1) !important; }
+#combo-display {
+  background: transparent !important;
+  border: 0 !important;
+  color: var(--scumm-verb-hi) !important;
+  font-size: 24px !important;
+  text-shadow: var(--scumm-outline) !important;
+}
+#wave-countdown {
+  color: var(--scumm-verb-hi) !important;
+  font-family: 'Luckiest Guy', sans-serif !important;
+  font-size: 80px !important;
+  text-shadow: 4px 4px 0 #561a7e, var(--scumm-outline) !important;
+}
+#level-transition-overlay {
+  background: rgba(10, 5, 18, 0.88) !important;
+}
+#level-transition-overlay .transition-text {
+  font-family: 'Luckiest Guy', sans-serif !important;
+  color: var(--scumm-verb-hi) !important;
+  letter-spacing: 2px;
+  text-shadow: 4px 4px 0 #561a7e, var(--scumm-outline) !important;
+}
+
+/* ---------- Dialogos (pausa, salir, game over) ------------------------- */
+.retro-dialog {
+  background: var(--scumm-panel) !important;
+  border: 0 !important;
+  box-shadow: inset 3px 3px 0 var(--scumm-bevel-hi), inset -3px -3px 0 var(--scumm-bevel-lo),
+              0 0 0 4px var(--scumm-ink), 0 20px 50px rgba(0, 0, 0, 0.7) !important;
+  padding: 6px 4px 12px;
+}
+.retro-dialog-title {
+  background: transparent !important;
+  color: var(--scumm-verb-hi) !important;
+  font-family: 'Luckiest Guy', sans-serif !important;
+  font-size: 30px !important;
+  letter-spacing: 2px !important;
+  text-shadow: 3px 3px 0 #561a7e, var(--scumm-outline) !important;
+}
+.gameover-title { color: var(--scumm-red) !important; }
+.retro-stat-label { color: var(--scumm-verb) !important; }
+.retro-stat-value { color: var(--scumm-text) !important; text-shadow: var(--scumm-outline-1) !important; }
+.retro-btn-action {
+  background: transparent !important;
+  border: 0 !important;
+  color: var(--scumm-verb) !important;
+  font-size: 20px !important;
+  box-shadow: none !important;
+}
+.retro-btn-action:hover { color: var(--scumm-verb-hi) !important; }
+.retro-btn-action:hover::before { content: '\25B8 '; }
+.retro-btn-danger { color: var(--scumm-red) !important; }
+.retro-highscore-notice { color: var(--scumm-verb-hi) !important; text-shadow: var(--scumm-outline-1) !important; }
+
+/* ---------- Pantallas de menu: fondo pintado de la mansion ------------- */
+.mainmenu-screen,
+.splash-screen {
+  background: url('title_bg.png') center / cover no-repeat, #1c0a3c !important;
+  image-rendering: pixelated !important;
+}
+.mainmenu-logo-img, .splash-logo-img {
+  width: min(78vw, 680px) !important;
+  max-width: none !important;
+  height: auto !important;
+  image-rendering: pixelated !important;
+  filter: none !important;
+  animation: dott-logo-bob 2.4s steps(4) infinite;
+}
+@keyframes dott-logo-bob {
+  0%, 100% { transform: translateY(0) rotate(-1deg); }
+  50% { transform: translateY(-6px) rotate(1deg); }
+}
+.mainmenu-score {
+  color: var(--scumm-verb-hi) !important;
+  font-size: 18px !important;
+  text-shadow: var(--scumm-outline) !important;
+  margin-top: 4px !important;
+}
+/* los botones del menu viven en un panel negro como la caja de verbos */
+.mainmenu-buttons, .mainmenu-row {
+  background: rgba(10, 5, 18, 0.88);
+  box-shadow: 0 0 0 2px var(--scumm-ink), 0 0 0 4px var(--scumm-panel-2);
+  padding: 8px 18px !important;
+  gap: 2px 18px !important;
+}
+.mainmenu-buttons { margin-top: 10px !important; }
+.mainmenu-row { margin-top: 0 !important; box-shadow: 0 0 0 2px var(--scumm-ink), 0 0 0 4px var(--scumm-panel-2); }
+.mainmenu-btn, .mainmenu-btn-sm, .mainmenu-btn-primary, .mainmenu-btn-endless, .mainmenu-btn-muted {
+  background: transparent !important;
+  border: 0 !important;
+  box-shadow: none !important;
+  color: var(--scumm-verb) !important;
+  text-shadow: none !important;
+  letter-spacing: 1px !important;
+  padding: 3px 10px !important;
+  width: auto !important;
+  min-width: 0 !important;
+  transform: none !important;
+}
+.mainmenu-btn { font-size: 24px !important; }
+.mainmenu-btn-sm { font-size: 17px !important; }
+.mainmenu-btn-primary { color: var(--scumm-green) !important; }
+.mainmenu-btn-endless { color: var(--scumm-orange) !important; }
+.mainmenu-btn-muted { color: #8a84b8 !important; }
+.mainmenu-btn:hover, .mainmenu-btn-sm:hover, .mainmenu-btn-primary:hover,
+.mainmenu-btn-endless:hover, .mainmenu-btn-muted:hover {
+  color: var(--scumm-verb-hi) !important;
+  background: transparent !important;
+}
+.mainmenu-btn:hover::before, .mainmenu-btn-sm:hover::before { content: '\25B8 '; }
+.mainmenu-footer, .splash-footer {
+  color: var(--scumm-cyan) !important;
+  text-shadow: var(--scumm-outline-1) !important;
+  font-size: 14px !important;
+  letter-spacing: 2px !important;
+}
+.splash-loading-text { color: var(--scumm-verb-hi) !important; text-shadow: var(--scumm-outline-1) !important; font-size: 18px !important; }
+.splash-bar-border {
+  background: var(--scumm-ink) !important;
+  border: 0 !important;
+  border-radius: 0 !important;
+  box-shadow: 0 0 0 2px var(--scumm-ink), 0 0 0 4px var(--scumm-panel-2) !important;
+}
+.splash-bar-fill {
+  border-radius: 0 !important;
+  background: repeating-linear-gradient(90deg, #3eac30 0 8px, #9cf060 8px 10px) !important;
+  box-shadow: none !important;
+}
+
+/* ---------- Seleccion de nivel, about, tutorial ------------------------ */
+div.selectlevel, div.about, div#id_div_tutorial {
+  background:
+    linear-gradient(rgba(10, 5, 18, 0.62), rgba(10, 5, 18, 0.62)),
+    url('title_bg.png') center / cover no-repeat,
+    var(--scumm-black) !important;
+  image-rendering: pixelated !important;
+}
+div.selectlevel::before, div.about::before {
+  font-family: 'Luckiest Guy', sans-serif !important;
+  font-size: 46px;
+  color: var(--scumm-verb-hi);
+  letter-spacing: 2px;
+  text-shadow: 4px 4px 0 #561a7e, var(--scumm-outline);
+  margin-bottom: 4px;
+}
+div.selectlevel::before { content: 'SELECT LEVEL'; }
+div.about::before { content: 'ABOUT'; }
+img.selectlevel_button_mainmenu, img.about_button_mainmenu,
+img.tutorial_button_next, img.tutorial_button_back, img.tutorial_button_mainmenu {
+  filter: none !important;
+  box-shadow: 0 0 0 2px var(--scumm-ink);
+  width: auto !important;
+  height: 32px !important;
+}
+img.selectlevel_button_mainmenu:hover, img.about_button_mainmenu:hover,
+img.tutorial_button_next:hover, img.tutorial_button_back:hover, img.tutorial_button_mainmenu:hover {
+  box-shadow: 0 0 0 2px var(--scumm-verb-hi);
+}
+img.tutorialpage {
+  box-shadow: 0 0 0 4px var(--scumm-ink), 0 0 0 7px var(--scumm-panel-2) !important;
+  border: 0 !important;
+  border-radius: 0 !important;
+}
+#id_div_levellist {
+  background: rgba(10, 5, 18, 0.85);
+  box-shadow: 0 0 0 2px var(--scumm-ink), 0 0 0 4px var(--scumm-panel-2);
+  gap: 10px !important;
+  grid-template-columns: repeat(auto-fit, minmax(50px, 1fr)) !important;
+}
+.levelactive, .levelinactive, .levellocked {
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  width: 50px !important;
+  height: 50px !important;
+  border-radius: 0 !important;
+  font-size: 20px !important;
+  text-shadow: var(--scumm-outline-1) !important;
+  background-size: 100% 100% !important;
+  background-repeat: no-repeat !important;
+  image-rendering: pixelated !important;
+  box-shadow: 0 0 0 2px var(--scumm-ink) !important;
+  transform: none !important;
+}
+.levelactive {
+  background-image: url('SelectLevel_Button_Active.png') !important;
+  color: var(--scumm-verb-hi) !important;
+}
+.levelactive:hover { box-shadow: 0 0 0 2px var(--scumm-verb-hi) !important; }
+.levelinactive, .levellocked {
+  background-image: url('SelectLevel_Button_Inactive.png') !important;
+  opacity: 0.85 !important;
+  display: flex !important;
+  color: transparent !important;
+  text-shadow: none !important;
+}
+div.aboutcontents {
+  color: var(--scumm-cyan) !important;
+  text-shadow: var(--scumm-outline-1) !important;
+  font-size: 15px !important;
+}
+
+/* ---------- Globos de texto del motor ---------------------------------- */
+.bubbletext {
+  color: #3a1458 !important;
+  font-weight: 700;
+}
+
+/* ---------- High scores ------------------------------------------------ */
+.highscore-entry-content, .highscore-table-content {
+  background: var(--scumm-panel) !important;
+  border: 0 !important;
+  border-radius: 0 !important;
+  box-shadow: inset 3px 3px 0 var(--scumm-bevel-hi), inset -3px -3px 0 var(--scumm-bevel-lo),
+              0 0 0 4px var(--scumm-ink) !important;
+}
+.highscore-entry-content h2, .highscore-table-content h2 {
+  font-family: 'Luckiest Guy', sans-serif !important;
+  color: var(--scumm-verb-hi) !important;
+  text-shadow: 3px 3px 0 #561a7e, var(--scumm-outline) !important;
+}
+.highscore-char {
+  background: var(--scumm-ink) !important;
+  color: var(--scumm-verb-hi) !important;
+  border: 0 !important;
+  border-radius: 0 !important;
+  box-shadow: 0 0 0 3px var(--scumm-verb) !important;
+}
+.highscore-btn {
+  background: transparent !important;
+  border: 0 !important;
+  color: var(--scumm-verb) !important;
+  font-size: 22px !important;
+}
+.highscore-btn:hover { color: var(--scumm-verb-hi) !important; }
+
+/* ---------- Power-ups -------------------------------------------------- */
+.powerup-sprite, [class*="powerup"] {
+  image-rendering: pixelated !important;
+}
+
+/* ---------- Overlays generados por JS (personajes, skill tree...) ------ */
+#charselect-overlay > div,
+#skilltree-overlay > div,
+#stats-overlay > div,
+.skilltree-panel {
+  background: var(--scumm-panel) !important;
+  border: 0 !important;
+  border-radius: 0 !important;
+  box-shadow: inset 3px 3px 0 var(--scumm-bevel-hi), inset -3px -3px 0 var(--scumm-bevel-lo),
+              0 0 0 4px var(--scumm-ink) !important;
+}
+#charselect-overlay, #skilltree-overlay, #stats-overlay {
+  background: rgba(10, 5, 18, 0.9) !important;
+}
+
+/* Contenedores de dialogos: sin caja moderna, el panel SCUMM ya es el dialogo */
+div.gameover, div.gameend, div.pauselevel, div.quitlevelconfirm {
+  background: transparent !important;
+  border: 0 !important;
+  border-radius: 0 !important;
+  box-shadow: none !important;
+  padding: 0 !important;
+}
+div.gameend img { box-shadow: 0 0 0 4px var(--scumm-ink), 0 20px 50px rgba(0, 0, 0, 0.7); }
+
+/* ---------- Movil: verbos compactos que no se encimen ------------------ */
+body.mode-mobile div.div_controlpanel {
+  height: auto !important;
+  min-height: 52px !important;
+  flex-wrap: wrap !important;
+  row-gap: 2px !important;
+  padding: 4px 8px !important;
+}
+body.mode-mobile .control-extras {
+  flex-wrap: wrap !important;
+  justify-content: center !important;
+  width: 100% !important;
+  margin-left: 0 !important;
+}
+body.mode-mobile .ctrl-btn {
+  width: auto !important;
+  min-width: 0 !important;
+  height: 26px !important;
+  padding: 0 7px !important;
+  font-size: 14px !important;
+  line-height: 26px !important;
+  white-space: nowrap !important;
+}
