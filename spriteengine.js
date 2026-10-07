@@ -499,10 +499,14 @@ function InitSpriteEngine()
   if (g_isMobileSafari || g_isTouchDevice)
   {
     document.onclick     = function(e) {e.preventDefault(); return false;};
-    document.addEventListener('touchstart', touchHandler, true);
-    document.addEventListener('touchmove', touchHandler, true);
-    document.addEventListener('touchend', touchHandler, true);
-    document.addEventListener('touchcancel', touchHandler, true);
+    // passive:false is required: browsers make document-level touch listeners
+    // passive by default, which ignores preventDefault() and fires a second,
+    // native mousedown after our simulated one (every tap counted twice).
+    var touchOpts = { capture: true, passive: false };
+    document.addEventListener('touchstart', touchHandler, touchOpts);
+    document.addEventListener('touchmove', touchHandler, touchOpts);
+    document.addEventListener('touchend', touchHandler, touchOpts);
+    document.addEventListener('touchcancel', touchHandler, touchOpts);
   }
   InitSound();
 }
@@ -4521,6 +4525,14 @@ function touchHandler(event)
   var touches = event.changedTouches,
       first = touches[0],
       type = '';
+
+  // Only the in-game screen (scene, HUD, control panel) gets simulated mouse
+  // events. Menus, dialogs and overlays keep native touch behavior: single
+  // tap -> mousedown/click, scrolling, and focus/keyboard for text fields.
+  var target = first && first.target;
+  if (!target || !target.closest) return;
+  if (!target.closest('#id_div_container') ||
+      target.closest('input, textarea, select, a[href]')) return;
   
   switch(event.type)
   {
@@ -4536,6 +4548,28 @@ function touchHandler(event)
                             first.clientX, first.clientY, false,
                             false, false, false, 0, null);
   first.target.dispatchEvent(simulatedEvent);
+
+  // Taps no longer produce native clicks (touchstart is prevented), so emit one
+  // for elements that only listen to click (power-ups, high score buttons).
+  if (type == 'mouseup')
+  {
+    var clickTarget = first.target.closest ? first.target.closest('[onclick]') : null;
+    var el = first.target;
+    while (!clickTarget && el && el !== document)
+    {
+      if (el.onclick) clickTarget = el;
+      el = el.parentNode;
+    }
+    if (clickTarget && !clickTarget.onmousedown)
+    {
+      var simulatedClick = document.createEvent('MouseEvent');
+      simulatedClick.initMouseEvent('click', true, true, window, 1,
+                                first.screenX, first.screenY,
+                                first.clientX, first.clientY, false,
+                                false, false, false, 0, null);
+      first.target.dispatchEvent(simulatedClick);
+    }
+  }
 }
 
 function CheckBackgroundMusic()

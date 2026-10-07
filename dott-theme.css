@@ -550,3 +550,253 @@ body.mode-mobile .ctrl-btn {
   line-height: 26px !important;
   white-space: nowrap !important;
 }
+
+/* =====================================================================
+   MODO VERTICAL (telefonos parados) - layout SCUMM:
+   marcador arriba, escena a todo el ancho, inventario + verbos abajo.
+   fullscreen.js pone body.mode-portrait y escala solo la escena.
+   ===================================================================== */
+body.mode-portrait {
+  overflow: hidden !important;
+  overscroll-behavior: none;
+  touch-action: manipulation;
+}
+body.mode-portrait #game-wrapper {
+  justify-content: flex-start !important;
+  align-items: stretch !important;
+  overflow: hidden !important;
+  height: 100vh !important;
+  height: 100dvh !important;
+  min-height: 0 !important;
+}
+body.mode-portrait #id_div_container.div_shown {
+  width: 100vw !important;
+  height: 100vh !important;
+  height: 100dvh !important;
+  transform: none !important;
+  align-items: stretch !important;
+  gap: 6px !important;
+  padding: env(safe-area-inset-top, 0px) 0 calc(6px + env(safe-area-inset-bottom, 0px)) 0 !important;
+  overflow: hidden !important;
+}
+body.mode-portrait div.moviescreenframe {
+  box-shadow: none !important;
+  outline: 0 !important;
+  flex: 0 0 auto !important;
+}
+
+/* Marcador */
+body.mode-portrait div.topboard,
+body.mode-portrait .topboard {
+  width: auto !important;
+  max-width: none !important;
+  margin: 4px 6px 0 !important;
+  padding: 6px 8px !important;
+  gap: 6px !important;
+  font-size: 16px !important;
+  flex: 0 0 auto !important;
+}
+body.mode-portrait .hud-label { font-size: 13px !important; }
+body.mode-portrait .hud-divider { display: none !important; }
+body.mode-portrait .progress-container { flex: 1 1 auto !important; width: auto !important; min-width: 60px; height: 16px !important; }
+body.mode-portrait .progress-text { font-size: 11px !important; }
+body.mode-portrait span.topbuttons { gap: 6px !important; margin-left: 4px !important; }
+body.mode-portrait .hud-btn {
+  min-width: 40px !important;
+  height: 34px !important;
+  display: inline-flex !important;
+  align-items: center;
+  justify-content: center;
+  font-size: 18px !important;
+}
+
+/* Panel inferior: inventario (fila 1) + verbos (grilla 3x2) */
+body.mode-portrait div.div_controlpanel {
+  width: auto !important;
+  max-width: none !important;
+  margin: 0 6px !important;
+  height: auto !important;
+  min-height: 0 !important;
+  flex: 1 1 auto !important;
+  display: grid !important;
+  grid-template-columns: repeat(4, minmax(0, 1fr)) !important;
+  grid-auto-rows: auto !important;
+  align-content: start !important;
+  gap: 6px !important;
+  padding: 8px !important;
+  overflow: hidden !important;
+}
+body.mode-portrait .weapon-slot,
+body.mode-portrait .snow-stock-display {
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: center !important;
+  justify-content: center !important;
+  gap: 2px !important;
+  min-height: 92px;
+  margin: 0 !important;
+  padding: 6px 2px !important;
+  background: var(--scumm-panel) !important;
+  box-shadow: inset 2px 2px 0 var(--scumm-bevel-hi), inset -2px -2px 0 var(--scumm-bevel-lo) !important;
+  position: relative !important;
+}
+body.mode-portrait img.control_weapon_01,
+body.mode-portrait img.control_weapon_02,
+body.mode-portrait img.control_weapon_03 {
+  width: 54px !important;
+  height: 54px !important;
+  margin: 0 !important;
+}
+body.mode-portrait .weapon-name,
+body.mode-portrait .snow-stock-label { font-size: 13px !important; line-height: 1 !important; }
+body.mode-portrait span.control_weapon_label_01,
+body.mode-portrait span.control_weapon_label_02,
+body.mode-portrait span.control_weapon_label_03,
+body.mode-portrait span.snowstock_label { margin: 0 !important; }
+body.mode-portrait span.ammonumber { font-size: 20px !important; }
+body.mode-portrait img.snowstock { width: 72px !important; height: 24px !important; margin: 14px 0 6px !important; }
+body.mode-portrait img.control_selectedbutton { z-index: 6 !important; }
+
+body.mode-portrait .control-extras {
+  grid-column: 1 / -1 !important;
+  display: grid !important;
+  grid-template-columns: repeat(3, minmax(0, 1fr)) !important;
+  gap: 6px !important;
+  width: auto !important;
+  margin: 0 !important;
+}
+body.mode-portrait .ctrl-btn {
+  width: auto !important;
+  height: auto !important;
+  min-height: 48px !important;
+  padding: 0 4px !important;
+  font-size: 20px !important;
+  line-height: 1 !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  white-space: nowrap !important;
+  background: var(--scumm-black) !important;
+  box-shadow: 0 0 0 2px var(--scumm-panel-2) !important;
+  -webkit-tap-highlight-color: transparent;
+}
+body.mode-portrait .ctrl-btn:active { color: var(--scumm-verb-hi) !important; background: var(--scumm-panel) !important; }
+
+/* Linea de frase */
+body.mode-portrait div#div_infoscreen,
+body.mode-portrait div.infoscreen {
+  width: auto !important;
+  max-width: none !important;
+  margin: 0 6px !important;
+  font-size: 14px !important;
+  min-height: 24px !important;
+  padding: 3px 8px !important;
+  flex: 0 0 auto !important;
+}
+
+/* Textos dentro de la escena: compensar la escala para que se lean */
+body.mode-portrait .dott-say { font-size: 20px; }
+body.mode-portrait .dott-float { font-size: 19px; }
+
+/* Pantallas de menu y dialogos en vertical */
+body.mode-portrait .mainmenu-logo-img,
+body.mode-portrait .splash-logo-img { width: 92vw !important; }
+body.mode-portrait .mainmenu-buttons,
+body.mode-portrait .mainmenu-row { width: min(92vw, 420px); justify-content: center; flex-wrap: wrap; }
+body.mode-portrait .mainmenu-btn { font-size: 26px !important; padding: 6px 10px !important; }
+body.mode-portrait .mainmenu-btn-sm { font-size: 18px !important; padding: 6px 8px !important; }
+body.mode-portrait img.tutorialpage {
+  width: 94vw !important;
+  height: auto !important;
+  max-width: 94vw !important;
+}
+body.mode-portrait #id_div_levellist { width: 94vw !important; max-width: 94vw !important; margin: 16px auto !important; padding: 12px !important; }
+body.mode-portrait .levelactive,
+body.mode-portrait .levelinactive,
+body.mode-portrait .levellocked { width: 100% !important; height: auto !important; aspect-ratio: 1 / 1; }
+body.mode-portrait .retro-dialog { width: min(92vw, 360px) !important; min-width: 0 !important; }
+body.mode-portrait .retro-btn-action { min-height: 44px; display: inline-flex; align-items: center; justify-content: center; }
+body.mode-portrait .highscore-entry-content,
+body.mode-portrait .highscore-table-content { width: min(92vw, 380px) !important; max-width: 92vw !important; box-sizing: border-box; }
+body.mode-portrait .highscore-char { width: 64px !important; height: 64px !important; font-size: 40px !important; }
+body.mode-portrait #charselect-overlay > div,
+body.mode-portrait #skilltree-overlay > div,
+body.mode-portrait #stats-overlay > div { max-width: 94vw !important; max-height: 88vh; overflow-y: auto; }
+
+/* Vertical: nombres de armas visibles, panel que ocupa el alto sobrante */
+html:has(body.mode-portrait) { overflow: hidden !important; overscroll-behavior: none; }
+body.mode-portrait .weapon-name,
+body.mode-portrait .snow-stock-label { display: block !important; }
+body.mode-portrait .snow-stock-display .snowstock { padding: 0 !important; }
+body.mode-portrait div.div_controlpanel {
+  grid-template-rows: minmax(92px, 1fr) minmax(108px, 1.7fr) !important;
+  align-content: stretch !important;
+}
+body.mode-portrait .weapon-slot,
+body.mode-portrait .snow-stock-display { max-height: 150px; align-self: stretch; }
+body.mode-portrait .control-extras {
+  grid-auto-rows: minmax(48px, 1fr) !important;
+  align-self: stretch !important;
+  max-height: 210px;
+}
+body.mode-portrait .ctrl-btn { min-height: 48px !important; height: 100% !important; }
+
+/* Ventanas abiertas desde el menu (personajes, skill tree, leaderboard, tienda):
+   el menu principal tiene z-index 800, asi que quedaban escondidas detras. */
+#charselect-overlay, #skilltree-overlay, #leaderboard-overlay, #shop-overlay {
+  z-index: 1100 !important;
+}
+#leaderboard-overlay > div, #shop-overlay > div {
+  background: var(--scumm-panel) !important;
+  border: 0 !important;
+  border-radius: 0 !important;
+  box-shadow: inset 3px 3px 0 var(--scumm-bevel-hi), inset -3px -3px 0 var(--scumm-bevel-lo),
+              0 0 0 4px var(--scumm-ink) !important;
+  max-width: 94vw !important;
+  max-height: 88vh;
+  overflow-y: auto;
+}
+
+/* Dialogos de pausa / salir / game over con la escena oscurecida detras */
+div.gameover, div.pauselevel, div.quitlevelconfirm, div.gameend {
+  background: rgba(10, 5, 18, 0.72) !important;
+}
+
+/* Seleccion de nivel en vertical: grilla compacta con scroll propio */
+body.mode-portrait div.selectlevel {
+  justify-content: flex-start !important;
+  overflow-y: auto !important;
+  -webkit-overflow-scrolling: touch;
+  padding: calc(14px + env(safe-area-inset-top, 0px)) 0 calc(20px + env(safe-area-inset-bottom, 0px)) !important;
+}
+body.mode-portrait div.selectlevel::before { font-size: 36px; }
+body.mode-portrait #id_div_levellist {
+  grid-template-columns: repeat(6, minmax(0, 1fr)) !important;
+  gap: 6px !important;
+  margin: 8px auto !important;
+  padding: 8px !important;
+}
+body.mode-portrait .levelactive,
+body.mode-portrait .levelinactive,
+body.mode-portrait .levellocked { font-size: 16px !important; }
+body.mode-portrait img.selectlevel_button_mainmenu { margin: 8px auto !important; }
+body.mode-portrait div.about { padding: 16px !important; overflow-y: auto !important; }
+div.pauselevel { opacity: 1 !important; }
+/* capa oscura de dialogos a pantalla completa */
+div.gameover:not(.div_hidden), div.pauselevel:not(.div_hidden),
+div.quitlevelconfirm:not(.div_hidden), div.gameend:not(.div_hidden) {
+  position: fixed !important;
+  top: 0 !important;
+  left: 0 !important;
+  right: 0 !important;
+  bottom: 0 !important;
+  width: 100vw !important;
+  height: 100vh !important;
+  height: 100dvh !important;
+  transform: none !important;
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: center !important;
+  justify-content: center !important;
+  z-index: 1000 !important;
+}

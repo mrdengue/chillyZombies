@@ -320,3 +320,16 @@ Implementar sistema de high scores en servidor para leaderboard global.
 - `adlib-music.js`: reproductor FM en tiempo real (Web Audio) con dos temas
   originales: `menu` y `level`. Cambia de tema según la pantalla visible, baja
   el volumen en pausa y la tecla **M** silencia la música.
+
+### 📱 Modo vertical en móviles
+- `fullscreen.js` detecta pantallas verticales (`body.mode-portrait`): la escena
+  (480 de ancho = un nivel completo) se escala a todo el ancho y debajo va un
+  panel táctil estilo SCUMM (inventario + verbos grandes). Teléfonos en
+  horizontal usan el modo móvil (escena 480 de ancho), no el de escritorio.
+- `spriteengine.js`: los listeners de toque ahora son `passive:false`. Antes el
+  navegador los trataba como pasivos y cada toque contaba dos veces (Auto-aim,
+  Turret y x1/x2 se activaban y desactivaban solos). La simulación de mouse se
+  limita a la pantalla de juego; menús y diálogos usan toques nativos (scroll,
+  teclado en las iniciales del récord) y se emite `click` para power-ups.
+- Las ventanas de Personajes / Skill Tree / Leaderboard quedaban detrás del
+  menú principal (z-index); ahora se ven.

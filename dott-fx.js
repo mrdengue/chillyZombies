@@ -53,29 +53,42 @@
   // Pintamos el suelo en el canvas visible, siguiendo a la camara en cada cuadro.
   function groundLoop() {
     requestAnimationFrame(groundLoop);
+    var canvas = document.getElementById('game-canvas');
+    if (!canvas || !canvas.offsetParent || window.g_ViewPort_X === undefined) return;
+    // CanvasRenderer.resize() redimensiona la copia invisible: mantenemos el
+    // canvas visible del mismo tamano que la escena (cambia al rotar el telefono)
+    if (window.g_FixedScreen_Width && (canvas.width !== g_FixedScreen_Width || canvas.height !== g_FixedScreen_Height)) {
+      canvas.width = g_FixedScreen_Width;
+      canvas.height = g_FixedScreen_Height;
+    }
+    var ctx = canvas.getContext('2d');
+    if (ctx) paintGround(ctx, canvas, g_ViewPort_X, g_ViewPort_Y);
+  }
+  requestAnimationFrame(groundLoop);
 
-  // Marco de arma seleccionada: lo alineamos sobre el icono del inventario
-  // (los iconos ahora son mas grandes que el marco original).
+  // Marco de arma seleccionada: lo alineamos y dimensionamos sobre el icono del
+  // inventario (los iconos cambian de tamano segun el modo de pantalla).
   function selectorLoop() {
     requestAnimationFrame(selectorLoop);
     var ind = window.Game_g_ControlBar_SelectIndicator;
     var btn = window.Game_g_ControlBar_SelectedButton;
     if (!ind || !btn || !btn.getBoundingClientRect || !ind.offsetParent) return;
-    var pr = ind.offsetParent.getBoundingClientRect();
+    var par = ind.offsetParent;
+    var pr = par.getBoundingClientRect();
     var br = btn.getBoundingClientRect();
-    if (!br.width) return;
-    var l = Math.round(br.left - pr.left - ind.offsetParent.clientLeft) + 'px';
-    var t = Math.round(br.top - pr.top - ind.offsetParent.clientTop) + 'px';
-    if (ind.style.left !== l) ind.style.setProperty('left', l, 'important');
-    if (ind.style.top !== t) ind.style.setProperty('top', t, 'important');
+    if (!br.width || !par.offsetWidth) return;
+    // el contenedor puede estar escalado con transform (escritorio angosto)
+    var k = pr.width / par.offsetWidth || 1;
+    var set = function (prop, val) {
+      val = Math.round(val) + 'px';
+      if (ind.style.getPropertyValue(prop) !== val) ind.style.setProperty(prop, val, 'important');
+    };
+    set('left', (br.left - pr.left) / k - par.clientLeft);
+    set('top', (br.top - pr.top) / k - par.clientTop);
+    set('width', br.width / k);
+    set('height', br.height / k);
   }
   requestAnimationFrame(selectorLoop);
-    var canvas = document.getElementById('game-canvas');
-    if (!canvas || !canvas.offsetParent || window.g_ViewPort_X === undefined) return;
-    var ctx = canvas.getContext('2d');
-    if (ctx) paintGround(ctx, canvas, g_ViewPort_X, g_ViewPort_Y);
-  }
-  requestAnimationFrame(groundLoop);
 
   // ------------------------------------------------------------------
   // Textos con estilo SCUMM
@@ -167,10 +180,16 @@
     var x = sprite.X + g_ViewPort_X + (sprite.RealImageWidth || 24) / 2;
     var y = sprite.Y + g_ViewPort_Y - 26;
     var w = c.clientWidth || 960;
-    x = Math.max(110, Math.min(w - 110, x));
-    el.style.left = x + 'px';
+    el.style.maxWidth = Math.round(w * 0.9) + 'px';
+    el.style.whiteSpace = 'normal';
+    el.style.width = 'max-content';
+    el.style.left = '0px';
     el.style.top = Math.max(4, y) + 'px';
     c.appendChild(el);
+    // que la frase entera quede dentro de la escena
+    var half = el.offsetWidth / 2 + 4;
+    x = Math.max(half, Math.min(w - half, x));
+    el.style.left = x + 'px';
     current = el;
     var ms = 1400 + text.length * 55;
     setTimeout(function () { el.style.opacity = '0'; }, ms);
